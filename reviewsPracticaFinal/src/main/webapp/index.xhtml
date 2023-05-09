@@ -3,26 +3,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      style="height:100%">
+      style="height: 100%">
     <h:head>
-        <title>Formulario de login</title>
-        <h:outputStylesheet library="css" name="index.css" />
+        <title>Reviewify</title>
     </h:head>
-    <h:body id="principal" style="display: flex; align-items: center; justify-content: center;">
-        <h:form id="usuario">
-            <p:panel header="Formulario de inicio de sesión">
-                <h:panelGrid columns="2">
-                    <h:outputLabel for="usuario" value="Usuario:" />
-                    <p:inputText id="usuario" value="#{loginController.usuario}" />
-                    <h:outputLabel for="contraseña" value="Contraseña:" />
-                    <p:password id="contraseña" value="#{loginController.contraseña}" />
-                </h:panelGrid>
 
-                <p:commandButton value="Iniciar sesión" action="#{loginController.verificarUsuario()}" style="margin-right: 10px;" />
-                <p:commandButton value="Registrar" action="#{loginController.verificarUsuario()}" />
+    <style>
+        body {
+            background-image: url("https://cdn.pixabay.com/photo/2017/10/31/19/05/web-design-2906159_1280.jpg");
+            background-size: cover;
+        }
+    </style>
 
-            </p:panel>
-        </h:form>
+    <h:body style="display: flex; flex-direction: column; height: 100%; margin: 0;">
+        <div style="flex: 0 0 auto">
+
+            <h:form>
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <h:graphicImage library="img" name="Reviewify.png" width="225px" />
+                    </p:toolbarGroup>
+
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="¿Quiénes somos?" action="#{toolbarView.quienesSomos}" />
+
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </h:form>
+
+        </div>
+        <div style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center;">
+            <div class="card" style="width: 400px;">
+                <h:form id="usuario">
+                    <p:panel header="Formulario de inicio de sesión" >
+                        <h:panelGrid columns="2" style="padding: 20px; align-items: center">
+                            <h:outputLabel for="usuario" value="Usuario:" />
+                            <p:inputText id="usuario" value="#{loginController.user}" />
+                            <h:outputLabel for="contraseña" value="Contraseña:" />
+                            <p:password id="contraseña" value="#{loginController.password}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" style="padding: 20px">
+                            <p:commandButton value="Iniciar sesión" action="#{loginController.verifyUser()}" style="margin-right: 40px;" />
+                            <p:commandButton value="Registrar" action="#{loginController.redirectRegister()}" />
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+
     </h:body>
 </html>
 

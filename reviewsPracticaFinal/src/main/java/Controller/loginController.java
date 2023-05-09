@@ -22,8 +22,8 @@ import Modelo.Usuario;
 @ViewScoped
 public class loginController implements Serializable {
 
-    private String usuario;
-    private String contraseña;
+    private String user;
+    private String password;
 
     @EJB
     private UsuarioFacadeLocal usuarioEJB;
@@ -32,16 +32,16 @@ public class loginController implements Serializable {
         // implementar la lógica de inicialización si es necesario
     }
 
-    public String verificarUsuario() {
+    public String verifyUser() {
         String navegacion = "home.xhtml?faces-redirect=true";
         String navegacionMal = "publico/permisosInsuficientes.xhtml?faces-redirect=true";
         Usuario us = new Usuario();
         try {
-            us.setUser(usuario);
-            us.setPassword(contraseña);
+            us.setUser(user);
+            us.setPassword(password);
             us = usuarioEJB.verificarUsuario(us);
         } catch (Exception e) {
-            System.out.println("Error");
+            System.out.println("Error: " + e.getMessage());
             return navegacionMal;
         }
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
@@ -49,19 +49,23 @@ public class loginController implements Serializable {
         return navegacion;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String redirectRegister() {
+        return "register.xhtml?faces-redirect=true";
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public String getUser() {
+        return user;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
