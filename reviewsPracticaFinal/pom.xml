@@ -59,13 +59,7 @@
             <artifactId>primefaces</artifactId>
             <version>12.0.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
-        <!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.10</version>
-        </dependency>
+        
 
                 
     </dependencies>
