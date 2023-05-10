@@ -13,9 +13,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,12 +26,11 @@ import javax.inject.Named;
  * @author Diego
  */
 @Named
-@RequestScoped
-public class listMoviesController implements Serializable {
+@SessionScoped
+public class ListMoviesController implements Serializable {
 
     private List<Movie> movies;
 
-    @Inject
     private Movie movie;
 
     @EJB
@@ -40,21 +41,11 @@ public class listMoviesController implements Serializable {
         movies = moviesEJB.findAll();
     }
 
-    public void establecerPublicacion(Movie movie) throws IOException {
-        System.out.println("establecerPublicacion(" + movie + ")");
+    public void view(Movie movie) throws IOException {
+        System.out.println("MOVIE: " + movie.getTitle());
         this.movie = movie;
-    }
-
-    public void valorarPublicacion() {
-        /*
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
-        try {
-            externalContext.redirect("privado/profesor/editarPublicacion.xhtml?faces-redirect=true");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al redireccionar a la página de edición", ex.getMessage()));
-        }*/
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.redirect("/reviewsPracticaFinal/faces/privado/usuario/movie.xhtml");
     }
 
     public List<Movie> getMovies() {
@@ -65,20 +56,20 @@ public class listMoviesController implements Serializable {
         this.movies = movies;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
     public MovieFacadeLocal getMoviesEJB() {
         return moviesEJB;
     }
 
     public void setMoviesEJB(MovieFacadeLocal moviesEJB) {
         this.moviesEJB = moviesEJB;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
 }

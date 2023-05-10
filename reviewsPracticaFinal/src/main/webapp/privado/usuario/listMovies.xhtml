@@ -26,10 +26,10 @@
                                         <p:rating readonly="true" value="#{movies.rating}"/>
                                     </div>
                                     <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                        <p:commandButton type="button"
+                                        <p:commandButton type="submit"
                                                          value="Ver Ficha"
-                                                         icon="pi pi-info-circle"
-                                                         disabled="#{product.inventoryStatus == 'OUTOFSTOCK'}">
+                                                         action="#{listMoviesController.view(movies)}"
+                                                         icon="pi pi-info-circle">
                                         </p:commandButton>
                                     </div>
                                 </div>

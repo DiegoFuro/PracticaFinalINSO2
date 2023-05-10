@@ -75,7 +75,7 @@ public class menuController implements Serializable {
         DefaultMenuItem cerrarSesion = DefaultMenuItem.builder()
                 .value("Cerrar Sesión")
                 .icon("pi pi-fw pi-sign-out")
-                .command("#{menuController.destruirSesion}")
+                .command("#{menuController.destruirSesion()}")
                 .build();
         modelo.getElements().add(cerrarSesion);
         return modelo;
