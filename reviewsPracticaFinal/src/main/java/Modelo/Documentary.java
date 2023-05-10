@@ -13,19 +13,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "movies")
-public class Movie implements Serializable {
-
+@Table(name = "documentaries")
+public class Documentary implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idMovie;
+    private int idDocumentary;
 
     @Column(name = "Title")
     private String title;
@@ -45,14 +42,13 @@ public class Movie implements Serializable {
     
     @Column(name = "Genre")
     private String genre;
-     
 
-    public int getIdMovie() {
-        return idMovie;
+    public int getIdDocumentary() {
+        return idDocumentary;
     }
 
-    public void setIdMovie(int idMovie) {
-        this.idMovie = idMovie;
+    public void setIdDocumentary(int idDocumentary) {
+        this.idDocumentary = idDocumentary;
     }
 
     public String getTitle() {
@@ -79,20 +75,20 @@ public class Movie implements Serializable {
         this.rating = rating;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
     public Date getReleaseDate() {
         return releaseDate;
     }
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getGenre() {
@@ -106,13 +102,13 @@ public class Movie implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.idMovie;
-        hash = 97 * hash + Objects.hashCode(this.title);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + this.rating;
-        hash = 97 * hash + Objects.hashCode(this.releaseDate);
-        hash = 97 * hash + Objects.hashCode(this.imageURL);
-        hash = 97 * hash + Objects.hashCode(this.genre);
+        hash = 53 * hash + this.idDocumentary;
+        hash = 53 * hash + Objects.hashCode(this.title);
+        hash = 53 * hash + Objects.hashCode(this.description);
+        hash = 53 * hash + this.rating;
+        hash = 53 * hash + Objects.hashCode(this.releaseDate);
+        hash = 53 * hash + Objects.hashCode(this.imageURL);
+        hash = 53 * hash + Objects.hashCode(this.genre);
         return hash;
     }
 
@@ -127,8 +123,8 @@ public class Movie implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Movie other = (Movie) obj;
-        if (this.idMovie != other.idMovie) {
+        final Documentary other = (Documentary) obj;
+        if (this.idDocumentary != other.idDocumentary) {
             return false;
         }
         if (this.rating != other.rating) {
@@ -153,5 +149,4 @@ public class Movie implements Serializable {
     }
     
     
-
 }

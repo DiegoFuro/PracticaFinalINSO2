@@ -17,10 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author Diego
- */
 @Entity
 @Table(name = "tvShows")
 public class TvShow implements Serializable {
@@ -45,6 +41,9 @@ public class TvShow implements Serializable {
     @Column(name = "ImageURL")
     private String imageURL;
 
+    @Column(name = "Genre")
+    private String genre;
+    
     public int getIdTvShow() {
         return idTvShow;
     }
@@ -93,15 +92,24 @@ public class TvShow implements Serializable {
         this.imageURL = imageURL;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + this.idTvShow;
-        hash = 41 * hash + Objects.hashCode(this.title);
-        hash = 41 * hash + Objects.hashCode(this.description);
-        hash = 41 * hash + this.rating;
-        hash = 41 * hash + Objects.hashCode(this.releaseDate);
-        hash = 41 * hash + Objects.hashCode(this.imageURL);
+        hash = 61 * hash + this.idTvShow;
+        hash = 61 * hash + Objects.hashCode(this.title);
+        hash = 61 * hash + Objects.hashCode(this.description);
+        hash = 61 * hash + this.rating;
+        hash = 61 * hash + Objects.hashCode(this.releaseDate);
+        hash = 61 * hash + Objects.hashCode(this.imageURL);
+        hash = 61 * hash + Objects.hashCode(this.genre);
         return hash;
     }
 
@@ -132,11 +140,16 @@ public class TvShow implements Serializable {
         if (!Objects.equals(this.imageURL, other.imageURL)) {
             return false;
         }
+        if (!Objects.equals(this.genre, other.genre)) {
+            return false;
+        }
         if (!Objects.equals(this.releaseDate, other.releaseDate)) {
             return false;
         }
         return true;
     }
+
+    
     
     
 
