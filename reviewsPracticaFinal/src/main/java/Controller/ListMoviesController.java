@@ -31,6 +31,7 @@ public class ListMoviesController implements Serializable {
 
     private List<Movie> movies;
 
+    @Inject
     private Movie movie;
 
     @EJB
@@ -44,8 +45,7 @@ public class ListMoviesController implements Serializable {
     public void view(Movie movie) throws IOException {
         System.out.println("MOVIE: " + movie.getTitle());
         this.movie = movie;
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.redirect("/reviewsPracticaFinal/faces/privado/usuario/movie.xhtml");
+        
     }
 
     public List<Movie> getMovies() {

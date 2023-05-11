@@ -26,9 +26,10 @@
                                         <p:rating readonly="true" value="#{movies.rating}"/>
                                     </div>
                                     <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                        <p:commandButton type="submit"
+                                        <p:commandButton 
                                                          value="Ver Ficha"
-                                                         action="#{listMoviesController.view(movies)}"
+                                                         actionListener="#{listMoviesController.view(movies)}"
+                                                         action="movie"
                                                          icon="pi pi-info-circle">
                                         </p:commandButton>
                                     </div>
