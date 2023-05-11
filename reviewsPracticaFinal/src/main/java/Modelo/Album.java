@@ -47,7 +47,7 @@ public class Album implements Serializable{
     
     @JoinColumn(name="IdArtist")
     @ManyToOne
-    private int idArtist;
+    private Artist idArtist;
 
     public int getIdAlbum() {
         return idAlbum;
@@ -105,25 +105,25 @@ public class Album implements Serializable{
         this.imageURL = imageURL;
     }
 
-    public int getIdArtist() {
+    public Artist getIdArtist() {
         return idArtist;
     }
 
-    public void setIdArtist(int idArtist) {
+    public void setIdArtist(Artist idArtist) {
         this.idArtist = idArtist;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + this.idAlbum;
-        hash = 43 * hash + Objects.hashCode(this.title);
-        hash = 43 * hash + this.numberSongs;
-        hash = 43 * hash + Objects.hashCode(this.description);
-        hash = 43 * hash + Objects.hashCode(this.releaseDate);
-        hash = 43 * hash + this.rating;
-        hash = 43 * hash + Objects.hashCode(this.imageURL);
-        hash = 43 * hash + this.idArtist;
+        hash = 29 * hash + this.idAlbum;
+        hash = 29 * hash + Objects.hashCode(this.title);
+        hash = 29 * hash + this.numberSongs;
+        hash = 29 * hash + Objects.hashCode(this.description);
+        hash = 29 * hash + Objects.hashCode(this.releaseDate);
+        hash = 29 * hash + this.rating;
+        hash = 29 * hash + Objects.hashCode(this.imageURL);
+        hash = 29 * hash + Objects.hashCode(this.idArtist);
         return hash;
     }
 
@@ -148,9 +148,6 @@ public class Album implements Serializable{
         if (this.rating != other.rating) {
             return false;
         }
-        if (this.idArtist != other.idArtist) {
-            return false;
-        }
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
@@ -163,8 +160,14 @@ public class Album implements Serializable{
         if (!Objects.equals(this.releaseDate, other.releaseDate)) {
             return false;
         }
+        if (!Objects.equals(this.idArtist, other.idArtist)) {
+            return false;
+        }
         return true;
     }
+
     
+
+   
     
 }
