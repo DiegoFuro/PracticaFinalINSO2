@@ -13,13 +13,16 @@
                 <h:panelGrid columns="2" style="padding:20px; padding-left: 100px; background-color: #036FAB">
                     <p:graphicImage value="#{movieController.movie.imageURL}" style="height: 450px; width: 300px; border-radius: 10px" />
                     <h:panelGrid columns="1" style="vertical-align: text-top; padding-left: 20px; padding-right: 60px "  >
-                        <h:outputText value="#{movieController.movie.title}" style="font-size: 50px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <h:outputText value="#{movieController.movie.releaseDate}" style="font-size: 18px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <h:outputText value="Género: " style="margin-top: 20px; font-weight: bold; font-size: 25px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <h:outputText value="#{movieController.movie.genre}" />
+                        <h:outputText value="#{movieController.movie.title}" style="font-size: 45px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <h:outputText value="#{movieController.movie.releaseDate}" style="font-size: 15px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <br/>
+                        <br/>
+                        <h:outputText value="Género: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <h:outputText value="#{movieController.movie.genre}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
                         <h:outputText value="Descripción: "  style="margin-top: 10px; font-weight: bold; font-size: 25px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;"/>
                         <h:outputText value="#{movieController.movie.description}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <p:rating value="#{movieController.movie.rating}"  style=" margin-top: 40px; color: red"/>
+                        <br/>
+                        <p:rating value="#{movieController.movie.rating}" disabled="true" />
                     </h:panelGrid>
                 </h:panelGrid>
             </ui:define>

@@ -43,9 +43,7 @@ public class ListMoviesController implements Serializable {
     }
 
     public void view(Movie movie) throws IOException {
-        System.out.println("MOVIE: " + movie.getTitle());
         this.movie = movie;
-        
     }
 
     public List<Movie> getMovies() {

@@ -5,9 +5,7 @@
  */
 package Controller;
 
-import EJB.MovieFacadeLocal;
 import EJB.TvShowFacadeLocal;
-import Modelo.Movie;
 import Modelo.TvShow;
 import java.io.IOException;
 import java.io.Serializable;
@@ -15,6 +13,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,7 +23,7 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class listTvShowsController implements Serializable {
+public class ListTvShowsController implements Serializable {
 
     private List<TvShow> tvShows;
 
@@ -39,21 +38,9 @@ public class listTvShowsController implements Serializable {
         tvShows = tvShowsEJB.findAll();
     }
 
-    public void establecerPublicacion(TvShow tvShow) throws IOException {
-        System.out.println("establecerPublicacion(" + tvShow + ")");
+    public void view(TvShow tvShow) throws IOException {
         this.tvShow = tvShow;
-    }
-
-    public void valorarPublicacion() {
-        /*
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
-        try {
-            externalContext.redirect("privado/profesor/editarPublicacion.xhtml?faces-redirect=true");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al redireccionar a la página de edición", ex.getMessage()));
-        }*/
+        System.out.println("SERIE: " + this.tvShow.getTitle());
     }
 
     public List<TvShow> getTvShows() {

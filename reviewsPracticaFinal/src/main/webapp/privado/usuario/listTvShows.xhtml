@@ -27,10 +27,11 @@
                                         <p:rating readonly="true" value="#{tvShow.rating}"/>
                                     </div>
                                     <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                        <p:commandButton type="button"
-                                                         value="Ver Ficha"
-                                                         icon="pi pi-info-circle"
-                                                         disabled="#{product.inventoryStatus == 'OUTOFSTOCK'}">
+                                        <p:commandButton 
+                                            value="Ver Ficha"
+                                            actionListener="#{listTvShowsController.view(tvShow)}"
+                                            action="tvShow"
+                                            icon="pi pi-info-circle">
                                         </p:commandButton>
                                     </div>
                                 </div>

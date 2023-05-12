@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+
+        <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
+
+            <ui:define name="content" >
+                <h:panelGrid columns="2" style="padding:20px; padding-left: 100px; background-color: #036FAB">
+                    <p:graphicImage value="#{tvShowController.tvShow.imageURL}" style="height: 450px; width: 300px; border-radius: 10px" />
+                    <h:panelGrid columns="1" style="vertical-align: text-top; padding-left: 20px; padding-right: 60px "  >
+                        <h:outputText value="#{tvShowController.tvShow.title}" style="font-size: 45px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <h:outputText value="#{tvShowController.tvShow.releaseDate}" style="font-size: 15px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <br/>
+                        <br/>
+                        <h:outputText value="Género: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <h:outputText value="#{tvShowController.tvShow.genre}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <h:outputText value="Descripción: "  style="margin-top: 10px; font-weight: bold; font-size: 25px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;"/>
+                        <h:outputText value="#{tvShowController.tvShow.description}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <br/>
+                        <p:rating value="#{tvShowController.tvShow.rating}" disabled="true" />
+                    </h:panelGrid>
+                </h:panelGrid>
+
+                <div class="card" style="margin-top: 40px">
+                    <p:tabView style="padding: 20px">
+                        <p:tab title="Reseñas">
+                            <div>
+                                <h:outputText value="#{tvShowController.reviews.get(0).getTitle()}"/>
+                            </div>
+                            <div>
+                                <h:outputText value="#{tvShowController.reviews.get(0).getBody()}"/>
+                            </div>
+                        </p:tab>
+                        <p:tab title="Multimedia">
+                            <div class="card">
+                                <p:carousel value="#{tvShowController.tvShow}" var="tvShow" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
+                                    <div>
+                                        <div class="product-item-content" style="display: flex;
+                                             flex-direction: column;
+                                             align-items: center;
+                                             justify-content: center;
+                                             height: 100%;">
+                                            <div>
+                                                <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 500px; max-width: 200px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p:carousel>
+                            </div>
+                        </p:tab>
+                        <p:tab title="Recomendaciones">
+                            <div class="card">
+                                <h:form id="form">
+                                    <p:carousel value="#{listTvShowsController.tvShows}" var="tvShow" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
+                                        <div>
+                                            <div class="product-item-content" style="display: flex;
+                                                 flex-direction: column;
+                                                 align-items: center;
+                                                 justify-content: center;
+                                                 height: 100%;">
+                                                <div>
+                                                    <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 500px; max-width: 200px"/>
+                                                </div>
+                                                <div>
+                                                    <h3>#{tvShow.title} </h3>
+                                                </div>
+                                                <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
+                                                    <p:commandButton 
+                                                        value="Ver Ficha"
+                                                        actionListener="#{listTvShowsController.view(tvShow)}"
+                                                        action="tvShow"
+                                                        icon="pi pi-info-circle">
+                                                    </p:commandButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p:carousel>
+                                </h:form>
+
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

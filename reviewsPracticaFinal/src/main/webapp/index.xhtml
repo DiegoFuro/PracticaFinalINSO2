@@ -10,8 +10,21 @@
 
     <style>
         body {
-            background-image: url("https://cdn.pixabay.com/photo/2017/10/31/19/05/web-design-2906159_1280.jpg");
+            background-image: url("https://www.xtrafondos.com/wallpapers/mar-de-soledad-9782.jpg");
             background-size: cover;
+        }
+        
+        body .ui-panel .ui-panel-titlebar {
+            border: none;
+            background-color: #036FAB;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            font-size: 20px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px
         }
     </style>
 
@@ -21,7 +34,7 @@
             <h:form>
                 <p:growl id="messages" showDetail="true"/>
 
-                <p:toolbar>
+                <p:toolbar style="background-color: #036FAB; border: none">
                     <p:toolbarGroup>
                         <h:graphicImage library="img" name="Reviewify.png" width="225px" />
                     </p:toolbarGroup>
@@ -37,7 +50,7 @@
         <div style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center;">
             <div class="card" style="width: 400px;">
                 <h:form id="usuario">
-                    <p:panel header="Formulario de inicio de sesión" >
+                    <p:panel style="background-color: #036FAB !important; color:white !important;" header="Formulario de inicio de sesión"  >
                         <h:panelGrid columns="2" style="padding: 20px; align-items: center">
                             <h:outputLabel for="usuario" value="Usuario:" />
                             <p:inputText id="usuario" value="#{loginController.user}" />

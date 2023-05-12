@@ -20,9 +20,9 @@
                             <p:dataViewGridItem>
                                 <div class="product-grid-item card border-1" style="border: 1px solid black; border-radius: 8px">
                                     <div class="product-grid-item-content" style="text-align: center; padding: 10px">
-                                        <p:graphicImage value="#{documentaries.imageURL}" library="demo" style="heigth: 400px; width: 200px" />
+                                        <p:graphicImage value="#{documentaries.imageURL}" library="demo" style="max-height: 250px; max-width: 200px" />
                                         <div class="product-name"  style="font-size: 25px; font-weight: bold" >#{documentaries.title}</div>
-                                        <div class="product-description">#{documentaries.description}...</div>
+                                        <div class="product-description">#{documentaries.description}</div>
                                         <p:rating readonly="true" value="#{documentaries.rating}"/>
                                     </div>
                                     <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
