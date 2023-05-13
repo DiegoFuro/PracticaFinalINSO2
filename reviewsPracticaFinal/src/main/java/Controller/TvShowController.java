@@ -37,8 +37,7 @@ public class TvShowController implements Serializable {
     @PostConstruct
     public void init() {
         tvShow = listTvShowsController.getTvShow();
-        reviews = reviewEJB.findAll();
-        System.out.println("REVIEWS: " +reviews.get(0).getTitle());
+        reviews = reviewEJB.findReviewsTvShow(tvShow);
     }
 
     public ListTvShowsController getListTvShowsController() {

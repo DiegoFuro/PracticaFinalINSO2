@@ -6,6 +6,7 @@
 package EJB;
 
 import Modelo.Review;
+import Modelo.TvShow;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,7 @@ public interface ReviewFacadeLocal {
     List<Review> findRange(int[] range);
 
     int count();
-    
+
+    public List<Review> findReviewsTvShow(TvShow tvShow);
+
 }

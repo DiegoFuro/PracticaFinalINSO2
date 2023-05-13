@@ -31,12 +31,27 @@
                 <div class="card" style="margin-top: 40px">
                     <p:tabView style="padding: 20px">
                         <p:tab title="Reseñas">
-                            <div>
-                                <h:outputText value="#{tvShowController.reviews.get(0).getTitle()}"/>
-                            </div>
-                            <div>
-                                <h:outputText value="#{tvShowController.reviews.get(0).getBody()}"/>
-                            </div>
+
+                            <ui:fragment rendered="#{empty tvShowController.reviews}">
+                                <p:card style="width: auto; margin-bottom: 2em">
+                                    <f:facet name="title">
+                                        <h:outputText value="No hay reseñas" style="font-size: 30px; font-weight: bold"/>
+                                    </f:facet>
+                                    <h:outputText value="No se encontraron reseñas para este elemento."/>
+                                </p:card>
+                            </ui:fragment>
+
+                            <ui:repeat value="#{tvShowController.reviews}" var="review">
+                                <p:card style="width: auto; margin-bottom: 2em">
+                                    <f:facet name="title">
+                                        <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
+                                        <br/>
+                                        <h:outputText value="Reseña escrita por #{review.idUser.user}" style="font-size: 14px"/>
+                                        <p:rating value="#{review.rating}" disabled="true" />
+                                    </f:facet>
+                                    <h:outputText value="#{review.body}"/>
+                                </p:card>
+                            </ui:repeat>
                         </p:tab>
                         <p:tab title="Multimedia">
                             <div class="card">
