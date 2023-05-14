@@ -13,7 +13,7 @@
         <ui:composition template="./WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
-                <div style="padding-left: 100px; padding-right: 100px">
+                <div>
                     <div>
                         <p:card style="background-image: url('https://images8.alphacoders.com/929/929202.jpg'); background-size: cover; width: 100%; color: white; margin-bottom: 2em; height: 500px">
 
@@ -34,7 +34,7 @@
                     </div>
 
                     <div>
-                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px">Tendencias:</h1>
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; margin-left: 20px">Series en tendencias:</h1>
                         <div class="card">
                             <h:form id="form">
                                 <p:carousel value="#{listTvShowsController.tvShows}" var="tvShow" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">

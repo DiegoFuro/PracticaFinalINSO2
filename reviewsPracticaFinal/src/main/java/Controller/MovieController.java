@@ -6,7 +6,9 @@
 package Controller;
 
 import Modelo.Movie;
+import Modelo.Review;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -22,6 +24,8 @@ public class MovieController implements Serializable {
 
     @Inject
     private ListMoviesController listMoviesController;
+
+    private List<Review> reviews;
 
     private Movie movie;
 
@@ -45,6 +49,14 @@ public class MovieController implements Serializable {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 }

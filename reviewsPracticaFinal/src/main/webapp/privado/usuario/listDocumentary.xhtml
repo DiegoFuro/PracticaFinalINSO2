@@ -10,32 +10,46 @@
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
-                <div class="card product">
-                    <h:form id="form">
-                        <p:dataView var="documentaries" value="#{listDocumentaryController.documentaries}" rows="12" paginator="true"
-                                    rowsPerPageTemplate="6,12,16"
-                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                    gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
+                <p:card style="background-image: url('https://images.alphacoders.com/101/101493.jpg'); background-size: cover; background-position: 20% 12%; width: 100%; color: white; margin-bottom: 2em; height: 170px">
+                    <div style="margin-top: 55px">
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Documentales</h1>
+                    </div>
+                </p:card>
+                <div class="container">
+                    <div class="fila">
+                        <div class="col1">
+                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 140px; font-size: 30px; ">Filtrar:</h1>
+                            <p:button value="Géneros" style="width: 80%; text-align: left; font-size: 20px; color: black" styleClass="ui-button-raised ui-button-flat" />
+                        </div>
 
-                            <p:dataViewGridItem>
-                                <div class="product-grid-item card border-1" style="border: 1px solid black; border-radius: 8px">
-                                    <div class="product-grid-item-content" style="text-align: center; padding: 10px">
-                                        <p:graphicImage value="#{documentaries.imageURL}" library="demo" style="max-height: 250px; max-width: 200px" />
-                                        <div class="product-name"  style="font-size: 25px; font-weight: bold" >#{documentaries.title}</div>
-                                        <div class="product-description">#{documentaries.description}</div>
-                                        <p:rating readonly="true" value="#{documentaries.rating}"/>
-                                    </div>
-                                    <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                        <p:commandButton type="submit"
-                                                         value="Ver Ficha"
-                                                         action="#{listDocumentaryController.view(documentaries)}"
-                                                         icon="pi pi-info-circle">
-                                        </p:commandButton>
-                                    </div>
-                                </div>
-                            </p:dataViewGridItem>
-                        </p:dataView>
-                    </h:form>
+                        <div class="col2">
+                            <h:form id="form">
+                                <p:dataView var="documentaries" value="#{listDocumentaryController.documentaries}" rows="12" paginator="true"
+                                            rowsPerPageTemplate="6,12,16"
+                                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                            gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
+
+                                    <p:dataViewGridItem>
+                                        <div style="border: 1px solid black; border-radius: 8px">
+                                            <div class="product-grid-item-content" style="text-align: center; padding: 10px">
+                                                <p:graphicImage value="#{documentaries.imageURL}" library="demo" style="max-height: 250px; max-width: 200px" />
+                                                <div class="product-name"  style="font-size: 25px; font-weight: bold" >#{documentaries.title}</div>
+                                                <div class="product-description">#{documentaries.description}</div>
+                                                <p:rating readonly="true" value="#{documentaries.rating}"/>
+                                            </div>
+                                            <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
+                                                <p:commandButton type="submit"
+                                                                 value="Ver Ficha"
+                                                                 action="#{listDocumentaryController.view(documentaries)}"
+                                                                 icon="pi pi-info-circle">
+                                                </p:commandButton>
+                                            </div>
+                                        </div>
+                                    </p:dataViewGridItem>
+                                </p:dataView>
+                            </h:form>
+                        </div>
+                    </div>
                 </div>
             </ui:define>
 

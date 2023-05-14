@@ -11,6 +11,12 @@
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
+                <p:card style="background-image: url('https://images5.alphacoders.com/325/325117.jpg'  ); background-size: cover; background-position: 50% 10%; width: 100%; color: white; margin-bottom: 2em; height: 170px">
+                        <div style="margin-top: 55px">
+                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Series</h1>
+                        </div>
+                    </p:card>
+                
                 <div class="card product">
                     <h:form id="form">
                         <p:dataView var="tvShow" value="#{listTvShowsController.tvShows}" rows="12" paginator="true"

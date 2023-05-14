@@ -5,7 +5,7 @@
  */
 package EJB;
 
-import Modelo.Movie;
+import Modelo.Videogame;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,22 +14,20 @@ import javax.ejb.Local;
  * @author Diego
  */
 @Local
-public interface MovieFacadeLocal {
+public interface VideogameFacadeLocal {
 
-    void create(Movie movie);
+    void create(Videogame videogame);
 
-    void edit(Movie movie);
+    void edit(Videogame videogame);
 
-    void remove(Movie movie);
+    void remove(Videogame videogame);
 
-    Movie find(Object id);
+    Videogame find(Object id);
 
-    List<Movie> findAll();
+    List<Videogame> findAll();
 
-    List<Movie> findRange(int[] range);
+    List<Videogame> findRange(int[] range);
 
     int count();
-
-    List<Movie> findByGenre(String filter);
     
 }

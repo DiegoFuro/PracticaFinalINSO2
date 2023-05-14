@@ -43,7 +43,15 @@ public class ListMoviesController implements Serializable {
 
     @PostConstruct
     public void init() {
-        movies = moviesEJB.findAll();
+        filterMovies();
+    }
+
+    public void filterMovies() {
+        if (filter == null || filter.isEmpty()) {
+            movies = moviesEJB.findAll();
+        } else {
+            movies = moviesEJB.findByGenre(filter);
+        }
     }
 
     public List<String> getGenreList() {
@@ -51,25 +59,11 @@ public class ListMoviesController implements Serializable {
         for (Movie movie : movies) {
             genres.add(movie.getGenre());
         }
-        System.out.println("Movie: " + movies.get(0).getTitle());
         return new ArrayList<>(genres);
     }
 
-    public List<Movie> filterMovies() {
-        System.out.println("ESTOY AQUI: " + filter);
-        if (filter == null || filter.isEmpty()) {
-            return movies;
-        }
-        List<Movie> filtered = new ArrayList<>();
-        for (Movie movie : movies) {
-            if (movie.getGenre().equals(filter)) {
-                filtered.add(movie);
-            }
-        }
-        return filtered;
-    }
-
     public void view(Movie movie) throws IOException {
+        System.out.println("Movie: " + movie.getTitle());
         this.movie = movie;
     }
 
