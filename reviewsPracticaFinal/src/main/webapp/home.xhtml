@@ -3,24 +3,70 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
     <body>
 
         <ui:composition template="./WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
-                <div style="text-align:center;">
-                    <h:graphicImage  library="img" name="principal.png" width="50%" height="50%" />
-                </div>
-                <div style="text-align:center;">
-                    <form>
-                        <div class="ui-input-icon-left mr-2">
-                            <i class="pi pi-fw pi-search" />
-                            <p:inputText placeholder="Buscar..."/>
+                <div style="padding-left: 100px; padding-right: 100px">
+                    <div>
+                        <p:card style="background-image: url('https://images8.alphacoders.com/929/929202.jpg'); background-size: cover; width: 100%; color: white; margin-bottom: 2em; height: 500px">
+
+                            <div style="padding: 8rem; margin-top: 120px;">
+                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; margin-bottom: 0px;">Bienvenido,</h1>
+                                <h2 style="font-family: 'Source Sans Pro', Arial, sans-serif; margin-top: 0px; margin-bottom: 15px;">millones de usuarios puntuan y comentan en nuestra web. Explora ahora mismo</h2>
+                                <div style="margin-top: 1rem;">
+                                    <form>
+                                        <div class="ui-input-icon-left mr-2" style="width: 100%">
+                                            <i class="pi pi-fw pi-search"></i>
+                                            <p:inputText style="width: 100%" placeholder="Buscar..."/>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </p:card>
+
+                    </div>
+
+                    <div>
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px">Tendencias:</h1>
+                        <div class="card">
+                            <h:form id="form">
+                                <p:carousel value="#{listTvShowsController.tvShows}" var="tvShow" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
+                                    <div>
+                                        <div class="product-item-content" style="display: flex;
+                                             flex-direction: column;
+                                             align-items: center;
+                                             justify-content: center;
+                                             height: 100%;">
+                                            <div>
+                                                <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 500px; max-width: 200px"/>
+                                            </div>
+                                            <div>
+                                                <h3>#{tvShow.title} </h3>
+                                            </div>
+                                            <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
+                                                <p:commandButton 
+                                                    value="Ver Ficha"
+                                                    actionListener="#{listTvShowsController.view(tvShow)}"
+                                                    action="tvShow"
+                                                    icon="pi pi-info-circle">
+                                                </p:commandButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p:carousel>
+                            </h:form>
+
                         </div>
-                    </form>
+                    </div>
                 </div>
+
             </ui:define>
 
         </ui:composition>

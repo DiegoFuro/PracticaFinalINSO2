@@ -12,8 +12,12 @@
             <ui:define name="content">
                 <div class="card product">
                     <h:form id="form">
-                        <p:dataView var="movies" value="#{listMoviesController.movies}" rows="12" paginator="true"
-                                    rowsPerPageTemplate="6,12,16"
+                        <p:selectOneMenu value="#{listMoviesController.filter}" >
+                            <f:selectItem itemLabel="Todas las películas" itemValue="" />
+                            <f:selectItems value="#{listMoviesController.genreList}" />
+                        </p:selectOneMenu>
+                        <p:dataView var="movies" value="#{listMoviesController.movies}" rows="6" paginator="true"
+                                    rowsPerPageTemplate="6,12,16" 
                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                     gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
 
@@ -27,10 +31,10 @@
                                     </div>
                                     <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
                                         <p:commandButton 
-                                                         value="Ver Ficha"
-                                                         actionListener="#{listMoviesController.view(movies)}"
-                                                         action="movie"
-                                                         icon="pi pi-info-circle">
+                                            value="Ver Ficha"
+                                            actionListener="#{listMoviesController.view(movies)}"
+                                            action="movie"
+                                            icon="pi pi-info-circle">
                                         </p:commandButton>
                                     </div>
                                 </div>

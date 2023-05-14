@@ -5,10 +5,51 @@
       xmlns:p="http://primefaces.org/ui"
       style="height:100%"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <title>Reviewify</title>
     </h:head>
-    <h:body id="principal" style="display: flex; align-items: center; justify-content: center;">
+
+    <style>
+        body {
+            background-image: url("https://www.xtrafondos.com/wallpapers/mar-de-soledad-9782.jpg");
+            background-size: cover;
+        }
+
+        body .ui-panel .ui-panel-titlebar {
+            border: none;
+            background-color: #036FAB;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            font-size: 20px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px
+        }
+    </style>
+
+    <h:body style="display: flex; flex-direction: column; height: 100%; margin: 0;">
+        <div style="flex: 0 0 auto">
+
+            <h:form>
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar style="background-color: #036FAB; border: none">
+                    <p:toolbarGroup>
+                        <h:graphicImage library="img" name="Reviewify.png" width="225px" />
+                    </p:toolbarGroup>
+
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="¿Quiénes somos?" action="#{toolbarView.quienesSomos}" />
+
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </h:form>
+
+        </div>
+
         <div class="card">
             <p:tooltip/>
             <h:form>
@@ -17,58 +58,59 @@
                 </p:messages>
             </h:form>
         </div>
-        <div class="card">
-            <h:form>
-                <p:fieldset legend="Datos Personales">
-                    <p:panelGrid columns="3">
-                        <p:outputLabel for="name" value="Nombre "/>
-                        <p:inputText id="name" value="#{registerController.name}" required="true" requiredMessage="El nombre es obligatorio"/>
-                        <p:message for="name"/>
 
-                        <p:outputLabel for="lastName" value="Apellidos "/>
-                        <p:inputText id="lastName" value="#{registerController.lastName}" required="true" requiredMessage="El primer apellido es obligatorio"/>
-                        <p:message for="lastName"/>
+        <div style="display: flex; padding: 40px; justify-content: center;">
+            <div>
+                <div class="card" style="width: 400px; margin-right: 20px">
+                    <h:form>
+                        <p:fieldset legend="Datos Personales" style="width: 400px">
+                            <p:panelGrid columns="2">
+                                <p:outputLabel for="name" value="Nombre "/>
+                                <p:inputText id="name" value="#{registerController.name}" required="true" requiredMessage="El nombre es obligatorio"/>
 
-                        <p:outputLabel for="sexo" value="Introduzca sexo "/>
-                        <p:selectOneButton id="sexo" required="true" requiredMessage="El sexo es obligatorio">
-                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
-                            <f:selectItem itemLabel="Femenino" itemValue="F"/>
-                        </p:selectOneButton>
-                        <p:message for="sexo"/>
+                                <p:outputLabel for="lastName" value="Apellidos "/>
+                                <p:inputText id="lastName" value="#{registerController.lastName}"  required="true" requiredMessage="El primer apellido es obligatorio"/>
+                            </p:panelGrid>
+                        </p:fieldset>
+                    </h:form>
+                </div>
+            </div>
 
-                        <p:outputLabel for="fechaNac" value="Introduzca fecha nacimiento "/>
-                        <p:calendar id="fechaNac" showOn="button" required="true" requiredMessage="La fecha de nacimiento es obligatoria"/>
-                        <p:message for="fechaNac"/>
-                    </p:panelGrid>
-                </p:fieldset>
+            <div>
+                <div class="card">
+                    <h:form>
+                        <p:fieldset legend="Datos Acceso" style="width: 620px" >
+                            <p:panelGrid columns="3">
 
-                <p:fieldset legend="Datos Acceso" style="margin-top: 20px;">
-                    <p:panelGrid columns="3">
+                                <p:outputLabel  for="selectRol" value="Introduzca rol de usuario "/>
+                                <p:selectOneMenu id="selectRol" value="#{registerController.idRol}">
+                                    <f:selectItems value="#{registerController.rols}" var="rol" itemLabel="#{rol.description}" itemValue="#{rol.idRol}" />
+                                </p:selectOneMenu>
+                                <p:message for="selectRol"/>
 
-                        <p:outputLabel  for="selectRol" value="Introduzca rol de usuario "/>
-                        <p:selectOneMenu id="selectRol" value="#{registerController.idRol}">
-                            <f:selectItems value="#{registerController.rols}" var="rol" itemLabel="#{rol.description}" itemValue="#{rol.idRol}" />
-                        </p:selectOneMenu>
-                        <p:message for="selectRol"/>
+                                <p:outputLabel  for="nombreUser" value="Introduzca nombre de usuario "/>
+                                <p:inputText id="nombreUser" value="#{registerController.user}" required="true" requiredMessage="El nombre de usuario es obligatorio"/>
+                                <p:message for="nombreUser"/>
+
+                                <p:outputLabel for="password" value="Introduzca contraseña "/>
+                                <p:password id="password"  value="#{registerController.password}" toggleMask="true" redisplay="true" required="true" requiredMessage="La contraseña es obligatoria"/>
+                                <p:message for="password"/>
+
+                                <p:outputLabel  for="password2" value="Repita contraseña "/>
+                                <p:password id="password2" value="#{registerController.password}" toggleMask="true" redisplay="true" required="true" requiredMessage="Repetir la contraseña es obligatorio"/>
+                                <p:message for="password2"/>
 
 
-                        <p:outputLabel  for="nombreUser" value="Introduzca nombre de usuario "/>
-                        <p:inputText id="nombreUser" value="#{registerController.user}" required="true" requiredMessage="El nombre de usuario es obligatorio"/>
-                        <p:message for="nombreUser"/>
+                            </p:panelGrid>
+                            <p:commandButton style=" position: absolute" value="Insertar" action="#{registerController.registerUser()}"/>
 
-                        <p:outputLabel for="password" value="Introduzca contraseña "/>
-                        <p:password id="password"  value="#{registerController.password}" toggleMask="true" redisplay="true" required="true" requiredMessage="La contraseña es obligatorio"/>
-                        <p:message for="password"/>
+                        </p:fieldset>
 
-                        <p:outputLabel  for="password2" value="Repita contraseña "/>
-                        <p:password id="password2" value="#{registerController.password}" toggleMask="true" redisplay="true" required="true" requiredMessage="Repetir la contraseña es obligatorio"/>
-                        <p:message for="password2"/>
-                    </p:panelGrid>
-                </p:fieldset>
-
-                <p:commandButton value="Insertar" action="#{registerController.registerUser()}"/>
-            </h:form>
+                    </h:form>
+                </div>
+            </div>
         </div>
+
+
     </h:body>
 </html>
-

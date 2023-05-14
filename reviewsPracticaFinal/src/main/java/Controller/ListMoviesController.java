@@ -9,7 +9,10 @@ import EJB.MovieFacadeLocal;
 import Modelo.Movie;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -30,6 +33,7 @@ import javax.inject.Named;
 public class ListMoviesController implements Serializable {
 
     private List<Movie> movies;
+    private String filter;
 
     @Inject
     private Movie movie;
@@ -40,6 +44,29 @@ public class ListMoviesController implements Serializable {
     @PostConstruct
     public void init() {
         movies = moviesEJB.findAll();
+    }
+
+    public List<String> getGenreList() {
+        Set<String> genres = new HashSet<>();
+        for (Movie movie : movies) {
+            genres.add(movie.getGenre());
+        }
+        System.out.println("Movie: " + movies.get(0).getTitle());
+        return new ArrayList<>(genres);
+    }
+
+    public List<Movie> filterMovies() {
+        System.out.println("ESTOY AQUI: " + filter);
+        if (filter == null || filter.isEmpty()) {
+            return movies;
+        }
+        List<Movie> filtered = new ArrayList<>();
+        for (Movie movie : movies) {
+            if (movie.getGenre().equals(filter)) {
+                filtered.add(movie);
+            }
+        }
+        return filtered;
     }
 
     public void view(Movie movie) throws IOException {
@@ -68,6 +95,14 @@ public class ListMoviesController implements Serializable {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
     }
 
 }
