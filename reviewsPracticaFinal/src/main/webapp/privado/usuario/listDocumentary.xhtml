@@ -19,51 +19,42 @@
                 <div class="container">
                     <div class="fila">
                         <div class="col1">
-                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 105px; font-size: 30px;">Filtrar:</h1>
-                            <p:accordionPanel>
-
-                                <p:tab title="Género">
-                                    <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
-                                        <p:outputLabel value="Elige un género de la lista: "/>
-                                        <p:selectOneMenu value="#{listMoviesController.filter}" style="margin-right: 20px">
-                                            <f:selectItem itemLabel="Todas las películas" itemValue="" />
-                                            <f:selectItems value="#{listMoviesController.genreList}" />
-                                            <p:ajax listener="#{listMoviesController.filterMovies}" />
-                                        </p:selectOneMenu>
-
-                                    </h:panelGrid>
-
-                                </p:tab>
-                            </p:accordionPanel>
-
+                            <h:form>
+                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 105px; font-size: 30px;">Filtrar:</h1>
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Género">
+                                        <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
+                                            <p:outputLabel value="Elige un género de la lista: "/>
+                                            <p:selectOneMenu value="#{listDocumentaryController.filter}" style="margin-right: 20px">
+                                                <f:selectItem itemLabel="Todos los documentales" itemValue="" />
+                                                <f:selectItems value="#{listDocumentaryController.genreList}" />
+                                                <p:ajax listener="#{listDocumentaryController.filterDocumentaries}" update="data" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:form>
                         </div>
-
+                        <p:divider layout="vertical" />
                         <div class="col2">
-                            <h:form id="form">
-                                <p:dataView var="documentaries" value="#{listDocumentaryController.documentaries}" rows="12" paginator="true"
-                                            rowsPerPageTemplate="6,12,16"
-                                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                            gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
+                            <p:dataView  id="data" var="documentaries" value="#{listDocumentaryController.filteredDocumentaries}" rows="8" paginator="true"
+                                         rowsPerPageTemplate="8,12,16"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
 
-                                    <p:dataViewGridItem columns="4">
-                                        <div>
-                                            <div class="product-grid-item card border-1" style="text-align: center; padding: 10px">
-                                                <p:graphicImage value="#{documentaries.imageURL}" library="demo" style="border-radius: 8px; max-width: 100%; max-height: 250px;" />
-                                                <div class="product-name" style="font-size: 25px; font-weight: bold; height: 75px; overflow: hidden; text-overflow: ellipsis;">
-                                                    #{documentaries.title}
-                                                </div>
-                                            </div>
-                                            <div class="product-grid-item-bottom" style="text-align: center; padding: 10px">
-                                                <p:commandButton type="submit"
-                                                                 value="Ver Ficha"
-                                                                 action="#{listDocumentaryController.view(documentaries)}"
-                                                                 icon="pi pi-info-circle">
-                                                </p:commandButton>
+                                <p:dataViewGridItem columns="4">
+                                    <div>
+                                        <div class="product-grid-item card border-1" style="text-align: center; padding: 10px">
+                                            <p:commandLink action="documentary" actionListener="#{listDocumentaryController.view(documentaries)}">
+                                                <p:graphicImage value="#{documentaries.imageURL}" style="border-radius: 8px;max-height: 270px; max-width: 200px"/>
+                                            </p:commandLink>                                               
+                                            <div class="product-name" style="font-size: 25px; font-weight: bold; height: 70px; overflow: hidden; text-overflow: ellipsis;">
+                                                #{documentaries.title}
                                             </div>
                                         </div>
-                                    </p:dataViewGridItem>
-                                </p:dataView>
-                            </h:form>
+                                    </div>
+                                </p:dataViewGridItem>
+                            </p:dataView>
                         </div>
                     </div>
                 </div>

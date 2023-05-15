@@ -29,5 +29,7 @@ public interface TvShowFacadeLocal {
     List<TvShow> findRange(int[] range);
 
     int count();
+
+    List<TvShow> findByGenre(String filter);
     
 }

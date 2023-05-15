@@ -9,7 +9,10 @@ import EJB.TvShowFacadeLocal;
 import Modelo.TvShow;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -26,6 +29,8 @@ import javax.inject.Named;
 public class ListTvShowsController implements Serializable {
 
     private List<TvShow> tvShows;
+    private String filter;
+    private List<TvShow> filteredTvShows;
 
     @Inject
     private TvShow tvShow;
@@ -36,12 +41,46 @@ public class ListTvShowsController implements Serializable {
     @PostConstruct
     public void init() {
         tvShows = tvShowsEJB.findAll();
+        filterTvShows();
     }
 
     public void view(TvShow tvShow) throws IOException {
         this.tvShow = tvShow;
-        System.out.println("SERIE: " + this.tvShow.getTitle());
+        
     }
+
+    public void filterTvShows() {
+        if (filter == null || filter.isEmpty()) {
+            filteredTvShows = tvShowsEJB.findAll();
+        } else {
+            filteredTvShows = tvShowsEJB.findByGenre(filter);
+        }
+    }
+
+    public List<String> getGenreList() {
+        Set<String> genres = new HashSet<>();
+        for (TvShow tvShow : tvShows) {
+            genres.add(tvShow.getGenre());
+        }
+        return new ArrayList<>(genres);
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public List<TvShow> getFilteredTvShows() {
+        return filteredTvShows;
+    }
+
+    public void setFilteredTvShows(List<TvShow> filteredTvShows) {
+        this.filteredTvShows = filteredTvShows;
+    }
+    
 
     public List<TvShow> getTvShows() {
         return tvShows;

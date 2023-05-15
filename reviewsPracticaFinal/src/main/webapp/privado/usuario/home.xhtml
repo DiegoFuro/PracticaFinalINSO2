@@ -10,7 +10,7 @@
 
     <body>
 
-        <ui:composition template="./WEB-INF/template/platillaReviews.xhtml">
+        <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
                 <div>
@@ -37,7 +37,7 @@
                         <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; margin-left: 20px">Series en tendencias:</h1>
                         <div class="card">
                             <h:form id="form">
-                                <p:carousel value="#{listTvShowsController.tvShows}" var="tvShow" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
+                                <p:carousel value="#{listTvShowsController.tvShows}" var="tvShow" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
                                     <div>
                                         <div class="product-item-content" style="display: flex;
                                              flex-direction: column;
@@ -45,18 +45,12 @@
                                              justify-content: center;
                                              height: 100%;">
                                             <div>
-                                                <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 500px; max-width: 200px"/>
+                                                <p:commandLink action="tvShow" actionListener="#{listTvShowsController.view(tvShow)}">
+                                                    <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                                </p:commandLink>                                           
                                             </div>
                                             <div>
                                                 <h3>#{tvShow.title} </h3>
-                                            </div>
-                                            <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                                <p:commandButton 
-                                                    value="Ver Ficha"
-                                                    actionListener="#{listTvShowsController.view(tvShow)}"
-                                                    action="tvShow"
-                                                    icon="pi pi-info-circle">
-                                                </p:commandButton>
                                             </div>
                                         </div>
                                     </div>

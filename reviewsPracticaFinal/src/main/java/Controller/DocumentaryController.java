@@ -5,18 +5,24 @@
  */
 package Controller;
 
-import Modelo.Movie;
+import EJB.ReviewFacadeLocal;
+import Modelo.Documentary;
 import Modelo.Review;
+import Modelo.TvShow;
+import Modelo.Videogame;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.donut.DonutChartDataSet;
 import org.primefaces.model.charts.donut.DonutChartModel;
+import org.primefaces.model.charts.donut.DonutChartOptions;
+import org.primefaces.model.charts.line.LineChartOptions;
 
 /**
  *
@@ -24,19 +30,22 @@ import org.primefaces.model.charts.donut.DonutChartModel;
  */
 @Named
 @ViewScoped
-public class MovieController implements Serializable {
+public class DocumentaryController implements Serializable {
 
     @Inject
-    private ListMoviesController listMoviesController;
+    private ListDocumentaryController listDocumentaryController;
 
     private List<Review> reviews;
 
-    private Movie movie;
+    @EJB
+    private ReviewFacadeLocal reviewEJB;
+
+    private Documentary documentary;
     private DonutChartModel donutModel;
 
     @PostConstruct
     public void init() {
-        movie = listMoviesController.getMovie();
+        documentary = listDocumentaryController.getDocumentary();
         createDonutModel();
     }
 
@@ -46,8 +55,8 @@ public class MovieController implements Serializable {
 
         DonutChartDataSet dataSet = new DonutChartDataSet();
         List<Number> values = new ArrayList<>();
-        values.add(movie.getRating());
-        values.add(100 - movie.getRating());
+        values.add(documentary.getRating());
+        values.add(100 - documentary.getRating());
         dataSet.setData(values);
 
         List<String> bgColors = new ArrayList<>();
@@ -57,7 +66,7 @@ public class MovieController implements Serializable {
         dataSet.setBackgroundColor(bgColors);
 
         data.addChartDataSet(dataSet);
-
+      
         donutModel.setData(data);
     }
 
@@ -69,20 +78,12 @@ public class MovieController implements Serializable {
         this.donutModel = donutModel;
     }
 
-    public ListMoviesController getListMoviesController() {
-        return listMoviesController;
+    public ListDocumentaryController getListDocumentaryController() {
+        return listDocumentaryController;
     }
 
-    public void setListMoviesController(ListMoviesController listMoviesController) {
-        this.listMoviesController = listMoviesController;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setListDocumentaryController(ListDocumentaryController listDocumentaryController) {
+        this.listDocumentaryController = listDocumentaryController;
     }
 
     public List<Review> getReviews() {
@@ -93,4 +94,21 @@ public class MovieController implements Serializable {
         this.reviews = reviews;
     }
 
+    public ReviewFacadeLocal getReviewEJB() {
+        return reviewEJB;
+    }
+
+    public void setReviewEJB(ReviewFacadeLocal reviewEJB) {
+        this.reviewEJB = reviewEJB;
+    }
+
+    public Documentary getDocumentary() {
+        return documentary;
+    }
+
+    public void setDocumentary(Documentary documentary) {
+        this.documentary = documentary;
+    }
+
+   
 }

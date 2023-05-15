@@ -81,18 +81,12 @@
                                                  justify-content: center;
                                                  height: 100%;">
                                                 <div>
-                                                    <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 500px; max-width: 200px"/>
+                                                    <p:commandLink action="tvShow" actionListener="#{listTvShowsController.view(tvShow)}">
+                                                        <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                                    </p:commandLink>                                           
                                                 </div>
-                                                <div>
+                                                <div style="text-align: center">
                                                     <h3>#{tvShow.title} </h3>
-                                                </div>
-                                                <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                                    <p:commandButton 
-                                                        value="Ver Ficha"
-                                                        actionListener="#{listTvShowsController.view(tvShow)}"
-                                                        action="tvShow"
-                                                        icon="pi pi-info-circle">
-                                                    </p:commandButton>
                                                 </div>
                                             </div>
                                         </div>

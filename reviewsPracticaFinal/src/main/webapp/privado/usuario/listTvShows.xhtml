@@ -12,38 +12,51 @@
 
             <ui:define name="content">
                 <p:card style="background-image: url('https://images5.alphacoders.com/325/325117.jpg'  ); background-size: cover; background-position: 50% 10%; width: 100%; color: white; margin-bottom: 2em; height: 170px">
-                        <div style="margin-top: 55px">
-                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Series</h1>
+                    <div style="margin-top: 55px">
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Series</h1>
+                    </div>
+                </p:card>
+                <div class="container">
+                    <div class="fila">
+                        <div class="col1">
+                            <h:form>
+                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 105px; font-size: 30px;">Filtrar:</h1>
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Género">
+                                        <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
+                                            <p:outputLabel value="Elige un género de la lista: "/>
+                                            <p:selectOneMenu value="#{listTvShowsController.filter}" style="margin-right: 20px">
+                                                <f:selectItem itemLabel="Todas las series" itemValue="" />
+                                                <f:selectItems value="#{listTvShowsController.genreList}" />
+                                                <p:ajax listener="#{listTvShowsController.filterTvShows}" update="data" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:form>
                         </div>
-                    </p:card>
-                
-                <div class="card product">
-                    <h:form id="form">
-                        <p:dataView var="tvShow" value="#{listTvShowsController.tvShows}" rows="12" paginator="true"
-                                    rowsPerPageTemplate="6,12,16"
-                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                    gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
+                        <p:divider layout="vertical" />
+                        <div class="col2">
+                            <p:dataView  id="data" var="tvShows" value="#{listTvShowsController.filteredTvShows}" rows="8" paginator="true"
+                                         rowsPerPageTemplate="8,12,16"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
 
-                            <p:dataViewGridItem>
-                                <div class="product-grid-item card border-1" style="border: 1px solid black; border-radius: 8px">
-                                    <div class="product-grid-item-content" style="text-align: center; padding: 10px">
-                                        <p:graphicImage value="#{tvShow.imageURL}" library="demo" style="heigth: 400px; width: 200px" />
-                                        <div class="product-name"  style="font-size: 30px; font-weight: bold" >#{tvShow.title}</div>
-                                        <div class="product-description">#{tvShow.description.subSequence(0, 100)}...</div>
-                                        <p:rating readonly="true" value="#{tvShow.rating}"/>
+                                <p:dataViewGridItem columns="4">
+                                    <div>
+                                        <div class="product-grid-item card border-1" style="text-align: center; padding: 10px">
+                                            <p:commandLink action="tvShow" actionListener="#{listTvShowsController.view(tvShows)}">
+                                                <p:graphicImage value="#{tvShows.imageURL}" style="border-radius: 8px;max-height: 270px; max-width: 200px"/>
+                                            </p:commandLink>                                               
+                                            <div class="product-name" style="font-size: 25px; font-weight: bold; height: 70px; overflow: hidden; text-overflow: ellipsis;">
+                                                #{tvShows.title}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                        <p:commandButton 
-                                            value="Ver Ficha"
-                                            actionListener="#{listTvShowsController.view(tvShow)}"
-                                            action="tvShow"
-                                            icon="pi pi-info-circle">
-                                        </p:commandButton>
-                                    </div>
-                                </div>
-                            </p:dataViewGridItem>
-                        </p:dataView>
-                    </h:form>
+                                </p:dataViewGridItem>
+                            </p:dataView>
+                        </div>
+                    </div>
                 </div>
             </ui:define>
 

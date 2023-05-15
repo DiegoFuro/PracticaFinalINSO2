@@ -25,5 +25,7 @@ public interface DocumentaryFacadeLocal {
     List<Documentary> findRange(int[] range);
 
     int count();
+
+    List<Documentary> findByGenre(String filter);
     
 }

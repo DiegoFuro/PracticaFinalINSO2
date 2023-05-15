@@ -10,25 +10,26 @@
 
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
-            <ui:define name="content" >
-                <h:panelGrid columns="2" style="padding:20px; padding-left: 100px; background-color: #0b5789; width: 100%">
-                    <p:graphicImage value="#{movieController.movie.imageURL}" style="height: 450px; width: 300px; border-radius: 10px" />
+            <ui:define name="content">
+                <h:panelGrid columns="2" style="padding:20px; padding-left: 100px; background-color: #0b5789">
+                    <p:graphicImage value="#{documentaryController.documentary.imageURL}" style="height: 450px; width: 300px; border-radius: 10px" />
                     <h:panelGrid columns="1" style="vertical-align: text-top; padding-left: 20px; padding-right: 60px "  >
-                        <h:outputText value="#{movieController.movie.title}" style="font-size: 45px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <h:outputText value="#{movieController.movie.releaseDate}" style="font-size: 15px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" >
+                        <h:outputText value="#{documentaryController.documentary.title}" style="font-size: 45px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <h:outputText value="#{documentaryController.documentary.releaseDate}" style="font-size: 15px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" >
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <br/>
+
                         <br/>
                         <h:outputText value="Género: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <h:outputText value="#{movieController.movie.genre}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <h:outputText value="#{documentaryController.documentary.genre}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
                         <h:outputText value="Descripción: "  style="margin-top: 10px; font-weight: bold; font-size: 25px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;"/>
-                        <h:outputText value="#{movieController.movie.description}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <br/>
+                        <h:outputText value="#{documentaryController.documentary.description}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <br/>    
                         <h:outputText value="Puntuación: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
                         <div>
-                            <p:donutChart model="#{movieController.donutModel}" style="max-height: 60px !important; max-width: 60px !important" />
-                            <h:outputText value="#{movieController.movie.rating}" style=" margin-left: 12px; font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                            <p:donutChart model="#{documentaryController.donutModel}" style="max-height: 60px !important; max-width: 60px !important" />
+                            <h:outputText value="#{documentaryController.documentary.rating}" style=" margin-left: 16px; font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
                         </div>
                     </h:panelGrid>
                 </h:panelGrid>
@@ -37,7 +38,7 @@
                     <p:tabView style="padding: 20px">
                         <p:tab title="Reseñas">
 
-                            <ui:fragment rendered="#{empty movieController.reviews}">
+                            <ui:fragment rendered="#{empty documentaryController.reviews}">
                                 <p:card style="width: auto; margin-bottom: 2em">
                                     <f:facet name="title">
                                         <h:outputText value="No hay reseñas" style="font-size: 30px; font-weight: bold"/>
@@ -46,7 +47,7 @@
                                 </p:card>
                             </ui:fragment>
 
-                            <ui:repeat value="#{movieController.reviews}" var="review">
+                            <ui:repeat value="#{documentaryController.reviews}" var="review">
                                 <p:card style="width: auto; margin-bottom: 2em">
                                     <f:facet name="title">
                                         <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
@@ -60,7 +61,7 @@
                         </p:tab>
                         <p:tab title="Multimedia">
                             <div class="card">
-                                <p:carousel value="#{movieController.movie}" var="movie" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
+                                <p:carousel value="#{documentaryController.documentary}" var="documentary" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
                                     <div>
                                         <div class="product-item-content" style="display: flex;
                                              flex-direction: column;
@@ -68,7 +69,7 @@
                                              justify-content: center;
                                              height: 100%;">
                                             <div>
-                                                <p:graphicImage value="#{movie.imageURL}" style="max-height: 500px; max-width: 200px"/>
+                                                <p:graphicImage value="#{documentary.imageURL}" style="max-height: 500px; max-width: 200px"/>
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +79,7 @@
                         <p:tab title="Recomendaciones">
                             <div class="card">
                                 <h:form id="form">
-                                    <p:carousel value="#{listMoviesController.movies}" var="movie" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
+                                    <p:carousel value="#{listDocumentaryController.documentaries}" var="documentaries" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
                                         <div>
                                             <div class="product-item-content" style="display: flex;
                                                  flex-direction: column;
@@ -86,23 +87,21 @@
                                                  justify-content: center;
                                                  height: 100%;">
                                                 <div>
-                                                    <p:commandLink action="movie" actionListener="#{listMoviesController.view(movie)}">
-                                                        <p:graphicImage value="#{movie.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                                    <p:commandLink action="documentary" actionListener="#{listDocumentaryController.view(documentaries)}">
+                                                        <p:graphicImage value="#{documentaries.imageURL}" style="max-height: 270px; max-width: 200px"/>
                                                     </p:commandLink>                                           
                                                 </div>
                                                 <div style="text-align: center">
-                                                    <h3>#{movie.title} </h3>
+                                                    <h3>#{documentaries.title} </h3>
                                                 </div>
                                             </div>
                                         </div>
                                     </p:carousel>
                                 </h:form>
-
                             </div>
                         </p:tab>
                     </p:tabView>
                 </div>
-
             </ui:define>
 
         </ui:composition>

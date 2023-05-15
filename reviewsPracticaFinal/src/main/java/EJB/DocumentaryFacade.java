@@ -6,9 +6,11 @@
 package EJB;
 
 import Modelo.Documentary;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Stateless
 public class DocumentaryFacade extends AbstractFacade<Documentary> implements DocumentaryFacadeLocal {
@@ -24,5 +26,16 @@ public class DocumentaryFacade extends AbstractFacade<Documentary> implements Do
     public DocumentaryFacade() {
         super(Documentary.class);
     }
-    
+
+    @Override
+    public List<Documentary> findByGenre(String filter) {
+        String consulta = "FROM Documentary d WHERE d.genre=:param1";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", filter);
+
+        List<Documentary> resultado = query.getResultList();
+        return resultado;
+    }
+
 }

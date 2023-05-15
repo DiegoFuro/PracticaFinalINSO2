@@ -29,11 +29,10 @@ public class loginController implements Serializable {
     private UsuarioFacadeLocal usuarioEJB;
 
     public void init() {
-        // implementar la lógica de inicialización si es necesario
     }
 
     public String verifyUser() {
-        String navegacion = "home.xhtml?faces-redirect=true";
+        String navegacion = "privado/usuario/home.xhtml?faces-redirect=true";
         String navegacionMal = "publico/permisosInsuficientes.xhtml?faces-redirect=true";
         Usuario us = new Usuario();
         try {

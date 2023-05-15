@@ -15,12 +15,7 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,6 +29,7 @@ public class ListMoviesController implements Serializable {
 
     private List<Movie> movies;
     private String filter;
+    private List<Movie> filteredMovies;
 
     @Inject
     private Movie movie;
@@ -43,14 +39,15 @@ public class ListMoviesController implements Serializable {
 
     @PostConstruct
     public void init() {
+        movies = moviesEJB.findAll();
         filterMovies();
     }
 
     public void filterMovies() {
         if (filter == null || filter.isEmpty()) {
-            movies = moviesEJB.findAll();
+            filteredMovies = moviesEJB.findAll();
         } else {
-            movies = moviesEJB.findByGenre(filter);
+            filteredMovies = moviesEJB.findByGenre(filter);
         }
     }
 
@@ -65,6 +62,14 @@ public class ListMoviesController implements Serializable {
     public void view(Movie movie) throws IOException {
         System.out.println("Movie: " + movie.getTitle());
         this.movie = movie;
+    }
+
+    public List<Movie> getFilteredMovies() {
+        return filteredMovies;
+    }
+
+    public void setFilteredMovies(List<Movie> filteredMovies) {
+        this.filteredMovies = filteredMovies;
     }
 
     public List<Movie> getMovies() {

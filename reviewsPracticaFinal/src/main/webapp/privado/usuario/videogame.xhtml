@@ -19,17 +19,17 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <br/>
-                        <h:outputText value="Puntuacion: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <div>
-                            <p:donutChart model="#{videogameController.donutModel}" style="max-height: 60px !important; max-width: 60px !important" />
-                            <h:outputText value="#{videogameController.videogame.rating}" style=" margin-left: 12px; font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        </div>
                         <br/>
                         <h:outputText value="Género: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
                         <h:outputText value="#{videogameController.videogame.genre}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
                         <h:outputText value="Descripción: "  style="margin-top: 10px; font-weight: bold; font-size: 25px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;"/>
                         <h:outputText value="#{videogameController.videogame.description}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
-                        <br/>                   
+                        <br/> 
+                        <h:outputText value="Puntuación: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        <div>
+                            <p:donutChart model="#{videogameController.donutModel}" style="max-height: 60px !important; max-width: 60px !important" />
+                            <h:outputText value="#{videogameController.videogame.rating}" style=" margin-left: 12px; font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                        </div>
                     </h:panelGrid>
                 </h:panelGrid>
 
@@ -86,29 +86,21 @@
                                                  justify-content: center;
                                                  height: 100%;">
                                                 <div>
-                                                    <p:graphicImage value="#{videogame.imageURL}" style="max-height: 500px; max-width: 200px"/>
+                                                    <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
+                                                        <p:graphicImage value="#{videogame.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                                    </p:commandLink>                                           
                                                 </div>
-                                                <div>
+                                                <div style="text-align: center">
                                                     <h3>#{videogame.title} </h3>
-                                                </div>
-                                                <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                                    <p:commandButton 
-                                                        value="Ver Ficha"
-                                                        actionListener="#{videogameController.view(videogame)}"
-                                                        action="videogame"
-                                                        icon="pi pi-info-circle">
-                                                    </p:commandButton>
                                                 </div>
                                             </div>
                                         </div>
                                     </p:carousel>
                                 </h:form>
-
                             </div>
                         </p:tab>
                     </p:tabView>
                 </div>
-
             </ui:define>
 
         </ui:composition>
