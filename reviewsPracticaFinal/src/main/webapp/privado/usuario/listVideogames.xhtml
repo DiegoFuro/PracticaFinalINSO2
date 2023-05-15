@@ -19,35 +19,120 @@
 
                 </div>
                 <div>
-                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Videojuegos en tendencias:</h1>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Tendencias:</h1>
+                    <p:divider/>
                     <div class="card">
                         <h:form id="form">
-                            <p:carousel value="#{listVideogamesController.videogames}" var="videogame" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
-                                <div>
-                                    <div class="product-item-content" style="display: flex;
-                                         flex-direction: column;
-                                         align-items: center;
-                                         justify-content: center;
-                                         height: 100%;">
-                                        <div>
+                            <p:carousel value="#{listVideogamesController.videogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                                <div class="product-item-content" style="display: flex;
+                                     flex-direction: column;
+                                     align-items: center;
+                                     justify-content: center;
+                                     height: 100%;">
+                                    <div>
+                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
                                             <p:graphicImage value="#{videogame.imageURL}" style="max-height: 270px; max-width: 200px"/>
-                                        </div>
-                                        <div>
-                                            <h3>#{videogame.title} </h3>
-                                        </div>
-                                        <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                            <p:commandButton 
-                                                value="Ver Ficha"
-                                                actionListener="#{videogame.view(tvShow)}"
-                                                action="tvShow"
-                                                icon="pi pi-info-circle">
-                                            </p:commandButton>
-                                        </div>
+                                        </p:commandLink>
+                                    </div>
+                                    <div style="text-align: center">
+                                        <h3>#{videogame.title} </h3>
                                     </div>
                                 </div>
                             </p:carousel>
                         </h:form>
 
+                    </div>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Últimos lanzamientos:</h1>
+                    <p:divider/>
+
+                    <div class="card">
+                        <h:form>
+                            <p:carousel value="#{listVideogamesController.lastVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                                <div class="product-item-content" style="display: flex;
+                                     flex-direction: column;
+                                     align-items: center;
+                                     justify-content: center;
+                                     height: 100%;">
+                                    <div>
+                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
+                                            <p:graphicImage value="#{videogame.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                        </p:commandLink>
+                                    </div>
+                                    <div style="text-align: center">
+                                        <h3>#{videogame.title} </h3>
+                                    </div>
+                                </div>
+                            </p:carousel>
+                        </h:form>
+                    </div>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Top puntuación: </h1>
+                    <p:divider/>
+
+                    <div class="card">
+                        <h:form>
+                            <p:carousel value="#{listVideogamesController.bestVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                                <div class="product-item-content" style="display: flex;
+                                     flex-direction: column;
+                                     align-items: center;
+                                     justify-content: center;
+                                     height: 100%;">
+                                    <div>
+                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
+                                            <p:graphicImage value="#{videogame.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                        </p:commandLink>
+                                    </div>
+                                    <div style="text-align: center">
+                                        <h3>#{videogame.title} </h3>
+                                    </div>
+                                </div>
+                            </p:carousel>
+                        </h:form>
+                    </div>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">¡Vive tu propia aventura! </h1>
+                    <p:divider/>
+
+                    <div class="card">
+                        <h:form>
+                            <p:carousel value="#{listVideogamesController.adventureVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                                <div class="product-item-content" style="display: flex;
+                                     flex-direction: column;
+                                     align-items: center;
+                                     justify-content: center;
+                                     height: 100%;">
+                                    <div>
+                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
+                                            <p:graphicImage value="#{videogame.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                        </p:commandLink>
+                                    </div>
+                                    <div style="text-align: center">
+                                        <h3>#{videogame.title} </h3>
+                                    </div>
+                                </div>
+                            </p:carousel>
+                        </h:form>
+                    </div>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">¡Para una noche terrorífica! </h1>
+                    <p:divider/>
+
+                    <div class="card">
+                        <h:form>
+                            <p:carousel value="#{listVideogamesController.horrorVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                                <div class="product-item-content" style="display: flex;
+                                     flex-direction: column;
+                                     align-items: center;
+                                     justify-content: center;
+                                     height: 100%;">
+                                    <div>
+                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
+                                            <p:graphicImage value="#{videogame.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                        </p:commandLink>
+                                    </div>
+                                    <div style="text-align: center">
+                                        <h3>#{videogame.title} </h3>
+                                    </div>
+                                </div>
+                            </p:carousel>
+                        </h:form>
                     </div>
                 </div>
             </ui:define>

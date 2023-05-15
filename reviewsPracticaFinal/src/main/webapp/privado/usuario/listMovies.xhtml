@@ -10,48 +10,49 @@
 
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
             <ui:define name="content">
-              
-                    <p:card style="background-image: url('https://images7.alphacoders.com/113/1134920.jpg'); background-size: cover; background-position: 50% 37%; width: 100%; color: white; margin-bottom: 2em; height: 170px">
-                        <div style="margin-top: 55px">
-                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Peliculas</h1>
-                        </div>
-                    </p:card>
 
-                    <div class="card product">
-                        <h:form id="form">
-                            <div style="display: flex; align-content: center; justify-content: center">
-                                <p:selectOneMenu value="#{listMoviesController.filter}" style="margin-right: 20px">
-                                    <f:selectItem itemLabel="Todas las películas" itemValue="" />
-                                    <f:selectItems value="#{listMoviesController.genreList}" />
-                                    <p:ajax listener="#{listMoviesController.filterMovies}" update="movieList" />
-                                </p:selectOneMenu>
-                            </div>
-                            <p:dataView var="movies" value="#{listMoviesController.movies}" id="movieList" rows="6" paginator="true"
-                                        rowsPerPageTemplate="6,12,16" 
-                                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                        gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
-
-                                <p:dataViewGridItem>
-                                    <div class="product-grid-item card border-1" style="border: 1px solid black; border-radius: 8px">
-                                        <div class="product-grid-item-content" style="text-align: center; padding: 10px">
-                                            <p:graphicImage value="#{movies.imageURL}" library="demo" style="heigth: 400px; width: 200px" />
-                                            <div class="product-name"  style="font-size: 25px; font-weight: bold" >#{movies.title}</div>
-                                            <div class="product-description">#{movies.description.subSequence(0, 110)}...</div>
-                                            <p:rating readonly="true" value="#{movies.rating}"/>
-                                        </div>
-                                        <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
-                                            <p:commandButton 
-                                                value="Ver Ficha"
-                                                actionListener="#{listMoviesController.view(movies)}"
-                                                action="movie"
-                                                icon="pi pi-info-circle">
-                                            </p:commandButton>
-                                        </div>
-                                    </div>
-                                </p:dataViewGridItem>
-                            </p:dataView>
-                        </h:form>
+                <p:card style="background-image: url('https://images7.alphacoders.com/113/1134920.jpg'); background-size: cover; background-position: 50% 37%; width: 100%; color: white; margin-bottom: 2em; height: 170px">
+                    <div style="margin-top: 55px">
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Peliculas</h1>
                     </div>
+                </p:card>
+
+                <div class="card product">
+                    <h:form id="form">
+                        <div style="display: flex; align-content: center; justify-content: center">
+                            <p:selectOneMenu value="#{listMoviesController.filter}" style="margin-right: 20px">
+                                <f:selectItem itemLabel="Todas las películas" itemValue="" />
+                                <f:selectItems value="#{listMoviesController.genreList}" />
+                                <p:ajax listener="#{listMoviesController.filterMovies}" update="movieList" />
+                            </p:selectOneMenu>
+                        </div>
+                        <p:dataView var="movies" value="#{listMoviesController.movies}" id="movieList" rows="6" paginator="true"
+                                    rowsPerPageTemplate="6,12,16" 
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    gridIcon="pi pi-th-large" listIcon="pi pi-bars" layout="grid">
+
+                            <p:dataViewGridItem columns="4">
+                                <div class="product-grid-item card border-1" style="border: 1px solid black; border-radius: 8px">
+                                    <div class="product-grid-item-content" style="text-align: center; padding: 10px">
+                                        <p:graphicImage value="#{movies.imageURL}" library="demo" style="heigth: 400px; width: 200px" />
+                                        <div class="product-name" style="font-size: 25px; font-weight: bold; height: 75px; overflow: hidden; text-overflow: ellipsis;">
+                                            #{movies.title}
+                                        </div>
+                                        <p:rating readonly="true" value="#{movies.rating}"/>
+                                    </div>
+                                    <div class="product-grid-item-bottom" style="text-align: end; padding: 10px">
+                                        <p:commandButton 
+                                            value="Ver Ficha"
+                                            actionListener="#{listMoviesController.view(movies)}"
+                                            action="movie"
+                                            icon="pi pi-info-circle">
+                                        </p:commandButton>
+                                    </div>
+                                </div>
+                            </p:dataViewGridItem>
+                        </p:dataView>
+                    </h:form>
+                </div>
             </ui:define>
 
         </ui:composition>

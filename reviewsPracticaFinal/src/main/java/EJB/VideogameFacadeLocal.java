@@ -30,4 +30,12 @@ public interface VideogameFacadeLocal {
 
     int count();
     
+    List<Videogame> findLastGames();
+
+    List<Videogame> findBestVideogames();
+
+    List<Videogame> findHorrorVideogames();
+
+    List<Videogame> findAdventureGames();
+    
 }
