@@ -6,6 +6,7 @@
 package EJB;
 
 import Modelo.Movie;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,5 +32,7 @@ public interface MovieFacadeLocal {
     int count();
 
     List<Movie> findByGenre(String filter);
+
+    List<Movie> findByDate(Date dateSince, Date dateTo);
     
 }

@@ -9,7 +9,10 @@ import EJB.MovieFacadeLocal;
 import Modelo.Movie;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +33,8 @@ public class ListMoviesController implements Serializable {
     private List<Movie> movies;
     private String filter;
     private List<Movie> filteredMovies;
+    private Date dateSince;
+    private Date dateTo;
 
     @Inject
     private Movie movie;
@@ -51,6 +56,16 @@ public class ListMoviesController implements Serializable {
         }
     }
 
+    public void filterDates() {
+        if (dateSince == null || dateTo == null) {
+            filteredMovies = moviesEJB.findAll();
+        } else {
+            System.out.println("OLEEEE");
+            System.out.println("FECHAS TUTU: " +dateSince.toString()+", " + dateTo.toString());
+            filteredMovies = moviesEJB.findByDate(dateSince, dateTo);
+        }
+    }
+
     public List<String> getGenreList() {
         Set<String> genres = new HashSet<>();
         for (Movie movie : movies) {
@@ -62,6 +77,22 @@ public class ListMoviesController implements Serializable {
     public void view(Movie movie) throws IOException {
         System.out.println("Movie: " + movie.getTitle());
         this.movie = movie;
+    }
+
+    public Date getDateSince() {
+        return dateSince;
+    }
+
+    public void setDateSince(Date dateSince) {
+        this.dateSince = dateSince;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
     }
 
     public List<Movie> getFilteredMovies() {

@@ -7,6 +7,7 @@ package EJB;
 
 import Modelo.Movie;
 import Modelo.Usuario;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,6 +40,21 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
         query.setParameter("param1", filter);
 
         List<Movie> resultado = query.getResultList();
+        return resultado;
+    }
+
+    @Override
+    public List<Movie> findByDate(Date dateSince, Date dateTo) {
+
+        System.out.println("Estoy aqui: " +dateSince.toString()+", " +dateTo.toString());
+        String consulta = "FROM Movie m WHERE m.releaseDate > :param1 AND m.releaseDate < :param2";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", dateSince);
+        query.setParameter("param2", dateTo);
+
+        List<Movie> resultado = query.getResultList();
+        System.out.println("Resultado: " + resultado.get(0).getTitle());
         return resultado;
     }
 
