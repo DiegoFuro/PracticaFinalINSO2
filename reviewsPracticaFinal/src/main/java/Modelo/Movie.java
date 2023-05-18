@@ -115,14 +115,15 @@ public class Movie implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.idMovie;
-        hash = 97 * hash + Objects.hashCode(this.title);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + this.rating;
-        hash = 97 * hash + Objects.hashCode(this.releaseDate);
-        hash = 97 * hash + Objects.hashCode(this.imageURL);
-        hash = 97 * hash + Objects.hashCode(this.genre);
+        int hash = 5;
+        hash = 67 * hash + this.idMovie;
+        hash = 67 * hash + Objects.hashCode(this.title);
+        hash = 67 * hash + Objects.hashCode(this.description);
+        hash = 67 * hash + this.rating;
+        hash = 67 * hash + Objects.hashCode(this.releaseDate);
+        hash = 67 * hash + Objects.hashCode(this.imageURL);
+        hash = 67 * hash + Objects.hashCode(this.genre);
+        hash = 67 * hash + Objects.hashCode(this.images);
         return hash;
     }
 
@@ -156,11 +157,16 @@ public class Movie implements Serializable {
         if (!Objects.equals(this.genre, other.genre)) {
             return false;
         }
+        if (!Objects.equals(this.images, other.images)) {
+            return false;
+        }
         if (!Objects.equals(this.releaseDate, other.releaseDate)) {
             return false;
         }
         return true;
     }
+
+    
     
     
 

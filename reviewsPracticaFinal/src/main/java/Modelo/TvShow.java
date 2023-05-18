@@ -44,6 +44,9 @@ public class TvShow implements Serializable {
     @Column(name = "Genre")
     private String genre;
     
+    @Column(name = "Images")
+    private String images;
+    
     public int getIdTvShow() {
         return idTvShow;
     }
@@ -100,16 +103,25 @@ public class TvShow implements Serializable {
         this.genre = genre;
     }
 
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 61 * hash + this.idTvShow;
-        hash = 61 * hash + Objects.hashCode(this.title);
-        hash = 61 * hash + Objects.hashCode(this.description);
-        hash = 61 * hash + this.rating;
-        hash = 61 * hash + Objects.hashCode(this.releaseDate);
-        hash = 61 * hash + Objects.hashCode(this.imageURL);
-        hash = 61 * hash + Objects.hashCode(this.genre);
+        hash = 41 * hash + this.idTvShow;
+        hash = 41 * hash + Objects.hashCode(this.title);
+        hash = 41 * hash + Objects.hashCode(this.description);
+        hash = 41 * hash + this.rating;
+        hash = 41 * hash + Objects.hashCode(this.releaseDate);
+        hash = 41 * hash + Objects.hashCode(this.imageURL);
+        hash = 41 * hash + Objects.hashCode(this.genre);
+        hash = 41 * hash + Objects.hashCode(this.images);
         return hash;
     }
 
@@ -143,13 +155,16 @@ public class TvShow implements Serializable {
         if (!Objects.equals(this.genre, other.genre)) {
             return false;
         }
+        if (!Objects.equals(this.images, other.images)) {
+            return false;
+        }
         if (!Objects.equals(this.releaseDate, other.releaseDate)) {
             return false;
         }
         return true;
     }
 
-    
+     
     
     
 

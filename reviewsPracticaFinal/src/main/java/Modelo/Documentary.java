@@ -42,6 +42,9 @@ public class Documentary implements Serializable{
     
     @Column(name = "Genre")
     private String genre;
+    
+    @Column(name = "Images")
+    private String images;
 
     public int getIdDocumentary() {
         return idDocumentary;
@@ -99,16 +102,25 @@ public class Documentary implements Serializable{
         this.genre = genre;
     }
 
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + this.idDocumentary;
-        hash = 53 * hash + Objects.hashCode(this.title);
-        hash = 53 * hash + Objects.hashCode(this.description);
-        hash = 53 * hash + this.rating;
-        hash = 53 * hash + Objects.hashCode(this.releaseDate);
-        hash = 53 * hash + Objects.hashCode(this.imageURL);
-        hash = 53 * hash + Objects.hashCode(this.genre);
+        int hash = 5;
+        hash = 89 * hash + this.idDocumentary;
+        hash = 89 * hash + Objects.hashCode(this.title);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + this.rating;
+        hash = 89 * hash + Objects.hashCode(this.releaseDate);
+        hash = 89 * hash + Objects.hashCode(this.imageURL);
+        hash = 89 * hash + Objects.hashCode(this.genre);
+        hash = 89 * hash + Objects.hashCode(this.images);
         return hash;
     }
 
@@ -142,11 +154,15 @@ public class Documentary implements Serializable{
         if (!Objects.equals(this.genre, other.genre)) {
             return false;
         }
+        if (!Objects.equals(this.images, other.images)) {
+            return false;
+        }
         if (!Objects.equals(this.releaseDate, other.releaseDate)) {
             return false;
         }
         return true;
     }
+
     
     
 }
