@@ -34,5 +34,7 @@ public interface MovieFacadeLocal {
     List<Movie> findByGenre(String filter);
 
     List<Movie> findByDate(Date dateSince, Date dateTo);
+
+    List<Movie> orderBy(String order);
     
 }

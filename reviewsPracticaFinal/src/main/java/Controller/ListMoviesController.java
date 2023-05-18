@@ -32,6 +32,7 @@ public class ListMoviesController implements Serializable {
 
     private List<Movie> movies;
     private String filter;
+    private String order;
     private List<Movie> filteredMovies;
     private Date dateSince;
     private Date dateTo;
@@ -44,6 +45,8 @@ public class ListMoviesController implements Serializable {
 
     @PostConstruct
     public void init() {
+        dateSince = new Date();
+        dateTo = new Date();
         movies = moviesEJB.findAll();
         filterMovies();
     }
@@ -51,8 +54,10 @@ public class ListMoviesController implements Serializable {
     public void filterMovies() {
         if (filter == null || filter.isEmpty()) {
             filteredMovies = moviesEJB.findAll();
+            filter = "";
         } else {
             filteredMovies = moviesEJB.findByGenre(filter);
+            filter="";
         }
     }
 
@@ -60,10 +65,19 @@ public class ListMoviesController implements Serializable {
         if (dateSince == null || dateTo == null) {
             filteredMovies = moviesEJB.findAll();
         } else {
-            System.out.println("OLEEEE");
-            System.out.println("FECHAS TUTU: " +dateSince.toString()+", " + dateTo.toString());
             filteredMovies = moviesEJB.findByDate(dateSince, dateTo);
         }
+    }
+
+    public List<String> getOrderList() {
+        Set<String> orders = new HashSet<>();
+        orders.add("Alfabético Ascendente");
+        orders.add("Alfabético Descendente");
+        orders.add("Valoración Ascendente");
+        orders.add("Valoración Descendente");
+        orders.add("Fecha - Nuevas Primero");
+        orders.add("Fecha - Antiguas Primero");
+        return new ArrayList<>(orders);
     }
 
     public List<String> getGenreList() {
@@ -74,9 +88,29 @@ public class ListMoviesController implements Serializable {
         return new ArrayList<>(genres);
     }
 
+    public void order() {
+        if (order == null || order.isEmpty()) {
+            filteredMovies = moviesEJB.findAll();
+        }
+        System.out.println("ORDENAR: " + order);
+        filteredMovies = moviesEJB.orderBy(order);
+    }
+
     public void view(Movie movie) throws IOException {
-        System.out.println("Movie: " + movie.getTitle());
         this.movie = movie;
+    }
+
+    public void resetDates() {
+        dateSince = new Date();
+        dateTo = new Date();
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
     }
 
     public Date getDateSince() {
