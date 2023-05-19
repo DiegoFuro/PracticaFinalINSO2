@@ -48,6 +48,18 @@ public class Review implements Serializable {
     @ManyToOne
     private TvShow tvShow;
 
+    @JoinColumn(name = "idMovie")
+    @ManyToOne
+    private Movie movie;
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
     public int getIdReview() {
         return idReview;
     }
@@ -141,5 +153,4 @@ public class Review implements Serializable {
         return true;
     }
 
-  
 }

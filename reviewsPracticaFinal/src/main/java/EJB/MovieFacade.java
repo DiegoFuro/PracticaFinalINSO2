@@ -62,10 +62,10 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
         String consulta = "FROM Movie m ORDER BY ";
 
         switch (order) {
-            case "Alfabético Ascendente":
+            case "Alfabético (A-Z)":
                 consulta += "m.title ASC";
                 break;
-            case "Alfabético Descendente":
+            case "Alfabético (Z-A)":
                 System.out.println("Alfa Descen");
                 consulta += "m.title DESC";
                 break;

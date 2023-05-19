@@ -6,6 +6,7 @@
 package EJB;
 
 import Modelo.Documentary;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -27,5 +28,9 @@ public interface DocumentaryFacadeLocal {
     int count();
 
     List<Documentary> findByGenre(String filter);
-    
+
+    List<Documentary> findByDate(Date dateSince, Date dateTo);
+
+    List<Documentary> orderBy(String order);
+
 }

@@ -31,6 +31,8 @@ public interface ReviewFacadeLocal {
 
     int count();
 
-    public List<Review> findReviewsTvShow(TvShow tvShow);
+    List<Review> findReviewsTvShow(TvShow tvShow);
+
+    List<Review> findReviewsMovie();
 
 }

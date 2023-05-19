@@ -44,4 +44,15 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
         return resultado;
     }
 
+    @Override
+    public List<Review> findReviewsMovie() {
+        String consulta = "FROM Review r WHERE r.movie IS NOT NULL";
+
+        Query query = em.createQuery(consulta);
+        query.setMaxResults(3);
+
+        List<Review> resultado = query.getResultList();
+        return resultado;
+    }
+
 }

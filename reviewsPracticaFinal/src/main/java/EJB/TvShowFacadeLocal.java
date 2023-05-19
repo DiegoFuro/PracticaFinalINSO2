@@ -6,6 +6,7 @@
 package EJB;
 
 import Modelo.TvShow;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,5 +32,9 @@ public interface TvShowFacadeLocal {
     int count();
 
     List<TvShow> findByGenre(String filter);
-    
+
+    List<TvShow> findByDate(Date dateSince, Date dateTo);
+
+    List<TvShow> orderBy(String order);
+
 }

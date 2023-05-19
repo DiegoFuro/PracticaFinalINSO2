@@ -6,6 +6,7 @@
 package EJB;
 
 import Modelo.TvShow;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -41,5 +42,56 @@ public class TvShowFacade extends AbstractFacade<TvShow> implements TvShowFacade
         List<TvShow> resultado = query.getResultList();
         return resultado;
     }
-    
+
+    @Override
+    public List<TvShow> findByDate(Date dateSince, Date dateTo) {
+
+        String consulta = "FROM TvShow t WHERE t.releaseDate > :param1 AND t.releaseDate < :param2";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", dateSince);
+        query.setParameter("param2", dateTo);
+
+        List<TvShow> resultado = query.getResultList();
+        return resultado;
+    }
+
+    @Override
+    public List<TvShow> orderBy(String order) {
+        String consulta = "FROM TvShow t ORDER BY ";
+
+        switch (order) {
+            case "Alfabético (A-Z)":
+                consulta += "t.title ASC";
+                break;
+            case "Alfabético (Z-A)":
+                System.out.println("Alfa Descen");
+                consulta += "t.title DESC";
+                break;
+            case "Valoración Ascendente":
+                System.out.println("Alfa Descen");
+                consulta += "t.rating ASC";
+                break;
+            case "Valoración Descendente":
+                System.out.println("Alfa Descen");
+                consulta += "t.rating DESC";
+                break;
+            case "Fecha - Antiguas Primero":
+                System.out.println("Alfa Descen");
+                consulta += "t.releaseDate ASC";
+                break;
+            case "Fecha - Nuevas Primero":
+                System.out.println("Alfa Descen");
+                consulta += "t.releaseDate DESC";
+                break;
+            default:
+                System.out.println("Todas");
+                consulta = "FROM TvShow t";
+        }
+
+        Query query = em.createQuery(consulta);
+        List<TvShow> resultado = query.getResultList();
+        return resultado;
+    }
+
 }

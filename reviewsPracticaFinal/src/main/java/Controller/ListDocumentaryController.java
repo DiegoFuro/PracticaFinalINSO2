@@ -7,11 +7,14 @@ package Controller;
 
 import EJB.DocumentaryFacadeLocal;
 import EJB.MovieFacadeLocal;
+import EJB.ReviewFacadeLocal;
 import Modelo.Documentary;
 import Modelo.Movie;
+import Modelo.Review;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,26 +36,56 @@ public class ListDocumentaryController implements Serializable {
 
     private List<Documentary> documentaries;
     private String filter;
+    private String order;
     private List<Documentary> filteredDocumentaries;
+    private Date dateSince;
+    private Date dateTo;
+    private List<Review> reviews;
 
     @Inject
     private Documentary documentary;
 
     @EJB
     private DocumentaryFacadeLocal documentariesEJB;
+    @EJB
+    private ReviewFacadeLocal reviewsEJB;
 
     @PostConstruct
     public void init() {
+        dateSince = new Date();
+        dateTo = new Date();
         documentaries = documentariesEJB.findAll();
         filterDocumentaries();
+        reviews = reviewsEJB.findReviewsMovie();
     }
 
     public void filterDocumentaries() {
         if (filter == null || filter.isEmpty()) {
             filteredDocumentaries = documentariesEJB.findAll();
+            filter = "";
         } else {
             filteredDocumentaries = documentariesEJB.findByGenre(filter);
+            filter = "";
         }
+    }
+
+    public void filterDates() {
+        if (dateSince == null || dateTo == null) {
+            filteredDocumentaries = documentariesEJB.findAll();
+        } else {
+            filteredDocumentaries = documentariesEJB.findByDate(dateSince, dateTo);
+        }
+    }
+
+    public List<String> getOrderList() {
+        Set<String> orders = new HashSet<>();
+        orders.add("Alfabético (A-Z)");
+        orders.add("Alfabético (Z-A)");
+        orders.add("Valoración Ascendente");
+        orders.add("Valoración Descendente");
+        orders.add("Fecha - Nuevas Primero");
+        orders.add("Fecha - Antiguas Primero");
+        return new ArrayList<>(orders);
     }
 
     public List<String> getGenreList() {
@@ -63,8 +96,48 @@ public class ListDocumentaryController implements Serializable {
         return new ArrayList<>(genres);
     }
 
-    public void view(Documentary documentary) throws IOException {
+    public void order() {
+        if (order == null || order.isEmpty()) {
+            filteredDocumentaries = documentariesEJB.findAll();
+        }
+        System.out.println("ORDENAR: " + order);
+        filteredDocumentaries = documentariesEJB.orderBy(order);
+    }
+
+    public void view(Documentary documentary) {
         this.documentary = documentary;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public Date getDateSince() {
+        return dateSince;
+    }
+
+    public void setDateSince(Date dateSince) {
+        this.dateSince = dateSince;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public List<Documentary> getDocumentaries() {
@@ -107,5 +180,4 @@ public class ListDocumentaryController implements Serializable {
         this.documentariesEJB = documentariesEJB;
     }
 
-    
 }

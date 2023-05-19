@@ -48,6 +48,17 @@ public class Videogame implements Serializable {
     @Column(name = "Genre")
     private String genre;
 
+    @Column(name = "Images")
+    private String images;
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+    
     public int getIdVideogame() {
         return idVideogame;
     }
@@ -153,5 +164,4 @@ public class Videogame implements Serializable {
         return true;
     }
 
-    
 }

@@ -6,7 +6,9 @@
 package Controller;
 
 import EJB.MovieFacadeLocal;
+import EJB.ReviewFacadeLocal;
 import Modelo.Movie;
+import Modelo.Review;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -36,12 +38,15 @@ public class ListMoviesController implements Serializable {
     private List<Movie> filteredMovies;
     private Date dateSince;
     private Date dateTo;
+    private List<Review> reviews;
 
     @Inject
     private Movie movie;
 
     @EJB
     private MovieFacadeLocal moviesEJB;
+    @EJB
+    private ReviewFacadeLocal reviewsEJB;
 
     @PostConstruct
     public void init() {
@@ -49,6 +54,7 @@ public class ListMoviesController implements Serializable {
         dateTo = new Date();
         movies = moviesEJB.findAll();
         filterMovies();
+        reviews = reviewsEJB.findReviewsMovie();
     }
 
     public void filterMovies() {
@@ -71,8 +77,8 @@ public class ListMoviesController implements Serializable {
 
     public List<String> getOrderList() {
         Set<String> orders = new HashSet<>();
-        orders.add("Alfabético Ascendente");
-        orders.add("Alfabético Descendente");
+        orders.add("Alfabético (A-Z)");
+        orders.add("Alfabético (Z-A)");
         orders.add("Valoración Ascendente");
         orders.add("Valoración Descendente");
         orders.add("Fecha - Nuevas Primero");
@@ -99,12 +105,22 @@ public class ListMoviesController implements Serializable {
     public void view(Movie movie) throws IOException {
         this.movie = movie;
     }
+    
 
     public void resetDates() {
         dateSince = new Date();
         dateTo = new Date();
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    
     public String getOrder() {
         return order;
     }

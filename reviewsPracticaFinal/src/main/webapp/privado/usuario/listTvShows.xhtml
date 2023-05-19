@@ -28,12 +28,53 @@
                                             <p:selectOneMenu value="#{listTvShowsController.filter}" style="margin-right: 20px">
                                                 <f:selectItem itemLabel="Todas las series" itemValue="" />
                                                 <f:selectItems value="#{listTvShowsController.genreList}" />
-                                                <p:ajax listener="#{listTvShowsController.filterTvShows}" update="data" />
+                                                <p:ajax listener="#{listTvShowsController.filterTvShows()}" update="data" />
                                             </p:selectOneMenu>
                                         </h:panelGrid>
                                     </p:tab>
                                 </p:accordionPanel>
                             </h:form>
+                            <h:form>
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Fecha de estreno">
+                                        <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
+                                            <p:outputLabel value="Buscar por fecha de estreno "/>
+                                            <p:outputLabel for="desde" value="Desde:"/>
+                                            <p:datePicker id="desde" value="#{listTvShowsController.dateSince}"  showIcon="true"/>
+                                            <p:outputLabel for="hasta" value="Hasta:"/>
+                                            <p:datePicker id="hasta" value="#{listTvShowsController.dateTo}" showIcon="true"/>
+                                            <h:panelGrid columns="2" >
+                                                <p:commandButton value="Buscar" action="#{listTvShowsController.filterDates()}" update="data" style="margin-right: 20px" />
+                                                <p:commandButton value="Limpiar" action="#{listTvShowsController.filterTvShows()}" update="data" />
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:form>
+                            <h:form>
+                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 40px; font-size: 30px;">Ordenar:</h1>
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Ordenar">
+                                        <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
+                                            <p:selectOneMenu value="#{listTvShowsController.order}" style="margin-right: 20px">
+                                                <f:selectItem itemLabel="Sin orden" itemValue="" />
+                                                <f:selectItems value="#{listTvShowsController.orderList}" />
+                                                <p:ajax listener="#{listTvShowsController.order()}" update="data" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:form>
+                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 40px; font-size: 30px;">Últimas reseñas:</h1>
+                            <ui:repeat value="#{listTvShowsController.reviews}" var="review">
+                                <p:card style="width: auto; height: 130px; margin-bottom: 25px; background-color: #f8f9fa">
+                                    <f:facet name="title">
+                                        <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
+                                        <br/>
+                                        <h:outputText value="#{review.movie.title}" style="font-size: 14px"/>
+                                    </f:facet>
+                                </p:card>
+                            </ui:repeat>
                         </div>
                         <p:divider layout="vertical" />
                         <div class="col2">
