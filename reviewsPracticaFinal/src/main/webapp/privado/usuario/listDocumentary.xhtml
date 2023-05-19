@@ -57,7 +57,7 @@
                                     <p:tab title="Ordenar">
                                         <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
                                             <p:selectOneMenu value="#{listDocumentaryController.order}" style="margin-right: 20px">
-                                                <f:selectItem itemLabel="Sin orden" itemValue="" />
+                                                <f:selectItem itemLabel="Sin orden" itemValue=" " />
                                                 <f:selectItems value="#{listDocumentaryController.orderList}" />
                                                 <p:ajax listener="#{listDocumentaryController.order()}" update="data" />
                                             </p:selectOneMenu>

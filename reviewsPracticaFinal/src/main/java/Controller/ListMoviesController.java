@@ -11,8 +11,6 @@ import Modelo.Movie;
 import Modelo.Review;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -63,7 +61,7 @@ public class ListMoviesController implements Serializable {
             filter = "";
         } else {
             filteredMovies = moviesEJB.findByGenre(filter);
-            filter="";
+            filter = "";
         }
     }
 
@@ -95,17 +93,12 @@ public class ListMoviesController implements Serializable {
     }
 
     public void order() {
-        if (order == null || order.isEmpty()) {
-            filteredMovies = moviesEJB.findAll();
-        }
-        System.out.println("ORDENAR: " + order);
         filteredMovies = moviesEJB.orderBy(order);
     }
 
     public void view(Movie movie) throws IOException {
         this.movie = movie;
     }
-    
 
     public void resetDates() {
         dateSince = new Date();
@@ -120,7 +113,6 @@ public class ListMoviesController implements Serializable {
         this.reviews = reviews;
     }
 
-    
     public String getOrder() {
         return order;
     }

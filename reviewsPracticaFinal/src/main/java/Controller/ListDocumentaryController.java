@@ -97,10 +97,6 @@ public class ListDocumentaryController implements Serializable {
     }
 
     public void order() {
-        if (order == null || order.isEmpty()) {
-            filteredDocumentaries = documentariesEJB.findAll();
-        }
-        System.out.println("ORDENAR: " + order);
         filteredDocumentaries = documentariesEJB.orderBy(order);
     }
 

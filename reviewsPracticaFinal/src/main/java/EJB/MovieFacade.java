@@ -66,27 +66,21 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
                 consulta += "m.title ASC";
                 break;
             case "Alfabético (Z-A)":
-                System.out.println("Alfa Descen");
                 consulta += "m.title DESC";
                 break;
             case "Valoración Ascendente":
-                System.out.println("Alfa Descen");
                 consulta += "m.rating ASC";
                 break;
             case "Valoración Descendente":
-                System.out.println("Alfa Descen");
                 consulta += "m.rating DESC";
                 break;
             case "Fecha - Antiguas Primero":
-                System.out.println("Alfa Descen");
                 consulta += "m.releaseDate ASC";
                 break;
             case "Fecha - Nuevas Primero":
-                System.out.println("Alfa Descen");
                 consulta += "m.releaseDate DESC";
                 break;
             default:
-                System.out.println("Todas");
                 consulta = "FROM Movie m";
         }
 

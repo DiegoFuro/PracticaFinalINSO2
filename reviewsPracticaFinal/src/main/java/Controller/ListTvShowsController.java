@@ -98,9 +98,6 @@ public class ListTvShowsController implements Serializable {
     }
 
     public void order() {
-        if (order == null || order.isEmpty()) {
-            filteredTvShows = tvShowsEJB.findAll();
-        }
         filteredTvShows = tvShowsEJB.orderBy(order);
     }
 

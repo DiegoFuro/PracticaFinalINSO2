@@ -65,27 +65,21 @@ public class TvShowFacade extends AbstractFacade<TvShow> implements TvShowFacade
                 consulta += "t.title ASC";
                 break;
             case "Alfabético (Z-A)":
-                System.out.println("Alfa Descen");
                 consulta += "t.title DESC";
                 break;
             case "Valoración Ascendente":
-                System.out.println("Alfa Descen");
                 consulta += "t.rating ASC";
                 break;
             case "Valoración Descendente":
-                System.out.println("Alfa Descen");
                 consulta += "t.rating DESC";
                 break;
             case "Fecha - Antiguas Primero":
-                System.out.println("Alfa Descen");
                 consulta += "t.releaseDate ASC";
                 break;
             case "Fecha - Nuevas Primero":
-                System.out.println("Alfa Descen");
                 consulta += "t.releaseDate DESC";
                 break;
             default:
-                System.out.println("Todas");
                 consulta = "FROM TvShow t";
         }
 
