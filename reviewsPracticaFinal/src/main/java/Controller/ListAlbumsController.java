@@ -5,18 +5,11 @@
  */
 package Controller;
 
-import EJB.ArtistFacadeLocal;
-import EJB.ReviewFacadeLocal;
-import Modelo.Artist;
+import Modelo.Album;
 import Modelo.Review;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,12 +20,12 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class ListArtistsController implements Serializable {
+public class ListAlbumsController implements Serializable {
 
-    private List<Artist> artists;
+    private List<Album> albums;
     private String filter;
     private String order;
-    private List<Artist> filteredArtists;
+    private List<Album> filteredAlbums;
     private Date dateSince;
     private Date dateTo;
     private List<Review> reviews;
@@ -103,69 +96,4 @@ public class ListArtistsController implements Serializable {
         dateSince = new Date();
         dateTo = new Date();
     }
-
-    public List<Artist> getArtists() {
-        return artists;
-    }
-
-    public void setArtists(List<Artist> artists) {
-        this.artists = artists;
-    }
-
-    public String getFilter() {
-        return filter;
-    }
-
-    public void setFilter(String filter) {
-        this.filter = filter;
-    }
-
-    public String getOrder() {
-        return order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
-    }
-
-    public List<Artist> getFilteredArtists() {
-        return filteredArtists;
-    }
-
-    public void setFilteredArtists(List<Artist> filteredArtists) {
-        this.filteredArtists = filteredArtists;
-    }
-
-    public Date getDateSince() {
-        return dateSince;
-    }
-
-    public void setDateSince(Date dateSince) {
-        this.dateSince = dateSince;
-    }
-
-    public Date getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
 }

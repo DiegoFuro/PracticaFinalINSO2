@@ -1,14 +1,104 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
-                content
+                <p:card style="background-image: url(#{artistController.artist.coverImage}); background-size: cover; background-position: 50% 40%; width: 100%; color: white; margin-bottom: 2em; height: 320px">
+                    <div style="display: flex; flex-direction: column; margin-top: 200px;">
+                        <h:outputText value="#{artistController.artist.name}" style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px;"/>
+                        <h:outputText value="#{artistController.artist.listeners} oyentes mensuales" style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 15px;"/>
+                    </div>
+                </p:card>
+
+                <div style="display: flex; flex-direction: column; margin-top: 20px; padding: 0px 60px 20px 60px">
+                    <h:outputText value="Descripción" style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px;"/>
+                    <h:outputText value="#{artistController.artist.description}" style="font-family: 'Source Sans Pro', Arial, sans-serif; font-size: 16px;"/>
+                </div>
+
+                <p:dataView id="data" var="album" value="#{artistController.albums}" style="padding-left: 60px; padding-right: 60px">
+                    <h:outputText value="Lista de albumes"/>
+                    <p:dataViewListItem>
+                        <div style="display: flex; align-items: flex-start; padding: 10px">
+                            <p:graphicImage value="#{album.imageURL}" style="border-radius: 8px; height: 120px; width: 120px; margin-right: 20px;" />
+                            <div>
+                                <h:outputText style="font-size: 30px;" value="#{album.title}" />
+                                <div> Número de canciones: #{album.numberSongs}</div>
+                                <div>
+                                    <h:outputText value="#{album.releaseDate}" style="font-size: 15px;  font-family: 'Source Sans Pro', Arial, sans-serif;" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </div>
+                            </div>
+                        </div>
+                    </p:dataViewListItem>
+                </p:dataView>
+
+                <div class="card" style="margin-top: 40px">
+                    <p:tabView style="padding: 20px">
+                        <p:tab title="Reseñas">
+
+                            <ui:fragment rendered="#{empty artistController.reviews}">
+                                <p:card style="width: auto; margin-bottom: 2em">
+                                    <f:facet name="title">
+                                        <h:outputText value="No hay reseñas" style="font-size: 30px; font-weight: bold"/>
+                                    </f:facet>
+                                    <h:outputText value="No se encontraron reseñas para este elemento."/>
+                                </p:card>
+                            </ui:fragment>
+
+                            <ui:repeat value="#{artistController.reviews}" var="review">
+                                <p:card style="width: auto; margin-bottom: 2em">
+                                    <f:facet name="title">
+                                        <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
+                                        <br/>
+                                        <h:outputText value="Reseña escrita por #{review.idUser.user}" style="font-size: 14px"/>
+                                        <p:rating value="#{review.rating}" disabled="true" />
+                                    </f:facet>
+                                    <h:outputText value="#{review.body}"/>
+                                </p:card>
+                            </ui:repeat>
+                        </p:tab>
+                        <p:tab title="Multimedia">
+                            <div class="card">
+
+                            </div>
+                        </p:tab>
+                        <p:tab title="Recomendaciones">
+                            <div class="card">
+                                <h:form id="form">
+                                    <p:carousel value="#{listArtistsController.artists}" var="artist" circular="true" autoplayInterval="3000" numVisible="5" numScroll="1">
+                                        <div>
+                                            <div class="product-item-content" style="display: flex;
+                                                 flex-direction: column;
+                                                 align-items: center;
+                                                 justify-content: center;
+                                                 height: 100%;">
+                                                <div>
+                                                    <p:commandLink action="listMovies" actionListener="#{listArtistsController.view(artist)}">
+                                                        <p:graphicImage value="#{artist.image}" style="max-height: 270px; max-width: 200px"/>
+                                                    </p:commandLink>                                           
+                                                </div>
+                                                <div style="text-align: center">
+                                                    <h3>#{artist.name} </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p:carousel>
+                                </h:form>
+
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+                </div>
+
             </ui:define>
 
         </ui:composition>

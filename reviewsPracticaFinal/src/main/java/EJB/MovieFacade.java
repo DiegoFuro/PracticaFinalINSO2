@@ -45,8 +45,6 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
 
     @Override
     public List<Movie> findByDate(Date dateSince, Date dateTo) {
-
-        System.out.println("Estoy aqui: " + dateSince.toString() + ", " + dateTo.toString());
         String consulta = "FROM Movie m WHERE m.releaseDate > :param1 AND m.releaseDate < :param2";
 
         Query query = em.createQuery(consulta);

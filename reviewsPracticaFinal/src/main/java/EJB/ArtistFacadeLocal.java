@@ -5,6 +5,7 @@
  */
 package EJB;
 
+import Modelo.Album;
 import Modelo.Artist;
 import java.util.Date;
 import java.util.List;
@@ -31,10 +32,12 @@ public interface ArtistFacadeLocal {
 
     int count();
 
-    public List<Artist> findByGenre(String filter);
+    List<Artist> findByGenre(String filter);
 
-    public List<Artist> findByDate(Date dateSince, Date dateTo);
+    List<Artist> findByDate(Date dateSince, Date dateTo);
 
-    public List<Artist> orderBy(String order);
-    
+    List<Artist> orderBy(String order);
+
+    List<Album> findAlbumsByArtist(Artist artist);
+
 }

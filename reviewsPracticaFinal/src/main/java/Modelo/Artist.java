@@ -19,7 +19,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "artists")
-public class Artist implements Serializable{
+public class Artist implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idArtist;
@@ -33,6 +34,61 @@ public class Artist implements Serializable{
     @Column(name = "BirthDate")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+
+    @Column(name = "Genre")
+    private String genre;
+
+    @Column(name = "Image")
+    private String image;
+
+    @Column(name = "Ranking")
+    private int ranking;
+
+    @Column(name = "Listeners")
+    private String listeners;
+    
+    @Column(name = "CoverImage")
+    private String coverImage;
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public String getListeners() {
+        return listeners;
+    }
+
+    public void setListeners(String listeners) {
+        this.listeners = listeners;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
+    }
 
     public int getIdArtist() {
         return idArtist;
@@ -103,5 +159,4 @@ public class Artist implements Serializable{
         return true;
     }
 
-    
 }

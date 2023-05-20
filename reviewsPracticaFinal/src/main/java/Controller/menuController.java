@@ -71,20 +71,13 @@ public class menuController implements Serializable {
                 modelo.getElements().add(item);
             }
         }
-
-        DefaultMenuItem cerrarSesion = DefaultMenuItem.builder()
-                .value("Cerrar Sesión")
-                .icon("pi pi-fw pi-sign-out")
-                .command("#{menuController.destruirSesion()}")
-                .build();
-        modelo.getElements().add(cerrarSesion);
         return modelo;
     }
 
     public String destruirSesion() {
-        System.out.println("Navegacion index.xhtml?faces-redirect=true");
+        System.out.println("Si he llegado");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml?faces-redirect=true";
+        return "/index?faces-redirect=true";
     }
 
     public MenuModel getModelo() {

@@ -17,7 +17,15 @@
 
         <div id="top">
             <h:graphicImage library="img" name="Reviewify.png" width="225px" />
-            <p:menubar  model="#{menuController.modelo}"  />
+            <p:menubar  model="#{menuController.modelo}" >
+
+                <f:facet name="options">
+                    <h:form>
+                        <p:commandButton value="Cerrar Sesión" icon="pi pi-fw pi-sign-out" action="#{menuController.destruirSesion()}"/>
+                    </h:form>
+                </f:facet>
+
+            </p:menubar>
         </div>
 
         <div id="content" class="center_content" >
