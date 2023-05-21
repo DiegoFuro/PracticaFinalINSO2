@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
+
+            <ui:define name="content">
+                <div>
+                    <div>
+                        <p:card style="background-image: url('https://images8.alphacoders.com/929/929202.jpg'); background-size: cover; width: 100%; color: white; margin-bottom: 2em; height: 500px">
+
+                            <div style="padding: 8rem; margin-top: 120px;">
+                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; margin-bottom: 0px;">Bienvenido,</h1>
+                                <h2 style="font-family: 'Source Sans Pro', Arial, sans-serif; margin-top: 0px; margin-bottom: 15px;">millones de usuarios puntuan y comentan en nuestra web. Explora ahora mismo</h2>
+                                <div style="margin-top: 1rem;">
+                                    <form>
+                                        <div class="ui-input-icon-left mr-2" style="width: 100%">
+                                            <i class="pi pi-fw pi-search"></i>
+                                            <p:inputText style="width: 100%" placeholder="Buscar..."/>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </p:card>
+
+                    </div>
+
+                    <div>
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; margin-left: 20px">Series en tendencias:</h1>
+                        <div class="card">
+                            <h:form id="form">
+                                <p:carousel value="#{listTvShowsController.tvShows}" var="tvShow" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                                    <div>
+                                        <div class="product-item-content" style="display: flex;
+                                             flex-direction: column;
+                                             align-items: center;
+                                             justify-content: center;
+                                             height: 100%;">
+                                            <div>
+                                                <p:commandLink action="tvShow" actionListener="#{listTvShowsController.view(tvShow)}">
+                                                    <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                                </p:commandLink>                                           
+                                            </div>
+                                            <div>
+                                                <h3>#{tvShow.title} </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p:carousel>
+                            </h:form>
+
+                        </div>
+                    </div>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; margin-left: 20px">Últimos trailers</h1>
+                    <div style="padding: 40px; background-color: #0b5789">
+                        <div style="display: flex; align-content: space-around;">
+                            <iframe width="600" height="300" src="https://www.youtube.com/embed/_1f2RLdxQfA" title="SUPER MARIO BROS. LA PELÍCULA – Tráiler Oficial (Universal Pictures) HD" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true" style="margin-right: 40px;"></iframe>
+                            <iframe width="600" height="300" src="https://www.youtube.com/embed/9SfnkovRye8" title="Guardianes de la Galaxia: Volumen 3 de Marvel Studios  | Tráiler Oficial en español | HD" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"  style="margin-right: 40px;" ></iframe> 
+                            <iframe width="600" height="300" src="https://www.youtube.com/embed/7wuK5PhzcNY" title="MEGALODÓN 2: EL GRAN ABISMO - TRÁILER OFICIAL - SUBTITULADO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe>                        
+                        </div>
+                    </div>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; margin-left: 20px">Series en tendencias:</h1>
+                    <div class="card">
+                        <h:form>
+                            <p:carousel value="#{listTvShowsController.tvShows}" var="tvShow" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                                <div>
+                                    <div class="product-item-content" style="display: flex;
+                                         flex-direction: column;
+                                         align-items: center;
+                                         justify-content: center;
+                                         height: 100%;">
+                                        <div>
+                                            <p:commandLink action="tvShow" actionListener="#{listTvShowsController.view(tvShow)}">
+                                                <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 270px; max-width: 200px"/>
+                                            </p:commandLink>                                           
+                                        </div>
+                                        <div>
+                                            <h3>#{tvShow.title} </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:carousel>
+                        </h:form>
+
+                    </div>
+                    <div style="position: relative; width: 100%; height: 500px;">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: brightness(50%); background-image: url(https://image.tmdb.org/t/p/original/s16H6tpK2utvwDtzZ8Qy4qm5Emw.jpg); background-position: 50% 35%; background-size: cover;"></div>
+                        <h:panelGrid columns="2" style="position: relative; z-index: 1; padding:20px; padding-left: 100px; width: 100%">
+                            <p:graphicImage value="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/bqOqQ2Tawum3eHKNrc94P4EeaZB.jpg" style="height: 450px; width: 300px; border-radius: 10px;" />
+                            <h:panelGrid columns="1" style="vertical-align: text-top; padding-left: 20px; padding-right: 60px;">
+                                <h:outputText value="Avatar: El sentido del agua (2022)" style="font-size: 45px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                                <br/>
+                                <br/>
+                                <h:outputText value="''Maravilla visual de principio a fin. No sabes dónde mirar de tanta belleza.''" style="font-size: 20px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                                <h:outputText value="- IMDB" style="margin-left: 200px; font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                                <h:outputText value="''Por fin llegó a cines Avatar, el camino del agua y es una auténtica epopeya visual.''" style="font-size: 20px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                                <h:outputText value="''Excelentes efectos especiales, historia entretenida, buena actuación de los actores. Es una obra de calidad''" style="font-size: 20px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </div>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -5,11 +5,18 @@
  */
 package Controller;
 
+import EJB.AlbumFacadeLocal;
+import EJB.ReviewFacadeLocal;
 import Modelo.Album;
 import Modelo.Review;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,10 +38,10 @@ public class ListAlbumsController implements Serializable {
     private List<Review> reviews;
 
     @Inject
-    private Artist artist;
+    private Album album;
 
     @EJB
-    private ArtistFacadeLocal artistsEJB;
+    private AlbumFacadeLocal albumsEJB;
     @EJB
     private ReviewFacadeLocal reviewsEJB;
 
@@ -42,26 +49,26 @@ public class ListAlbumsController implements Serializable {
     public void init() {
         dateSince = new Date();
         dateTo = new Date();
-        artists = artistsEJB.findAll();
-        filterArtists();
+        albums = albumsEJB.findAll();
+        filterAlbums();
         reviews = reviewsEJB.findReviewsMovie();
     }
 
-    public void filterArtists() {
+    public void filterAlbums() {
         if (filter == null || filter.isEmpty()) {
-            filteredArtists = artistsEJB.findAll();
+            filteredAlbums = albumsEJB.findAll();
             filter = "";
         } else {
-            filteredArtists = artistsEJB.findByGenre(filter);
+            filteredAlbums = albumsEJB.findByGenre(filter);
             filter = "";
         }
     }
 
     public void filterDates() {
         if (dateSince == null || dateTo == null) {
-            filteredArtists = artistsEJB.findAll();
+            filteredAlbums = albumsEJB.findAll();
         } else {
-            filteredArtists = artistsEJB.findByDate(dateSince, dateTo);
+            filteredAlbums = albumsEJB.findByDate(dateSince, dateTo);
         }
     }
 
@@ -78,22 +85,82 @@ public class ListAlbumsController implements Serializable {
 
     public List<String> getGenreList() {
         Set<String> genres = new HashSet<>();
-        for (Artist artist : artists) {
-            genres.add(artist.getGenre());
+        for (Album album : albums) {
+            genres.add(album.getGenre());
         }
         return new ArrayList<>(genres);
     }
 
     public void order() {
-        filteredArtists = artistsEJB.orderBy(order);
+        filteredAlbums = albumsEJB.orderBy(order);
     }
 
-    public void view(Artist artist) {
-        this.artist = artist;
+    public void view(Album album) {
+        this.album = album;
     }
 
-    public void resetDates() {
-        dateSince = new Date();
-        dateTo = new Date();
+    public List<Album> getAlbums() {
+        return albums;
     }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public List<Album> getFilteredAlbums() {
+        return filteredAlbums;
+    }
+
+    public void setFilteredAlbums(List<Album> filteredAlbums) {
+        this.filteredAlbums = filteredAlbums;
+    }
+
+    public Date getDateSince() {
+        return dateSince;
+    }
+
+    public void setDateSince(Date dateSince) {
+        this.dateSince = dateSince;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
 }

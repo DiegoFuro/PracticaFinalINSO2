@@ -32,7 +32,7 @@ public class loginController implements Serializable {
     }
 
     public String verifyUser() {
-        String navegacion = "privado/usuario/home.xhtml?faces-redirect=true";
+        String navegacion = "privado/reviewer/home.xhtml?faces-redirect=true";
         String navegacionMal = "publico/permisosInsuficientes.xhtml?faces-redirect=true";
         Usuario us = new Usuario();
         try {

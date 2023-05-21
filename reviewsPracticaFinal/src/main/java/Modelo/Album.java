@@ -21,14 +21,15 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "albums")
-public class Album implements Serializable{
+public class Album implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAlbum;
 
     @Column(name = "Title")
     private String title;
-    
+
     @Column(name = "NumberSongs")
     private int numberSongs;
 
@@ -38,16 +39,27 @@ public class Album implements Serializable{
     @Column(name = "ReleaseDate")
     @Temporal(TemporalType.DATE)
     private Date releaseDate;
-    
+
     @Column(name = "Rating")
     private int rating;
-    
+
     @Column(name = "ImageURL")
     private String imageURL;
-    
-    @JoinColumn(name="IdArtist")
+
+    @JoinColumn(name = "IdArtist")
     @ManyToOne
     private Artist idArtist;
+
+    @Column(name = "Genre")
+    private String genre;
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
     public int getIdAlbum() {
         return idAlbum;
@@ -166,8 +178,4 @@ public class Album implements Serializable{
         return true;
     }
 
-    
-
-   
-    
 }

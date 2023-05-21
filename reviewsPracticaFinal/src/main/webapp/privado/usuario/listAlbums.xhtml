@@ -2,20 +2,106 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
-                <div>
-                    <p:card style="background-image: url('https://images3.alphacoders.com/611/611491.jpg'); background-size: cover; background-position: 50% 40%; width: 100%; color: white; margin-bottom: 2em; height: 170px">
-                        <div style="margin-top: 55px">
-                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Albums</h1>
+
+                <p:card style="background-image: url('https://images3.alphacoders.com/611/611491.jpg'); background-size: cover; background-position: 50% 40%; width: 100%; color: white; margin-bottom: 2em; height: 170px">
+                    <div style="margin-top: 55px">
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Albums</h1>
+                    </div>
+                </p:card>
+
+                <div class="container">
+                    <div class="fila">
+                        <div class="col1">
+                            <h:form>
+                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 105px; font-size: 30px;">Filtrar:</h1>
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Género">
+                                        <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
+                                            <p:outputLabel value="Elige un género de la lista: "/>
+                                            <p:selectOneMenu value="#{listAlbumsController.filter}" style="margin-right: 20px">
+                                                <f:selectItem itemLabel="Todos los albumes" itemValue="" />
+                                                <f:selectItems value="#{listAlbumsController.genreList}" />
+                                                <p:ajax listener="#{listAlbumsController.filterAlbums}" update="data" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:form>
+                            <h:form>
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Fecha de Inicio">
+                                        <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
+                                            <p:outputLabel value="Buscar por fecha de lanzamiento "/>
+                                            <p:outputLabel for="desde" value="Desde:"/>
+                                            <p:datePicker id="desde" value="#{listAlbumsController.dateSince}"  showIcon="true"/>
+                                            <p:outputLabel for="hasta" value="Hasta:"/>
+                                            <p:datePicker id="hasta" value="#{listAlbumsController.dateTo}" showIcon="true"/>
+                                            <h:panelGrid columns="2" >
+                                                <p:commandButton value="Buscar" action="#{listAlbumsController.filterDates()}" update="data" style="margin-right: 20px" />
+                                                <p:commandButton value="Limpiar" action="#{listAlbumsController.filterAlbums()}" update="data" />
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:form>
+                            <h:form>
+                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 40px; font-size: 30px;">Ordenar:</h1>
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Ordenar">
+                                        <h:panelGrid columns="1" cellpadding="7" styleClass="mb-3">
+                                            <p:selectOneMenu value="#{listAlbumsController.order}" style="margin-right: 20px">
+                                                <f:selectItem itemLabel="Sin orden" itemValue=" " />
+                                                <f:selectItems value="#{listAlbumsController.orderList}" />
+                                                <p:ajax listener="#{listAlbumsController.order()}" update="data" />
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                    </p:tab>
+                                </p:accordionPanel>
+                            </h:form>
+                            <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 40px; font-size: 30px;">Últimas reseñas:</h1>
+                            <ui:repeat value="#{listAlbumsController.reviews}" var="review">
+                                <p:card style="width: auto; height: 130px; margin-bottom: 25px; background-color: #f8f9fa">
+                                    <f:facet name="title">
+                                        <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
+                                        <br/>
+                                        <h:outputText value="#{review.movie.title}" style="font-size: 14px"/>
+                                    </f:facet>
+                                </p:card>
+                            </ui:repeat>
                         </div>
-                    </p:card>
+                        <p:divider layout="vertical" />
+                        <div class="col2">
+                            <p:dataView id="data" var="album" value="#{listAlbumsController.filteredAlbums}" multiViewState="true" rows="8" paginator="true"
+                                        rowsPerPageTemplate="8,12,16"
+                                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
+                                <p:dataViewListItem>
+                                    <div style="display: flex; align-items: flex-start; padding: 10px">
+                                        <p:commandLink action="album" actionListener="#{listAlbumsController.view(album)}">
+                                            <p:graphicImage value="#{album.imageURL}" style="border-radius: 8px; height: 150px; width: 150px; margin-right: 20px;" />
+                                        </p:commandLink>                                               
+                                        <div>
+                                            <h:outputText style="font-size: 30px;" value="#{album.title}" />
+                                            <div>#{album.genre}</div>
+                                        </div>
+                                    </div>
+                                </p:dataViewListItem>
+                            </p:dataView>
+                        </div>
+                    </div>
                 </div>
+
+
             </ui:define>
 
         </ui:composition>

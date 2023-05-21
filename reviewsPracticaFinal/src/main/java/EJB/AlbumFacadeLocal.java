@@ -6,6 +6,7 @@
 package EJB;
 
 import Modelo.Album;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,11 @@ public interface AlbumFacadeLocal {
     List<Album> findRange(int[] range);
 
     int count();
-    
+
+    List<Album> findByGenre(String filter);
+
+    List<Album> findByDate(Date dateSince, Date dateTo);
+
+    List<Album> orderBy(String order);
+
 }

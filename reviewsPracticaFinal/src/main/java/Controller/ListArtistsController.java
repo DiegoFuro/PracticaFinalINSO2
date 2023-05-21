@@ -99,11 +99,6 @@ public class ListArtistsController implements Serializable {
         this.artist = artist;
     }
 
-    public void resetDates() {
-        dateSince = new Date();
-        dateTo = new Date();
-    }
-
     public List<Artist> getArtists() {
         return artists;
     }
