@@ -6,6 +6,7 @@
 package EJB;
 
 import Modelo.Movie;
+import Modelo.Usuario;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;

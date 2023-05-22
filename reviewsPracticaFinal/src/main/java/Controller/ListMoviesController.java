@@ -48,11 +48,11 @@ public class ListMoviesController implements Serializable {
 
     @PostConstruct
     public void init() {
+        reviews = reviewsEJB.findReviewsMovie();
         dateSince = new Date();
         dateTo = new Date();
         movies = moviesEJB.findAll();
         filterMovies();
-        reviews = reviewsEJB.findReviewsMovie();
     }
 
     public void filterMovies() {

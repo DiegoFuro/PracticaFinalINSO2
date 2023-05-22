@@ -5,6 +5,7 @@
  */
 package EJB;
 
+import Modelo.Movie;
 import Modelo.Review;
 import Modelo.TvShow;
 import java.util.List;
@@ -33,12 +34,10 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
     }
 
     public List<Review> findReviewsTvShow(TvShow tvShow) {
-        System.out.println("ESTOY AQUI: " + tvShow.getTitle());
         String consulta = "FROM Review r WHERE r.tvShow=:param1";
 
         Query query = em.createQuery(consulta);
         query.setParameter("param1", tvShow);
-        System.out.println("CONSULTA: " + query.toString());
         List<Review> resultado = query.getResultList();
 
         return resultado;
@@ -52,6 +51,17 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
         query.setMaxResults(3);
 
         List<Review> resultado = query.getResultList();
+        return resultado;
+    }
+
+    @Override
+    public List<Review> findReviewsMovie(Movie movie) {
+        String consulta = "FROM Review r WHERE r.movie=:param1";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", movie);
+        List<Review> resultado = query.getResultList();
+
         return resultado;
     }
 

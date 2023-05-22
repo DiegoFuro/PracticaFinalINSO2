@@ -32,7 +32,6 @@ public class loginController implements Serializable {
     }
 
     public String verifyUser() {
-        String navegacion = "privado/reviewer/home.xhtml?faces-redirect=true";
         String navegacionMal = "publico/permisosInsuficientes.xhtml?faces-redirect=true";
         Usuario us = new Usuario();
         try {
@@ -44,8 +43,10 @@ public class loginController implements Serializable {
             return navegacionMal;
         }
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
-        System.out.println("Navegacion " + navegacion);
-        return navegacion;
+        if (us.getIdRol().getIdRol() == 1) return "privado/admin/home.xhtml?faces-redirect=true";
+        if (us.getIdRol().getIdRol() == 2) return "privado/reviewer/home.xhtml?faces-redirect=true";
+        if (us.getIdRol().getIdRol() == 3) return "privado/usuario/home.xhtml?faces-redirect=true";
+        else return navegacionMal;
     }
 
     public String redirectRegister() {

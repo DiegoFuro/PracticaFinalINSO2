@@ -5,12 +5,18 @@
  */
 package Controller;
 
+import EJB.MovieFacadeLocal;
+import EJB.ReviewFacadeLocal;
 import Modelo.Movie;
 import Modelo.Review;
+import Modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,13 +36,21 @@ public class MovieController implements Serializable {
     private ListMoviesController listMoviesController;
 
     private List<Review> reviews;
+    private Review newReview;
+
+    @EJB
+    private ReviewFacadeLocal reviewsEJB;
 
     private Movie movie;
     private DonutChartModel donutModel;
+    private String reviewTitle;
+    private String reviewBody;
+    private int reviewRating;
 
     @PostConstruct
     public void init() {
         movie = listMoviesController.getMovie();
+        reviews = reviewsEJB.findReviewsMovie(movie);
         createDonutModel();
     }
 
@@ -59,6 +73,48 @@ public class MovieController implements Serializable {
         data.addChartDataSet(dataSet);
 
         donutModel.setData(data);
+    }
+
+    public void writeReview() {
+        Usuario user = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        newReview = new Review();
+
+        try {
+            newReview.setIdUser(user);
+            newReview.setMovie(movie);
+            newReview.setTitle(reviewTitle);
+            newReview.setBody(reviewBody);
+            newReview.setRating(reviewRating);
+            reviewsEJB.create(newReview);
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public String getReviewTitle() {
+        return reviewTitle;
+    }
+
+    public void setReviewTitle(String reviewTitle) {
+        this.reviewTitle = reviewTitle;
+    }
+
+    public String getReviewBody() {
+        return reviewBody;
+    }
+
+    public void setReviewBody(String reviewBody) {
+        this.reviewBody = reviewBody;
+    }
+
+    public int getReviewRating() {
+        return reviewRating;
+    }
+
+    public void setReviewRating(int reviewRating) {
+        this.reviewRating = reviewRating;
     }
 
     public DonutChartModel getDonutModel() {

@@ -5,6 +5,7 @@
  */
 package EJB;
 
+import Modelo.Movie;
 import Modelo.Review;
 import Modelo.TvShow;
 import java.util.List;
@@ -34,5 +35,7 @@ public interface ReviewFacadeLocal {
     List<Review> findReviewsTvShow(TvShow tvShow);
 
     List<Review> findReviewsMovie();
+
+    List<Review> findReviewsMovie(Movie movie);
 
 }
