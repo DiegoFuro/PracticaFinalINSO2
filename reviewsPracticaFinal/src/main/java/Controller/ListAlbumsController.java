@@ -51,7 +51,7 @@ public class ListAlbumsController implements Serializable {
         dateTo = new Date();
         albums = albumsEJB.findAll();
         filterAlbums();
-        reviews = reviewsEJB.findReviewsMovie();
+        reviews = reviewsEJB.findReviewsAlbums();
     }
 
     public void filterAlbums() {

@@ -51,7 +51,7 @@ public class ListArtistsController implements Serializable {
         dateTo = new Date();
         artists = artistsEJB.findAll();
         filterArtists();
-        reviews = reviewsEJB.findReviewsMovie();
+        reviews = reviewsEJB.findReviewsArtist();
     }
 
     public void filterArtists() {

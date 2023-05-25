@@ -56,7 +56,7 @@ public class ListDocumentaryController implements Serializable {
         dateTo = new Date();
         documentaries = documentariesEJB.findAll();
         filterDocumentaries();
-        reviews = reviewsEJB.findReviewsMovie();
+        reviews = reviewsEJB.findReviewsDocumentary();
     }
 
     public void filterDocumentaries() {

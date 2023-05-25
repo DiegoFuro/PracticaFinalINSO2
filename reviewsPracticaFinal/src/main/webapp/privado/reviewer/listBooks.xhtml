@@ -22,19 +22,19 @@
                     <p:divider/>
                     <div class="card">
                         <h:form id="form">
-                            <p:carousel value="#{listVideogamesController.videogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                            <p:carousel value="#{listBooksController.books}" var="book" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
                                 <div class="product-item-content" style="display: flex;
                                      flex-direction: column;
                                      align-items: center;
                                      justify-content: center;
                                      height: 100%;">
                                     <div>
-                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
-                                            <p:graphicImage value="#{videogame.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
+                                        <p:commandLink action="book" actionListener="#{listBooksController.view(book)}">
+                                            <p:graphicImage value="#{book.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
                                         </p:commandLink>
                                     </div>
                                     <div style="text-align: center">
-                                        <h3>#{videogame.title} </h3>
+                                        <h3>#{book.title} </h3>
                                     </div>
                                 </div>
                             </p:carousel>
@@ -46,88 +46,88 @@
 
                     <div class="card">
                         <h:form>
-                            <p:carousel value="#{listVideogamesController.lastVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                            <p:carousel value="#{listBooksController.lastBooks}" var="book" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
                                 <div class="product-item-content" style="display: flex;
                                      flex-direction: column;
                                      align-items: center;
                                      justify-content: center;
                                      height: 100%;">
                                     <div>
-                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
-                                            <p:graphicImage value="#{videogame.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
+                                        <p:commandLink action="book" actionListener="#{listBooksController.view(book)}">
+                                            <p:graphicImage value="#{book.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
                                         </p:commandLink>
                                     </div>
                                     <div style="text-align: center">
-                                        <h3>#{videogame.title} </h3>
+                                        <h3>#{book.title} </h3>
                                     </div>
                                 </div>
                             </p:carousel>
                         </h:form>
                     </div>
-                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Best-sellers </h1>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Recomendados por puntuación: </h1>
                     <p:divider/>
 
                     <div class="card">
                         <h:form>
-                            <p:carousel value="#{listVideogamesController.bestVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                            <p:carousel value="#{listBooksController.bestBooks}" var="book" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
                                 <div class="product-item-content" style="display: flex;
                                      flex-direction: column;
                                      align-items: center;
                                      justify-content: center;
                                      height: 100%;">
                                     <div>
-                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
-                                            <p:graphicImage value="#{videogame.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
+                                        <p:commandLink action="book" actionListener="#{listBooksController.view(book)}">
+                                            <p:graphicImage value="#{book.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
                                         </p:commandLink>
                                     </div>
                                     <div style="text-align: center">
-                                        <h3>#{videogame.title} </h3>
+                                        <h3>#{book.title} </h3>
                                     </div>
                                 </div>
                             </p:carousel>
                         </h:form>
                     </div>
-                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">¡Fantasía medieval! </h1>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Novela negra: </h1>
                     <p:divider/>
 
                     <div class="card">
                         <h:form>
-                            <p:carousel value="#{listVideogamesController.adventureVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                            <p:carousel value="#{listBooksController.crimeBooks}" var="book" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
                                 <div class="product-item-content" style="display: flex;
                                      flex-direction: column;
                                      align-items: center;
                                      justify-content: center;
                                      height: 100%;">
                                     <div>
-                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
-                                            <p:graphicImage value="#{videogame.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
+                                        <p:commandLink action="book" actionListener="#{listBooksController.view(book)}">
+                                            <p:graphicImage value="#{book.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
                                         </p:commandLink>
                                     </div>
                                     <div style="text-align: center">
-                                        <h3>#{videogame.title} </h3>
+                                        <h3>#{book.title} </h3>
                                     </div>
                                 </div>
                             </p:carousel>
                         </h:form>
                     </div>
-                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Novela policiaca </h1>
+                    <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 30px; padding-left: 20px">Novela juvenil </h1>
                     <p:divider/>
 
                     <div class="card">
                         <h:form>
-                            <p:carousel value="#{listVideogamesController.horrorVideogames}" var="videogame" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
+                            <p:carousel value="#{listBooksController.youthBooks}" var="book" circular="true" autoplayInterval="5000" numVisible="5" numScroll="1">
                                 <div class="product-item-content" style="display: flex;
                                      flex-direction: column;
                                      align-items: center;
                                      justify-content: center;
                                      height: 100%;">
                                     <div>
-                                        <p:commandLink action="videogame" actionListener="#{listVideogamesController.view(videogame)}">
-                                            <p:graphicImage value="#{videogame.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
+                                        <p:commandLink action="book" actionListener="#{listBooksController.view(book)}">
+                                            <p:graphicImage value="#{book.imageURL}" style="border-radius: 8px; max-height: 270px; max-width: 200px"/>
                                         </p:commandLink>
                                     </div>
                                     <div style="text-align: center">
-                                        <h3>#{videogame.title} </h3>
+                                        <h3>#{book.title} </h3>
                                     </div>
                                 </div>
                             </p:carousel>

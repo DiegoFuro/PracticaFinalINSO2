@@ -53,7 +53,7 @@ public class ListTvShowsController implements Serializable {
         dateTo = new Date();
         tvShows = tvShowsEJB.findAll();
         filterTvShows();
-        reviews = reviewsEJB.findReviewsMovie();
+        reviews = reviewsEJB.findReviewsTvShow();
     }
 
     public void view(TvShow tvShow) throws IOException {

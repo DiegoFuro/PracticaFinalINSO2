@@ -52,6 +52,44 @@ public class Review implements Serializable {
     @ManyToOne
     private Movie movie;
 
+    @JoinColumn(name = "idDocumentary")
+    @ManyToOne
+    private Documentary documentary;
+
+    @JoinColumn(name = "idArtist")
+    @ManyToOne
+    private Artist artist;
+    
+    @JoinColumn(name = "idAlbum")
+    @ManyToOne
+    private Album album;
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    
+    
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Documentary getDocumentary() {
+        return documentary;
+    }
+
+    public void setDocumentary(Documentary documentary) {
+        this.documentary = documentary;
+    }
+
     public Movie getMovie() {
         return movie;
     }

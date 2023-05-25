@@ -38,4 +38,13 @@ public interface ReviewFacadeLocal {
 
     List<Review> findReviewsMovie(Movie movie);
 
+    List<Review> findReviewsTvShow();
+
+    List<Review> findReviewsDocumentary();
+    
+    List<Review> findReviewsArtist();
+    
+    List<Review> findReviewsAlbums();
+
+
 }

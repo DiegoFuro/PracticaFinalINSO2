@@ -65,4 +65,48 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
         return resultado;
     }
 
+    @Override
+    public List<Review> findReviewsTvShow() {
+        String consulta = "FROM Review r WHERE r.tvShow IS NOT NULL";
+
+        Query query = em.createQuery(consulta);
+        query.setMaxResults(3);
+
+        List<Review> resultado = query.getResultList();
+        return resultado;
+    }
+
+    @Override
+    public List<Review> findReviewsDocumentary() {
+        String consulta = "FROM Review r WHERE r.documentary IS NOT NULL";
+
+        Query query = em.createQuery(consulta);
+        query.setMaxResults(3);
+
+        List<Review> resultado = query.getResultList();
+        return resultado;
+    }
+    
+    @Override
+    public List<Review> findReviewsArtist() {
+        String consulta = "FROM Review r WHERE r.artist IS NOT NULL";
+
+        Query query = em.createQuery(consulta);
+        query.setMaxResults(3);
+
+        List<Review> resultado = query.getResultList();
+        return resultado;
+    }
+    
+    @Override
+    public List<Review> findReviewsAlbums() {
+        String consulta = "FROM Review r WHERE r.album IS NOT NULL";
+
+        Query query = em.createQuery(consulta);
+        query.setMaxResults(3);
+
+        List<Review> resultado = query.getResultList();
+        return resultado;
+    }
+
 }
