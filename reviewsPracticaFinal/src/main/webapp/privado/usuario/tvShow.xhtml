@@ -26,7 +26,11 @@
                             <h:outputText value="Descripción: "  style="margin-top: 10px; font-weight: bold; font-size: 25px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;"/>
                             <h:outputText value="#{tvShowController.tvShow.description}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
                             <br/>
-                            <p:rating value="#{tvShowController.tvShow.rating}" disabled="true" />
+                            <h:outputText value="Puntuación: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                            <div>
+                                <p:donutChart model="#{tvShowController.donutModel}" style="max-height: 60px !important; max-width: 60px !important" />
+                                <h:outputText value="#{tvShowController.tvShow.rating}" style=" margin-left: 12px; font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                            </div> 
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
@@ -84,7 +88,7 @@
                                                  justify-content: center;
                                                  height: 100%;">
                                                 <div>
-                                                    <p:commandLink action="tvShow" actionListener="#{listTvShowsController.view(tvShow)}">
+                                                    <p:commandLink action="listTvShows" actionListener="#{listTvShowsController.view(tvShow)}">
                                                         <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 270px; max-width: 200px"/>
                                                     </p:commandLink>                                           
                                                 </div>

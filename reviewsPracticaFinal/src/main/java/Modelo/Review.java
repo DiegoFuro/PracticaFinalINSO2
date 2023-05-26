@@ -6,7 +6,6 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -59,10 +56,34 @@ public class Review implements Serializable {
     @JoinColumn(name = "idArtist")
     @ManyToOne
     private Artist artist;
-    
+
     @JoinColumn(name = "idAlbum")
     @ManyToOne
     private Album album;
+
+    @JoinColumn(name = "idBook")
+    @ManyToOne
+    private Book book;
+
+    @JoinColumn(name = "idVideogame")
+    @ManyToOne
+    private Videogame videogame;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Videogame getVideogame() {
+        return videogame;
+    }
+
+    public void setVideogame(Videogame videogame) {
+        this.videogame = videogame;
+    }
 
     public Album getAlbum() {
         return album;
@@ -72,8 +93,6 @@ public class Review implements Serializable {
         this.album = album;
     }
 
-    
-    
     public Artist getArtist() {
         return artist;
     }

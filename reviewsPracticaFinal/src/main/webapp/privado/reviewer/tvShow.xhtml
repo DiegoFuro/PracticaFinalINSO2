@@ -26,7 +26,11 @@
                             <h:outputText value="Descripción: "  style="margin-top: 10px; font-weight: bold; font-size: 25px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;"/>
                             <h:outputText value="#{tvShowController.tvShow.description}" style="font-size: 14px; color: white;  font-family: 'Source Sans Pro', Arial, sans-serif;" />
                             <br/>
-                            <p:rating value="#{tvShowController.tvShow.rating}" disabled="true" />
+                            <h:outputText value="Puntuación: " style="font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                            <div>
+                                <p:donutChart model="#{tvShowController.donutModel}" style="max-height: 60px !important; max-width: 60px !important" />
+                                <h:outputText value="#{tvShowController.tvShow.rating}" style=" margin-left: 12px; font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
+                            </div> 
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
@@ -34,7 +38,37 @@
                 <div class="card" style="margin-top: 40px">
                     <p:tabView style="padding: 20px">
                         <p:tab title="Reseñas">
+                            <div class="card">
+                                <p:accordionPanel>
+                                    <p:tab title="Escribe una nueva reseña...">
+                                        <p:card style="width: auto; margin-bottom: 2em">
+                                            <div class="card">
+                                                <h:form>
+                                                    <h3>Añade un título:</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:inputText value="#{tvShowController.reviewTitle}" style="width: 300px" required="true"/>
+                                                        <p:outputLabel for="@previous" value="Título"/>
+                                                    </span>
+                                                    <h3>Escribe un cuerpo:</h3>
+                                                    <p:inputTextarea value="#{tvShowController.reviewBody}" style="width: 400px" rows="5" cols="30" counter="display" maxlength="400"
+                                                                     counterTemplate="{0} caracteres restantes" autoResize="true" required="true"/>
+                                                    <br/>
+                                                    <h:outputText id="display" class="block" />
+                                                    <div> 
+                                                        <h5>Puntúa</h5>
+                                                        <p:rating value="#{tvShowController.reviewRating}" required="true"/>
+                                                    </div>
+                                                    <div style="margin-top: 20px;"><p:commandButton update="@form" value="Añadir" action="#{tvShowController.writeReview()}"/></div>
+                                                    <p:messages id="messages" showDetail="true">
+                                                        <p:autoUpdate/>
+                                                    </p:messages>
+                                                </h:form>
+                                            </div>
+                                        </p:card>
+                                    </p:tab>
 
+                                </p:accordionPanel>
+                            </div>
                             <ui:fragment rendered="#{empty tvShowController.reviews}">
                                 <p:card style="width: auto; margin-bottom: 2em">
                                     <f:facet name="title">
@@ -84,7 +118,7 @@
                                                  justify-content: center;
                                                  height: 100%;">
                                                 <div>
-                                                    <p:commandLink action="tvShow" actionListener="#{listTvShowsController.view(tvShow)}">
+                                                    <p:commandLink action="listTvShows" actionListener="#{listTvShowsController.view(tvShow)}">
                                                         <p:graphicImage value="#{tvShow.imageURL}" style="max-height: 270px; max-width: 200px"/>
                                                     </p:commandLink>                                           
                                                 </div>

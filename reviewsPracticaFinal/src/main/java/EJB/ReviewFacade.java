@@ -5,9 +5,14 @@
  */
 package EJB;
 
+import Modelo.Album;
+import Modelo.Artist;
+import Modelo.Book;
+import Modelo.Documentary;
 import Modelo.Movie;
 import Modelo.Review;
 import Modelo.TvShow;
+import Modelo.Videogame;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -86,7 +91,7 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
         List<Review> resultado = query.getResultList();
         return resultado;
     }
-    
+
     @Override
     public List<Review> findReviewsArtist() {
         String consulta = "FROM Review r WHERE r.artist IS NOT NULL";
@@ -97,7 +102,7 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
         List<Review> resultado = query.getResultList();
         return resultado;
     }
-    
+
     @Override
     public List<Review> findReviewsAlbums() {
         String consulta = "FROM Review r WHERE r.album IS NOT NULL";
@@ -106,6 +111,61 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
         query.setMaxResults(3);
 
         List<Review> resultado = query.getResultList();
+        return resultado;
+    }
+
+    @Override
+    public List<Review> findReviewsDocumentary(Documentary documentary) {
+        String consulta = "FROM Review r WHERE r.documentary=:param1";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", documentary);
+        List<Review> resultado = query.getResultList();
+
+        return resultado;
+    }
+
+    @Override
+    public List<Review> findReviewsAlbums(Album album) {
+        String consulta = "FROM Review r WHERE r.album=:param1";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", album);
+        List<Review> resultado = query.getResultList();
+
+        return resultado;
+    }
+
+    @Override
+    public List<Review> findReviewsArtist(Artist artist) {
+        String consulta = "FROM Review r WHERE r.artist=:param1";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", artist);
+        List<Review> resultado = query.getResultList();
+
+        return resultado;
+    }
+
+    @Override
+    public List<Review> findReviewsBook(Book book) {
+        String consulta = "FROM Review r WHERE r.book=:param1";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", book);
+        List<Review> resultado = query.getResultList();
+
+        return resultado;
+    }
+    
+    @Override
+    public List<Review> findReviewsVideogame(Videogame videogame) {
+        String consulta = "FROM Review r WHERE r.videogame=:param1";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("param1", videogame);
+        List<Review> resultado = query.getResultList();
+
         return resultado;
     }
 

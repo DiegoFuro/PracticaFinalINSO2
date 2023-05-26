@@ -147,15 +147,17 @@
                     </div>
 
                     <div style="padding: 10px 20px 10px 20px">
-                        <p:carousel circular="true" paginator="false" value="#{listMoviesController.reviews}" var="review">
-                            <f:facet name="header">
-                                <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; margin-left: 40px; font-size: 30px;">Últimas Reseñas:</h1>
-                            </f:facet>
-                            <p:tab>
-                                <h2>#{review.title}</h2>
-                                <h3>#{review.movie.title}</h3>
-                                <p>#{review.body}</p>
-                            </p:tab>
+                        <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; margin-left: 40px; font-size: 30px;">Últimas Reseñas:</h1>
+                        <p:carousel style="text-align: center" circular="true" paginator="false" value="#{listMoviesController.reviews}" var="review" numVisible="3" >
+                            <div class="product-item-content" style="display: flex;
+                                 justify-content: center;
+                                 margin: 10px
+                                 height: 100%;">
+                                <div style="text-align: center;">
+                                    <h3>#{review.title} </h3>
+                                    <b1>#{review.body}</b1>
+                                </div>
+                            </div>
                         </p:carousel>
                     </div>
 

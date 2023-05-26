@@ -5,9 +5,14 @@
  */
 package EJB;
 
+import Modelo.Album;
+import Modelo.Artist;
+import Modelo.Book;
+import Modelo.Documentary;
 import Modelo.Movie;
 import Modelo.Review;
 import Modelo.TvShow;
+import Modelo.Videogame;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -41,10 +46,19 @@ public interface ReviewFacadeLocal {
     List<Review> findReviewsTvShow();
 
     List<Review> findReviewsDocumentary();
-    
+
     List<Review> findReviewsArtist();
-    
+
     List<Review> findReviewsAlbums();
 
+    List<Review> findReviewsDocumentary(Documentary documentary);
+
+    List<Review> findReviewsAlbums(Album album);
+
+    List<Review> findReviewsArtist(Artist artist);
+
+    List<Review> findReviewsBook(Book book);
+
+    List<Review> findReviewsVideogame(Videogame videogame);
 
 }

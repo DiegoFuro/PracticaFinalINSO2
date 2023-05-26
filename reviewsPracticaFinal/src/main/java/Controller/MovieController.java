@@ -65,7 +65,7 @@ public class MovieController implements Serializable {
         dataSet.setData(values);
 
         List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(244, 251, 16)");
+        bgColors.add("rgb(3, 111, 171)");
         bgColors.add("rgb(255, 255, 255, 0)");
 
         dataSet.setBackgroundColor(bgColors);
