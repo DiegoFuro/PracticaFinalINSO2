@@ -69,6 +69,17 @@ public class Review implements Serializable {
     @ManyToOne
     private Videogame videogame;
 
+    @Column(name = "Votes")
+    private int votes;
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
     public Book getBook() {
         return book;
     }

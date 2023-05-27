@@ -51,7 +51,7 @@
                             </ui:fragment>
 
                             <ui:repeat value="#{movieController.reviews}" var="review">
-                                <p:card style="width: auto; margin-bottom: 2em">
+                                <p:card style="width: auto; margin-bottom: 2em;">
                                     <f:facet name="title">
                                         <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
                                         <br/>
@@ -59,6 +59,11 @@
                                         <p:rating value="#{review.rating}" disabled="true" />
                                     </f:facet>
                                     <h:outputText value="#{review.body}"/>
+                                    <div align="right" style="padding: 0 0">
+                                        <h:outputText id="votos" value="Votos: #{review.votes}" style="margin-right: 5px"/>
+                                        <p:commandButton icon="pi pi-arrow-up" action="#{movieController.incrementVotes(review)}" styleClass="rounded-button ui-button-flat" disabled="#{movieController.upVote}" update="votos"/>
+                                        <p:commandButton icon="pi pi-arrow-down" action="#{movieController.decrementVotes(review)}" styleClass="rounded-button ui-button-flat" disabled="#{movieController.downvote}" update="votos"/>
+                                    </div>
                                 </p:card>
                             </ui:repeat>
                         </p:tab>

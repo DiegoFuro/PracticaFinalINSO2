@@ -19,6 +19,8 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -46,6 +48,16 @@ public class ListMoviesController implements Serializable {
     @EJB
     private ReviewFacadeLocal reviewsEJB;
 
+    private Movie newMovie;
+
+    private String movieTitle;
+    private String movieDescription;
+    private int movieRating;
+    private Date movieReleaseDate;
+    private String movieImageUrl;
+    private String movieGenre;
+    private String movieImages;
+
     @PostConstruct
     public void init() {
         reviews = reviewsEJB.findReviewsMovie();
@@ -53,6 +65,30 @@ public class ListMoviesController implements Serializable {
         dateTo = new Date();
         movies = moviesEJB.findAll();
         filterMovies();
+    }
+
+    public void addMovie() {
+        newMovie = new Movie();
+
+        try {
+            newMovie.setTitle(movieTitle);
+            newMovie.setDescription(movieDescription);
+            newMovie.setRating(movieRating);
+            newMovie.setReleaseDate(movieReleaseDate);
+            newMovie.setImageURL(movieImageUrl);
+            newMovie.setGenre(movieGenre);
+            newMovie.setImages(movieImages);
+            moviesEJB.create(newMovie);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        movieTitle = "";
+        movieDescription = "";
+        movieRating = 0;
+        movieImageUrl = "";
+        movieGenre = "";
+        movieImages = "";
     }
 
     public void filterMovies() {
@@ -103,6 +139,70 @@ public class ListMoviesController implements Serializable {
     public void resetDates() {
         dateSince = new Date();
         dateTo = new Date();
+    }
+
+    public Movie getNewMovie() {
+        return newMovie;
+    }
+
+    public void setNewMovie(Movie newMovie) {
+        this.newMovie = newMovie;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public String getMovieDescription() {
+        return movieDescription;
+    }
+
+    public void setMovieDescription(String movieDescription) {
+        this.movieDescription = movieDescription;
+    }
+
+    public int getMovieRating() {
+        return movieRating;
+    }
+
+    public void setMovieRating(int movieRating) {
+        this.movieRating = movieRating;
+    }
+
+    public Date getMovieReleaseDate() {
+        return movieReleaseDate;
+    }
+
+    public void setMovieReleaseDate(Date movieReleaseDate) {
+        this.movieReleaseDate = movieReleaseDate;
+    }
+
+    public String getMovieImageUrl() {
+        return movieImageUrl;
+    }
+
+    public void setMovieImageUrl(String movieImageUrl) {
+        this.movieImageUrl = movieImageUrl;
+    }
+
+    public String getMovieGenre() {
+        return movieGenre;
+    }
+
+    public void setMovieGenre(String movieGenre) {
+        this.movieGenre = movieGenre;
+    }
+
+    public String getMovieImages() {
+        return movieImages;
+    }
+
+    public void setMovieImages(String movieImages) {
+        this.movieImages = movieImages;
     }
 
     public List<Review> getReviews() {

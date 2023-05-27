@@ -7,11 +7,13 @@ package Controller;
 
 import EJB.MovieFacadeLocal;
 import EJB.ReviewFacadeLocal;
+import EJB.VoteFacadeLocal;
 import Modelo.Movie;
 import Modelo.Review;
 import Modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -37,18 +39,28 @@ public class MovieController implements Serializable {
 
     private List<Review> reviews;
     private Review newReview;
+    private Usuario us;
+
+    @EJB
+    private VoteFacadeLocal votesEJB;
 
     @EJB
     private ReviewFacadeLocal reviewsEJB;
 
     private Movie movie;
     private DonutChartModel donutModel;
+    
     private String reviewTitle;
     private String reviewBody;
     private int reviewRating;
+    private boolean upVote;
+    private boolean downvote;
+    
 
     @PostConstruct
     public void init() {
+        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+
         movie = listMoviesController.getMovie();
         reviews = reviewsEJB.findReviewsMovie(movie);
         createDonutModel();
@@ -91,6 +103,34 @@ public class MovieController implements Serializable {
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+    }
+
+    public void incrementVotes(Review review) {
+        review.setVotes(review.getVotes() + 1);
+        reviewsEJB.edit(review);
+        upVote = true;
+    }
+
+    public void decrementVotes(Review review) {
+        review.setVotes(review.getVotes() - 1);
+        reviewsEJB.edit(review);
+        downvote = true;
+    }
+
+    public boolean isUpVote() {
+        return upVote;
+    }
+
+    public void setUpVote(boolean upVote) {
+        this.upVote = upVote;
+    }
+
+    public boolean isDownvote() {
+        return downvote;
+    }
+
+    public void setDownvote(boolean downvote) {
+        this.downvote = downvote;
     }
 
     public String getReviewTitle() {
