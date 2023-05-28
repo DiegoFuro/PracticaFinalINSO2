@@ -46,11 +46,13 @@
                                             <p:datePicker id="hasta" value="#{listArtistsController.dateTo}" showIcon="true"/>
                                             <h:panelGrid columns="2" >
                                                 <p:commandButton value="Buscar" action="#{listArtistsController.filterDates()}" update="data" style="margin-right: 20px" />
-                                                <p:commandButton value="Limpiar" action="#{listArtistsController.filterArtists()}" update="data" />
                                             </h:panelGrid>
                                         </h:panelGrid>
                                     </p:tab>
                                 </p:accordionPanel>
+                                <div style="padding: 10px 0px; text-align: end">
+                                    <p:commandButton value="Limpiar" action="#{listDocumentaryController.filterDocumentaries()}" update="data" />
+                                </div>
                             </h:form>
                             <h:form>
                                 <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 40px; font-size: 30px;">Ordenar:</h1>
@@ -72,13 +74,69 @@
                                     <f:facet name="title">
                                         <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
                                         <br/>
-                                        <h:outputText value="#{review.movie.title}" style="font-size: 14px"/>
+                                        <h:outputText value="#{review.artist.name}" style="font-size: 14px"/>
                                     </f:facet>
                                 </p:card>
                             </ui:repeat>
                         </div>
                         <p:divider layout="vertical" />
                         <div class="col2">
+
+                            <div class="card">
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Añadir un nuevo artista...">
+                                        <p:card style="width: auto; margin-bottom: 2em">
+                                            <div class="card">
+                                                <h:form>
+                                                    <h3>Añade un nombre:</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:inputText value="#{listArtistsController.artistName}" style="width: 400px" required="true"/>
+                                                        <p:outputLabel for="@previous" value="Título"/>
+                                                    </span>
+                                                    <h3>Escribe una descripción:</h3>
+                                                    <p:inputTextarea value="#{listArtistsController.artistDescription}" style="width: 600px" rows="5" cols="30" counter="display" maxlength="400"
+                                                                     counterTemplate="{0} caracteres restantes" autoResize="true" required="true"/>
+                                                    <br/>
+                                                    <h:outputText id="display" class="block" />
+                                                    <div> 
+                                                        <h3>Oyentes mensuales en Spotify:</h3>
+                                                        <span class="ui-float-label">
+                                                            <p:inputText value="#{listArtistsController.artistListeners}" style="width: 400px" required="true"/>
+                                                            <p:outputLabel for="@previous" value="Oyentes"/>                
+                                                        </span>
+                                                    </div>
+                                                    <h3>Añade un estilo:</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:inputText value="#{listArtistsController.artistGenre}" style="width: 300px" required="true"/>
+                                                        <p:outputLabel for="@previous" value="Género"/>
+                                                    </span>
+
+                                                    <div class="card" >
+                                                        <h3>Añade una URL de imagen de portada:</h3>
+                                                        <span class="ui-float-label">
+                                                            <p:inputText value="#{listArtistsController.artistImage}" style="width: 350px" required="true"/>
+                                                            <p:outputLabel for="@previous" value="ImagenURL"/>
+                                                        </span>
+                                                        <h3>Añade una URL de imagen de Cover:</h3>
+                                                        <span class="ui-float-label">
+                                                            <p:inputText value="#{listArtistsController.artistCoverImage}" style="width: 350px" required="true"/>
+                                                            <p:outputLabel for="@previous" value="ImagenCover"/>
+                                                        </span>
+                                                    </div>
+                                                    <div style="margin-top: 20px;">
+                                                        <p:commandButton  value="Añadir" action="#{listArtistsController.addArtist()}" update="data"/>
+                                                    </div>
+                                                    <p:messages id="messages" showDetail="true">
+                                                        <p:autoUpdate/>
+                                                    </p:messages>
+                                                </h:form>
+                                            </div>
+                                        </p:card>
+                                    </p:tab>
+
+                                </p:accordionPanel>
+                            </div>
+
                             <p:dataView id="data" var="artist" value="#{listArtistsController.filteredArtists}" multiViewState="true" rows="8" paginator="true"
                                         rowsPerPageTemplate="8,12,16"
                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -89,12 +147,11 @@
                                         <p:commandLink action="artist" actionListener="#{listArtistsController.view(artist)}">
                                             <p:graphicImage value="#{artist.image}" style="border-radius: 8px; height: 150px; width: 150px; margin-right: 20px;" />
                                         </p:commandLink>                                               
-                                            <div>
-                                                <h:outputText style="font-size: 30px; margin-right: 10px" value="#{artist.ranking}#" />
-                                                <h:outputText style="font-size: 30px;" value="#{artist.name}" />
-                                                <div style="margin-left: 46px">#{artist.genre}</div>
-                                                <div style="margin-left: 46px">#{artist.listeners} oyentes mensuales</div>
-                                            </div>
+                                        <div>
+                                            <h:outputText style="font-size: 30px;" value="#{artist.name}" />
+                                            <div style="margin-left: 20px">#{artist.genre}</div>
+                                            <div style="margin-left: 20px">#{artist.listeners} oyentes mensuales</div>
+                                        </div>
                                     </div>
                                 </p:dataViewListItem>
                             </p:dataView>

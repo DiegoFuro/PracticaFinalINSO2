@@ -67,17 +67,11 @@ public class ArtistFacade extends AbstractFacade<Artist> implements ArtistFacade
             case "Alfabético (Z-A)":
                 consulta += "a.name DESC";
                 break;
-            case "Valoración Ascendente":
-                consulta += "a.ranking ASC";
+            case "Menos-Más Oyentes":
+                consulta += "a.listeners ASC";
                 break;
-            case "Valoración Descendente":
-                consulta += "a.ranking DESC";
-                break;
-            case "Fecha - Antiguas Primero":
-                consulta += "a.birthDate ASC";
-                break;
-            case "Fecha - Nuevas Primero":
-                consulta += "a.birthDate DESC";
+            case "Más-Menos Oyentes":
+                consulta += "a.listeners DESC";
                 break;
             default:
                 consulta = "FROM Artist a";

@@ -6,8 +6,10 @@
 package Controller;
 
 import EJB.AlbumFacadeLocal;
+import EJB.ArtistFacadeLocal;
 import EJB.ReviewFacadeLocal;
 import Modelo.Album;
+import Modelo.Artist;
 import Modelo.Review;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -45,6 +49,21 @@ public class ListAlbumsController implements Serializable {
     @EJB
     private ReviewFacadeLocal reviewsEJB;
 
+    @EJB
+    private ArtistFacadeLocal artistsEJB;
+
+    private Album newAlbum;
+
+    private String albumTitle;
+    private String albumDescription;
+    private int albumRating;
+    private Date albumReleaseDate;
+    private String albumImageUrl;
+    private String albumGenre;
+    private int albumNumberSongs;
+
+    private Artist artist;
+
     @PostConstruct
     public void init() {
         dateSince = new Date();
@@ -52,6 +71,30 @@ public class ListAlbumsController implements Serializable {
         albums = albumsEJB.findAll();
         filterAlbums();
         reviews = reviewsEJB.findReviewsAlbums();
+    }
+
+    public void addAlbum() {
+        newAlbum = new Album();
+
+        try {
+            newAlbum.setTitle(albumTitle);
+            newAlbum.setDescription(albumDescription);
+            newAlbum.setRating(albumRating);
+            newAlbum.setReleaseDate(albumReleaseDate);
+            newAlbum.setNumberSongs(albumNumberSongs);
+            newAlbum.setImageURL(albumImageUrl);
+            newAlbum.setIdArtist(artist);
+            newAlbum.setGenre(albumGenre);
+            albumsEJB.create(newAlbum);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        albumTitle = "";
+        albumDescription = "";
+        albumRating = 0;
+        albumImageUrl = "";
+        albumGenre = "";
     }
 
     public void filterAlbums() {
@@ -91,12 +134,88 @@ public class ListAlbumsController implements Serializable {
         return new ArrayList<>(genres);
     }
 
+    public List<Artist> getArtistList() {
+        return artistsEJB.findAll();
+    }
+
     public void order() {
         filteredAlbums = albumsEJB.orderBy(order);
     }
 
     public void view(Album album) {
         this.album = album;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Album getNewAlbum() {
+        return newAlbum;
+    }
+
+    public void setNewAlbum(Album newAlbum) {
+        this.newAlbum = newAlbum;
+    }
+
+    public String getAlbumTitle() {
+        return albumTitle;
+    }
+
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
+    }
+
+    public String getAlbumDescription() {
+        return albumDescription;
+    }
+
+    public void setAlbumDescription(String albumDescription) {
+        this.albumDescription = albumDescription;
+    }
+
+    public int getAlbumRating() {
+        return albumRating;
+    }
+
+    public void setAlbumRating(int albumRating) {
+        this.albumRating = albumRating;
+    }
+
+    public Date getAlbumReleaseDate() {
+        return albumReleaseDate;
+    }
+
+    public void setAlbumReleaseDate(Date albumReleaseDate) {
+        this.albumReleaseDate = albumReleaseDate;
+    }
+
+    public String getAlbumImageUrl() {
+        return albumImageUrl;
+    }
+
+    public void setAlbumImageUrl(String albumImageUrl) {
+        this.albumImageUrl = albumImageUrl;
+    }
+
+    public String getAlbumGenre() {
+        return albumGenre;
+    }
+
+    public void setAlbumGenre(String albumGenre) {
+        this.albumGenre = albumGenre;
+    }
+
+    public int getAlbumNumberSongs() {
+        return albumNumberSongs;
+    }
+
+    public void setAlbumNumberSongs(int albumNumberSongs) {
+        this.albumNumberSongs = albumNumberSongs;
     }
 
     public List<Album> getAlbums() {

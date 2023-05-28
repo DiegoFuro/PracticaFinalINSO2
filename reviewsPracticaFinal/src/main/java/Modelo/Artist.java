@@ -31,22 +31,15 @@ public class Artist implements Serializable {
     @Column(name = "Description")
     private String description;
 
-    @Column(name = "BirthDate")
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
-
     @Column(name = "Genre")
     private String genre;
 
     @Column(name = "Image")
     private String image;
 
-    @Column(name = "Ranking")
-    private int ranking;
-
     @Column(name = "Listeners")
     private String listeners;
-    
+
     @Column(name = "CoverImage")
     private String coverImage;
 
@@ -82,14 +75,6 @@ public class Artist implements Serializable {
         this.image = image;
     }
 
-    public int getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(int ranking) {
-        this.ranking = ranking;
-    }
-
     public int getIdArtist() {
         return idArtist;
     }
@@ -114,21 +99,12 @@ public class Artist implements Serializable {
         this.description = description;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 97 * hash + this.idArtist;
         hash = 97 * hash + Objects.hashCode(this.name);
         hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.birthDate);
         return hash;
     }
 
@@ -153,10 +129,12 @@ public class Artist implements Serializable {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.birthDate, other.birthDate)) {
-            return false;
-        }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return  name;
     }
 
 }

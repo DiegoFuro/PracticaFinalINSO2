@@ -41,7 +41,7 @@
                     <p:tabView style="padding: 20px">
                         <p:tab title="Reseñas">
                             <div class="card">
-                                <p:accordionPanel>
+                                <p:accordionPanel activeIndex="-1">
                                     <p:tab title="Escribe una nueva reseña...">
                                         <p:card style="width: auto; margin-bottom: 2em">
                                             <div class="card">
@@ -61,15 +61,14 @@
                                                         <p:rating value="#{movieController.reviewRating}" required="true"/>
                                                     </div>
                                                     <div style="margin-top: 20px;"><p:commandButton update="@form" value="Añadir" action="#{movieController.writeReview()}"/></div>
-                                                    <p:messages id="messages" showDetail="true">
-                                                        <p:autoUpdate/>
-                                                    </p:messages>
                                                 </h:form>
                                             </div>
                                         </p:card>
                                     </p:tab>
-
                                 </p:accordionPanel>
+                                <p:messages id="messages" showDetail="true">
+                                    <p:autoUpdate/>
+                                </p:messages>
                             </div>
 
 
@@ -91,6 +90,9 @@
                                         <p:rating value="#{review.rating}" disabled="true" />
                                     </f:facet>
                                     <h:outputText value="#{review.body}"/>
+                                    <div align="right">
+                                        <p:commandButton icon="pi pi-trash" action="#{movieController.deleteReview(review)}" styleClass="ui-button-danger" title="Eliminar" />
+                                    </div>
                                 </p:card>
                             </ui:repeat>
                         </p:tab>

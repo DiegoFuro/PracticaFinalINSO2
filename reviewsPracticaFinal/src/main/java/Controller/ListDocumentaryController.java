@@ -6,12 +6,9 @@
 package Controller;
 
 import EJB.DocumentaryFacadeLocal;
-import EJB.MovieFacadeLocal;
 import EJB.ReviewFacadeLocal;
 import Modelo.Documentary;
-import Modelo.Movie;
 import Modelo.Review;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +18,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -50,6 +48,16 @@ public class ListDocumentaryController implements Serializable {
     @EJB
     private ReviewFacadeLocal reviewsEJB;
 
+    private Documentary newDocumentary;
+
+    private String documentaryTitle;
+    private String documentaryDescription;
+    private int documentaryRating;
+    private Date documentaryReleaseDate;
+    private String documentaryImageUrl;
+    private String documentaryGenre;
+    private String documentaryImages;
+
     @PostConstruct
     public void init() {
         dateSince = new Date();
@@ -67,6 +75,7 @@ public class ListDocumentaryController implements Serializable {
             filteredDocumentaries = documentariesEJB.findByGenre(filter);
             filter = "";
         }
+        
     }
 
     public void filterDates() {
@@ -96,6 +105,30 @@ public class ListDocumentaryController implements Serializable {
         return new ArrayList<>(genres);
     }
 
+    public void addDocumentary() {
+        newDocumentary = new Documentary();
+
+        try {
+            newDocumentary.setTitle(documentaryTitle);
+            newDocumentary.setDescription(documentaryDescription);
+            newDocumentary.setRating(documentaryRating);
+            newDocumentary.setReleaseDate(documentaryReleaseDate);
+            newDocumentary.setImageURL(documentaryImageUrl);
+            newDocumentary.setGenre(documentaryGenre);
+            newDocumentary.setImages(documentaryImages);
+            documentariesEJB.create(newDocumentary);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        documentaryTitle = "";
+        documentaryDescription = "";
+        documentaryRating = 0;
+        documentaryImageUrl = "";
+        documentaryGenre = "";
+        documentaryImages = "";
+    }
+
     public void order() {
         filteredDocumentaries = documentariesEJB.orderBy(order);
     }
@@ -103,6 +136,72 @@ public class ListDocumentaryController implements Serializable {
     public void view(Documentary documentary) {
         this.documentary = documentary;
     }
+
+    public Documentary getNewDocumentary() {
+        return newDocumentary;
+    }
+
+    public void setNewDocumentary(Documentary newDocumentary) {
+        this.newDocumentary = newDocumentary;
+    }
+
+    public String getDocumentaryTitle() {
+        return documentaryTitle;
+    }
+
+    public void setDocumentaryTitle(String documentaryTitle) {
+        this.documentaryTitle = documentaryTitle;
+    }
+
+    public String getDocumentaryDescription() {
+        return documentaryDescription;
+    }
+
+    public void setDocumentaryDescription(String documentaryDescription) {
+        this.documentaryDescription = documentaryDescription;
+    }
+
+    public int getDocumentaryRating() {
+        return documentaryRating;
+    }
+
+    public void setDocumentaryRating(int documentaryRating) {
+        this.documentaryRating = documentaryRating;
+    }
+
+    public Date getDocumentaryReleaseDate() {
+        return documentaryReleaseDate;
+    }
+
+    public void setDocumentaryReleaseDate(Date documentaryReleaseDate) {
+        this.documentaryReleaseDate = documentaryReleaseDate;
+    }
+
+    public String getDocumentaryImageUrl() {
+        return documentaryImageUrl;
+    }
+
+    public void setDocumentaryImageUrl(String documentaryImageUrl) {
+        this.documentaryImageUrl = documentaryImageUrl;
+    }
+
+    public String getDocumentaryGenre() {
+        return documentaryGenre;
+    }
+
+    public void setDocumentaryGenre(String documentaryGenre) {
+        this.documentaryGenre = documentaryGenre;
+    }
+
+    public String getDocumentaryImages() {
+        return documentaryImages;
+    }
+
+    public void setDocumentaryImages(String documentaryImages) {
+        this.documentaryImages = documentaryImages;
+    }
+    
+    
 
     public String getOrder() {
         return order;

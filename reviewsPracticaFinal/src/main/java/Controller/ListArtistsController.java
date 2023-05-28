@@ -18,6 +18,8 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -44,6 +46,15 @@ public class ListArtistsController implements Serializable {
     private ArtistFacadeLocal artistsEJB;
     @EJB
     private ReviewFacadeLocal reviewsEJB;
+
+    private Artist newArtist;
+
+    private String artistName;
+    private String artistListeners;
+    private String artistDescription;
+    private String artistGenre;
+    private String artistImage;
+    private String artistCoverImage;
 
     @PostConstruct
     public void init() {
@@ -76,10 +87,8 @@ public class ListArtistsController implements Serializable {
         Set<String> orders = new HashSet<>();
         orders.add("Alfabético (A-Z)");
         orders.add("Alfabético (Z-A)");
-        orders.add("Valoración Ascendente");
-        orders.add("Valoración Descendente");
-        orders.add("Fecha - Nuevas Primero");
-        orders.add("Fecha - Antiguas Primero");
+        orders.add("Más-Menos Oyentes");
+        orders.add("Menos-Más Oyentes");
         return new ArrayList<>(orders);
     }
 
@@ -95,8 +104,87 @@ public class ListArtistsController implements Serializable {
         filteredArtists = artistsEJB.orderBy(order);
     }
 
+    public void addArtist() {
+        newArtist = new Artist();
+
+        try {
+            newArtist.setName(artistName);
+            newArtist.setListeners(artistListeners);
+            newArtist.setDescription(artistDescription);
+            newArtist.setGenre(artistGenre);
+            newArtist.setImage(artistImage);
+            newArtist.setCoverImage(artistCoverImage);
+            artistsEJB.create(newArtist);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        artistName = "";
+        artistListeners = "";
+        artistDescription = "";
+        artistGenre = "";
+        artistImage = "";
+        artistCoverImage = "";
+    }
+
     public void view(Artist artist) {
         this.artist = artist;
+    }
+
+    public Artist getNewArtist() {
+        return newArtist;
+    }
+
+    public void setNewArtist(Artist newArtist) {
+        this.newArtist = newArtist;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
+    public String getArtistListeners() {
+        return artistListeners;
+    }
+
+    public void setArtistListeners(String artistListeners) {
+        this.artistListeners = artistListeners;
+    }
+
+    public String getArtistDescription() {
+        return artistDescription;
+    }
+
+    public void setArtistDescription(String artistDescription) {
+        this.artistDescription = artistDescription;
+    }
+
+    public String getArtistGenre() {
+        return artistGenre;
+    }
+
+    public void setArtistGenre(String artistGenre) {
+        this.artistGenre = artistGenre;
+    }
+
+    public String getArtistImage() {
+        return artistImage;
+    }
+
+    public void setArtistImage(String artistImage) {
+        this.artistImage = artistImage;
+    }
+
+    public String getArtistCoverImage() {
+        return artistCoverImage;
+    }
+
+    public void setArtistCoverImage(String artistCoverImage) {
+        this.artistCoverImage = artistCoverImage;
     }
 
     public List<Artist> getArtists() {

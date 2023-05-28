@@ -20,6 +20,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -46,6 +48,16 @@ public class ListTvShowsController implements Serializable {
     private TvShowFacadeLocal tvShowsEJB;
     @EJB
     private ReviewFacadeLocal reviewsEJB;
+
+    private TvShow newTvShow;
+
+    private String tvShowTitle;
+    private String tvShowDescription;
+    private int tvShowRating;
+    private Date tvShowReleaseDate;
+    private String tvShowImageUrl;
+    private String tvShowGenre;
+    private String tvShowImages;
 
     @PostConstruct
     public void init() {
@@ -99,6 +111,94 @@ public class ListTvShowsController implements Serializable {
 
     public void order() {
         filteredTvShows = tvShowsEJB.orderBy(order);
+    }
+
+    public void addtvShow() {
+        newTvShow = new TvShow();
+
+        try {
+            newTvShow.setTitle(tvShowTitle);
+            newTvShow.setDescription(tvShowDescription);
+            newTvShow.setRating(tvShowRating);
+            newTvShow.setReleaseDate(tvShowReleaseDate);
+            newTvShow.setImageURL(tvShowImageUrl);
+            newTvShow.setGenre(tvShowGenre);
+            newTvShow.setImages(tvShowImages);
+            tvShowsEJB.create(newTvShow);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        tvShowTitle = "";
+        tvShowDescription = "";
+        tvShowRating = 0;
+        tvShowImageUrl = "";
+        tvShowGenre = "";
+        tvShowImages = "";
+    }
+
+    public TvShow getNewTvShow() {
+        return newTvShow;
+    }
+
+    public void setNewTvShow(TvShow newTvShow) {
+        this.newTvShow = newTvShow;
+    }
+
+    public String getTvShowTitle() {
+        return tvShowTitle;
+    }
+
+    public void setTvShowTitle(String tvShowTitle) {
+        this.tvShowTitle = tvShowTitle;
+    }
+
+    public String getTvShowDescription() {
+        return tvShowDescription;
+    }
+
+    public void setTvShowDescription(String tvShowDescription) {
+        this.tvShowDescription = tvShowDescription;
+    }
+
+    public int getTvShowRating() {
+        return tvShowRating;
+    }
+
+    public void setTvShowRating(int tvShowRating) {
+        this.tvShowRating = tvShowRating;
+    }
+
+    public Date getTvShowReleaseDate() {
+        return tvShowReleaseDate;
+    }
+
+    public void setTvShowReleaseDate(Date tvShowReleaseDate) {
+        this.tvShowReleaseDate = tvShowReleaseDate;
+    }
+
+    public String getTvShowImageUrl() {
+        return tvShowImageUrl;
+    }
+
+    public void setTvShowImageUrl(String tvShowImageUrl) {
+        this.tvShowImageUrl = tvShowImageUrl;
+    }
+
+    public String getTvShowGenre() {
+        return tvShowGenre;
+    }
+
+    public void setTvShowGenre(String tvShowGenre) {
+        this.tvShowGenre = tvShowGenre;
+    }
+
+    public String getTvShowImages() {
+        return tvShowImages;
+    }
+
+    public void setTvShowImages(String tvShowImages) {
+        this.tvShowImages = tvShowImages;
     }
 
     public String getOrder() {

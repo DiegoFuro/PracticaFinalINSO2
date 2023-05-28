@@ -39,6 +39,36 @@
                 <div class="card" style="margin-top: 40px">
                     <p:tabView style="padding: 20px">
                         <p:tab title="Reseñas">
+                            <div class="card">
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Escribe una nueva reseña...">
+                                        <p:card style="width: auto; margin-bottom: 2em">
+                                            <div class="card">
+                                                <h:form>
+                                                    <h3>Añade un título:</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:inputText value="#{documentaryController.reviewTitle}" style="width: 300px" required="true"/>
+                                                        <p:outputLabel for="@previous" value="Título"/>
+                                                    </span>
+                                                    <h3>Escribe un cuerpo:</h3>
+                                                    <p:inputTextarea value="#{documentaryController.reviewBody}" style="width: 400px" rows="5" cols="30" counter="display" maxlength="400"
+                                                                     counterTemplate="{0} caracteres restantes" autoResize="true" required="true"/>
+                                                    <br/>
+                                                    <h:outputText id="display" class="block" />
+                                                    <div> 
+                                                        <h5>Puntúa</h5>
+                                                        <p:rating value="#{documentaryController.reviewRating}" required="true"/>
+                                                    </div>
+                                                    <div style="margin-top: 20px;"><p:commandButton update="@form" value="Añadir" action="#{documentaryController.writeReview()}"/></div>
+                                                </h:form>
+                                            </div>
+                                        </p:card>
+                                    </p:tab>
+                                </p:accordionPanel>
+                                <p:messages id="messages" showDetail="true">
+                                    <p:autoUpdate/>
+                                </p:messages>
+                            </div>
 
                             <ui:fragment rendered="#{empty documentaryController.reviews}">
                                 <p:card style="width: auto; margin-bottom: 2em">
@@ -58,6 +88,9 @@
                                         <p:rating value="#{review.rating}" disabled="true" />
                                     </f:facet>
                                     <h:outputText value="#{review.body}"/>
+                                    <div align="right">
+                                        <p:commandButton icon="pi pi-trash" action="#{documentaryController.deleteReview(review)}" styleClass="ui-button-danger" title="Eliminar" />
+                                    </div>
                                 </p:card>
                             </ui:repeat>
                         </p:tab>
@@ -89,7 +122,7 @@
                                                  justify-content: center;
                                                  height: 100%;">
                                                 <div>
-                                                    <p:commandLink action="documentary" actionListener="#{listDocumentaryController.view(documentaries)}">
+                                                    <p:commandLink action="listDocumentary" actionListener="#{listDocumentaryController.view(documentaries)}">
                                                         <p:graphicImage value="#{documentaries.imageURL}" style="max-height: 270px; max-width: 200px"/>
                                                     </p:commandLink>                                           
                                                 </div>

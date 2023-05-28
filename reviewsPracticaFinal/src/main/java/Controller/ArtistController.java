@@ -72,6 +72,15 @@ public class ArtistController implements Serializable {
         }
     }
 
+    public void deleteReview(Review review) {
+        try {
+            reviewsEJB.remove(review);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
     public Review getNewReview() {
         return newReview;
     }

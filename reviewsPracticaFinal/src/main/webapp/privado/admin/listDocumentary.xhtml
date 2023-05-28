@@ -45,11 +45,13 @@
                                             <p:datePicker id="hasta" value="#{listDocumentaryController.dateTo}" showIcon="true"/>
                                             <h:panelGrid columns="2" >
                                                 <p:commandButton value="Buscar" action="#{listDocumentaryController.filterDates()}" update="data" style="margin-right: 20px" />
-                                                <p:commandButton value="Limpiar" action="#{listDocumentaryController.filterDocumentaries()}" update="data" />
                                             </h:panelGrid>
                                         </h:panelGrid>
                                     </p:tab>
                                 </p:accordionPanel>
+                                <div style="padding: 10px 0px; text-align: end">
+                                    <p:commandButton value="Limpiar" action="#{listDocumentaryController.filterDocumentaries()}" update="data" />
+                                </div>
                             </h:form>
                             <h:form>
                                 <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: 600; margin-top: 40px; font-size: 30px;">Ordenar:</h1>
@@ -71,13 +73,71 @@
                                     <f:facet name="title">
                                         <h:outputText value="#{review.title}" style="font-size: 30px; font-weight: bold"/>
                                         <br/>
-                                        <h:outputText value="#{review.movie.title}" style="font-size: 14px"/>
+                                        <h:outputText value="#{review.documentary.title}" style="font-size: 14px"/>
                                     </f:facet>
                                 </p:card>
                             </ui:repeat>
                         </div>
                         <p:divider layout="vertical" />
                         <div class="col2">
+                            <div class="card">
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Añadir un nuevo documental...">
+                                        <p:card style="width: auto; margin-bottom: 2em">
+                                            <div class="card">
+                                                <h:form>
+                                                    <h3>Añade un título:</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:inputText value="#{listDocumentaryController.documentaryTitle}" style="width: 400px" required="true"/>
+                                                        <p:outputLabel for="@previous" value="Título"/>
+                                                    </span>
+                                                    <h3>Escribe una descripción:</h3>
+                                                    <p:inputTextarea value="#{listDocumentaryController.documentaryDescription}" style="width: 600px" rows="5" cols="30" counter="display" maxlength="400"
+                                                                     counterTemplate="{0} caracteres restantes" autoResize="true" required="true"/>
+                                                    <br/>
+                                                    <h:outputText id="display" class="block" />
+                                                    <div> 
+                                                        <h5>Puntúa:</h5>
+                                                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                                                            <p:inputText id="sliderTxtMin" value="#{listDocumentaryController.documentaryRating}"/>
+                                                            <p:slider for="sliderTxtMin"/>
+                                                        </h:panelGrid>                                                   
+                                                    </div>
+                                                    <h3>Añade un género:</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:inputText value="#{listDocumentaryController.documentaryGenre}" style="width: 300px" required="true"/>
+                                                        <p:outputLabel for="@previous" value="Género"/>
+                                                    </span>
+                                                    <h3>Fecha de estreno</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:datePicker id="hasta" value="#{listDocumentaryController.documentaryReleaseDate}" showIcon="true"/>
+                                                    </span>
+
+                                                    <div class="card" >
+                                                        <h3>Añade una URL de imagen de portada:</h3>
+                                                        <span class="ui-float-label">
+                                                            <p:inputText value="#{listDocumentaryController.documentaryImageUrl}" style="width: 350px" required="true"/>
+                                                            <p:outputLabel for="@previous" value="ImagenURL"/>
+                                                        </span>
+                                                        <h3>Añade una URL de imagen de Cover:</h3>
+                                                        <span class="ui-float-label">
+                                                            <p:inputText value="#{listDocumentaryController.documentaryImages}" style="width: 350px" required="true"/>
+                                                            <p:outputLabel for="@previous" value="ImagenCover"/>
+                                                        </span>
+                                                    </div>
+                                                    <div style="margin-top: 20px;">
+                                                        <p:commandButton  value="Añadir" action="#{listDocumentaryController.addDocumentary()}" update="data"/>
+                                                    </div>
+                                                    <p:messages id="messages" showDetail="true">
+                                                        <p:autoUpdate/>
+                                                    </p:messages>
+                                                </h:form>
+                                            </div>
+                                        </p:card>
+                                    </p:tab>
+
+                                </p:accordionPanel>
+                            </div>
                             <p:dataView  id="data" var="documentaries" value="#{listDocumentaryController.filteredDocumentaries}" rows="8" paginator="true"
                                          rowsPerPageTemplate="8,12,16"
                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

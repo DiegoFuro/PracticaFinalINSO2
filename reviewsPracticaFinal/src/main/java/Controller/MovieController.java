@@ -49,13 +49,12 @@ public class MovieController implements Serializable {
 
     private Movie movie;
     private DonutChartModel donutModel;
-    
+
     private String reviewTitle;
     private String reviewBody;
     private int reviewRating;
     private boolean upVote;
     private boolean downvote;
-    
 
     @PostConstruct
     public void init() {
@@ -100,6 +99,15 @@ public class MovieController implements Serializable {
             reviewsEJB.create(newReview);
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteReview(Review review) {
+        try {
+            reviewsEJB.remove(review);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
