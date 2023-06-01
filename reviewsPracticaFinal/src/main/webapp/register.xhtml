@@ -82,8 +82,8 @@
                         <p:panelGrid columns="3">
 
                             <p:outputLabel  for="selectRol" value="Introduzca rol de usuario "/>
-                            <p:selectOneMenu id="selectRol" value="#{registerController.idRol}">
-                                <f:selectItems value="#{registerController.rols}" var="rol" itemLabel="#{rol.description}" itemValue="#{rol.idRol}" />
+                            <p:selectOneMenu id="selectRol" value="#{registerController.rol}">
+                                <f:selectItems value="#{registerController.rols}" var="rol" itemLabel="#{rol.description}" itemValue="#{rol.hashCode}" />
                             </p:selectOneMenu>
                             <p:message for="selectRol"/>
 

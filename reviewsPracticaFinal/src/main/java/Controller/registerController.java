@@ -34,7 +34,6 @@ public class registerController implements Serializable {
 
     private Rol rol;
 
-    private Usuario newUser;
     private List<Rol> rols;
 
     @EJB
@@ -49,24 +48,20 @@ public class registerController implements Serializable {
     }
 
     public String registerUser() {
-        rol = rolEJB.find(idRol);
-        newUser = new Usuario();
-
+        Usuario newUser = new Usuario();
         try {
             newUser.setName(name);
             newUser.setLastName(lastName);
             newUser.setUser(user);
             newUser.setPassword(password);
             newUser.setIdRol(rol);
-            System.out.println("LASTNAME: " + name);
-            System.out.println("NAME: " + lastName);
-            System.out.println("USER: " + user);
-            System.out.println("PASSWORD: " + password);
-            System.out.println("ROL: " + rol.getDescription());
-
-            userEJB.create(newUser);
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registro correctamente", "Se registro"));
+            if (!checkNameNumbers(newUser.getName())) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en el usuario", "El Nombre no puede contener números"));
+                return "";
+            } else {
+                userEJB.create(newUser);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registro correctamente", "Se registro"));
+            }
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
@@ -75,6 +70,14 @@ public class registerController implements Serializable {
 
     public boolean checkNameNumbers(String name) {
         return !name.matches(".*\\d.*");
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public String getUser() {
@@ -115,14 +118,6 @@ public class registerController implements Serializable {
 
     public void setIdRol(int idRol) {
         this.idRol = idRol;
-    }
-
-    public Usuario getNewUser() {
-        return newUser;
-    }
-
-    public void setNewUser(Usuario newUser) {
-        this.newUser = newUser;
     }
 
     public List<Rol> getRols() {
