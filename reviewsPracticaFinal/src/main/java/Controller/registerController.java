@@ -58,6 +58,12 @@ public class registerController implements Serializable {
             newUser.setUser(user);
             newUser.setPassword(password);
             newUser.setIdRol(rol);
+            System.out.println("LASTNAME: " + name);
+            System.out.println("NAME: " + lastName);
+            System.out.println("USER: " + user);
+            System.out.println("PASSWORD: " + password);
+            System.out.println("ROL: " + rol.getDescription());
+
             userEJB.create(newUser);
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registro correctamente", "Se registro"));
@@ -65,6 +71,10 @@ public class registerController implements Serializable {
             System.out.println("ERROR: " + e.getMessage());
         }
         return "index.xhtml?faces-redirect=true";
+    }
+
+    public boolean checkNameNumbers(String name) {
+        return !name.matches(".*\\d.*");
     }
 
     public String getUser() {
