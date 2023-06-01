@@ -109,12 +109,33 @@ public class ArtistController implements Serializable {
         albumRating = 0;
         albumImageURL = "";
         albumGenre = "";
-        albumNumberOfSongs=0;
+        albumNumberOfSongs = 0;
     }
 
     public void deleteReview(Review review) {
         try {
             reviewsEJB.remove(review);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteArtist() {
+        try {
+            for (Review review : reviews) {
+                reviewsEJB.remove(review);
+            }
+            artistsEJB.remove(artist);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteAlbum(Album album) {
+        try {
+            albumsEJB.remove(album);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());

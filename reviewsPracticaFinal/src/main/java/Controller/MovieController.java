@@ -42,6 +42,9 @@ public class MovieController implements Serializable {
     private Usuario us;
 
     @EJB
+    private MovieFacadeLocal moviesEJB;
+
+    @EJB
     private VoteFacadeLocal votesEJB;
 
     @EJB
@@ -99,6 +102,18 @@ public class MovieController implements Serializable {
             reviewsEJB.create(newReview);
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteMovie() {
+        try {
+            for (Review review : reviews) {
+                reviewsEJB.remove(review);
+            }
+            moviesEJB.remove(movie);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }

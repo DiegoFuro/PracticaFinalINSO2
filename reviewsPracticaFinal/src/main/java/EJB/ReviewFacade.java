@@ -72,7 +72,7 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
 
     @Override
     public List<Review> findReviewsTvShow() {
-        String consulta = "FROM Review r WHERE r.tvShow IS NOT NULL";
+        String consulta = "FROM Review r WHERE r.tvShow IS NOT NULL ORDER BY r.tvShow DESC";
 
         Query query = em.createQuery(consulta);
         query.setMaxResults(3);
@@ -157,7 +157,7 @@ public class ReviewFacade extends AbstractFacade<Review> implements ReviewFacade
 
         return resultado;
     }
-    
+
     @Override
     public List<Review> findReviewsVideogame(Videogame videogame) {
         String consulta = "FROM Review r WHERE r.videogame=:param1";

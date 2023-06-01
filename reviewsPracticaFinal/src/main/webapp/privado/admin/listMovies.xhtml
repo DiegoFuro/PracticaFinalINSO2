@@ -8,7 +8,10 @@
 
     <body>
 
-
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{listMoviesController.init()}" />
+        </f:metadata>
+        
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
             <ui:define name="content">
 
@@ -51,7 +54,7 @@
                                     </p:tab>
                                 </p:accordionPanel>
                                 <div style="padding: 10px 0px; text-align: end">
-                                    <p:commandButton value="Limpiar" action="#{listDocumentaryController.filterDocumentaries()}" update="data" />
+                                    <p:commandButton value="Limpiar" action="#{listMoviesController.filterMovies()}" update="data" />
                                 </div>
                             </h:form>
                             <h:form>

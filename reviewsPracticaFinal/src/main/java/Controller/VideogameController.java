@@ -6,6 +6,7 @@
 package Controller;
 
 import EJB.ReviewFacadeLocal;
+import EJB.VideogameFacadeLocal;
 import Modelo.Review;
 import Modelo.TvShow;
 import Modelo.Usuario;
@@ -42,6 +43,9 @@ public class VideogameController implements Serializable {
 
     @EJB
     private ReviewFacadeLocal reviewsEJB;
+
+    @EJB
+    private VideogameFacadeLocal videogamesEJB;
 
     private Videogame videogame;
     private DonutChartModel donutModel;
@@ -98,6 +102,18 @@ public class VideogameController implements Serializable {
         try {
             reviewsEJB.remove(review);
             FacesContext.getCurrentInstance().addMessage("messages2", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteVideogame() {
+        try {
+            for (Review review : reviews) {
+                reviewsEJB.remove(review);
+            }
+            videogamesEJB.remove(videogame);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
