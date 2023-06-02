@@ -11,6 +11,7 @@ import EJB.VoteFacadeLocal;
 import Modelo.Movie;
 import Modelo.Review;
 import Modelo.Usuario;
+import Modelo.Vote;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,11 +58,11 @@ public class MovieController implements Serializable {
     private String reviewBody;
     private int reviewRating;
     private boolean upVote;
-    private boolean downvote;
+    private boolean downVote;
 
     @PostConstruct
     public void init() {
-        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 
         movie = listMoviesController.getMovie();
         reviews = reviewsEJB.findReviewsMovie(movie);
@@ -121,23 +122,62 @@ public class MovieController implements Serializable {
 
     public void deleteReview(Review review) {
         try {
+            votesEJB.removeVotes(review);
             reviewsEJB.remove(review);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
+    
+    public boolean consultVote(Review review) {
+        return votesEJB.consultVote(us, review);
+    }
 
+    public boolean consultVote2(Review review) {
+        return votesEJB.consultVote2(us, review);
+    }
+    
     public void incrementVotes(Review review) {
-        review.setVotes(review.getVotes() + 1);
+        boolean hayDowns = deleteDownVote(review);
+        Vote newVote = new Vote();
+        newVote.setReview(review);
+        newVote.setUser(us);
+        newVote.setVote('U');
+
+        votesEJB.create(newVote);
+        if (hayDowns) {
+            review.setVotes(review.getVotes() + 2);
+        } else {
+            review.setVotes(review.getVotes() + 1);
+        }
         reviewsEJB.edit(review);
         upVote = true;
     }
 
     public void decrementVotes(Review review) {
-        review.setVotes(review.getVotes() - 1);
+        boolean hayUps = deleteUpVote(review);
+        Vote newVote = new Vote();
+        newVote.setReview(review);
+        newVote.setUser(us);
+        newVote.setVote('D');
+
+        votesEJB.create(newVote);
+        if (hayUps) {
+            review.setVotes(review.getVotes() - 2);
+        } else {
+            review.setVotes(review.getVotes() - 1);
+        }
         reviewsEJB.edit(review);
-        downvote = true;
+        downVote = true;
+    }
+
+    public boolean deleteUpVote(Review review) {
+        return votesEJB.deleteUserVoteUp(review, us);
+    }
+
+    private boolean deleteDownVote(Review review) {
+        return votesEJB.deleteUserVoteDown(review, us);
     }
 
     public boolean isUpVote() {
@@ -148,12 +188,12 @@ public class MovieController implements Serializable {
         this.upVote = upVote;
     }
 
-    public boolean isDownvote() {
-        return downvote;
+    public boolean isDownVote() {
+        return downVote;
     }
 
-    public void setDownvote(boolean downvote) {
-        this.downvote = downvote;
+    public void setDownvote(boolean downVote) {
+        this.downVote = downVote;
     }
 
     public String getReviewTitle() {

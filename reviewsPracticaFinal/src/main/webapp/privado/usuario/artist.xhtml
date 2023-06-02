@@ -63,6 +63,11 @@
                                         <p:rating value="#{review.rating}" disabled="true" />
                                     </f:facet>
                                     <h:outputText value="#{review.body}"/>
+                                    <div align="right" style="padding: 0 0">
+                                        <h:outputText id="votos" value="Votos: #{review.votes}" style="margin-right: 5px"/>
+                                        <p:commandButton icon="pi pi-arrow-up" action="#{movieController.incrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote(review)}" update="votos"/>
+                                        <p:commandButton icon="pi pi-arrow-down" action="#{movieController.decrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote2(review)}" update="votos"/>
+                                    </div>
                                 </p:card>
                             </ui:repeat>
                         </p:tab>

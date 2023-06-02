@@ -31,7 +31,15 @@ public interface VoteFacadeLocal {
     List<Vote> findRange(int[] range);
 
     int count();
-    
+
     boolean consultVote(Usuario user, Review review);
-    
+
+    boolean consultVote2(Usuario user, Review review);
+
+    boolean deleteUserVoteUp(Review review, Usuario us);
+
+    boolean deleteUserVoteDown(Review review, Usuario us);
+
+    void removeVotes(Review review);
+
 }
