@@ -62,7 +62,10 @@ public class registerController implements Serializable {
             if (!checkNameNumbers(newUser.getName())) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en el usuario", "El Nombre no puede contener números"));
                 return "";
-            } else {
+            } else if(!checkUser(newUser.getUser())){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en el user", "El Nombre de usuario solo debe tener letra, números y _"));
+                return "";
+            }else {
                 userEJB.create(newUser);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registro correctamente", "Se registro"));
             }
@@ -83,6 +86,16 @@ public class registerController implements Serializable {
     public boolean checkNameNumbers(String name) {
         return !name.matches(".*\\d.*");
     }
+    
+    public boolean checkUser(String name) {
+        char[] letters = name.toCharArray();
+        for (int i = 0; i < letters.length; i++) {
+            String letterStr = String.valueOf(letters[i]);
+            if(!letterStr.matches("[a-zA-Z0-9_]")){
+                return false;
+            }
+        }
+        return true;    }
 
     public String getRolString() {
         return rolString;
@@ -163,5 +176,4 @@ public class registerController implements Serializable {
     public void setRolEJB(RolFacadeLocal rolEJB) {
         this.rolEJB = rolEJB;
     }
-
 }
