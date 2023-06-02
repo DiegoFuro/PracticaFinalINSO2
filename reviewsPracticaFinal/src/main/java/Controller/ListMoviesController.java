@@ -60,6 +60,7 @@ public class ListMoviesController implements Serializable {
 
     @PostConstruct
     public void init() {
+        System.out.println("MOVIEEEE");
         reviews = reviewsEJB.findReviewsMovie();
         dateSince = new Date();
         dateTo = new Date();

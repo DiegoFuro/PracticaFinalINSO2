@@ -8,6 +8,10 @@
 
     <body>
 
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{listMoviesController.init()}" />
+        </f:metadata>
+
 
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
             <ui:define name="content">
@@ -17,7 +21,7 @@
                         <h1 style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px; ">Peliculas</h1>
                     </div>
                 </p:card>
-                
+
                 <div class="container">
                     <div class="fila">
                         <div class="col1">

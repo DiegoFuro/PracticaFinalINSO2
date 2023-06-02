@@ -21,6 +21,68 @@
                 <div style="display: flex; flex-direction: column; margin-top: 20px; padding: 0px 60px 20px 60px">
                     <h:outputText value="Descripción" style="font-family: 'Source Sans Pro', Arial, sans-serif; font-weight: bold; font-size: 50px;"/>
                     <h:outputText value="#{artistController.artist.description}" style="font-family: 'Source Sans Pro', Arial, sans-serif; font-size: 16px;"/>
+                    <p:commandButton value="Eliminar artista" style="width: 180px; margin-top: 20px " action="#{artistController.deleteArtist()}" icon="pi pi-trash" styleClass="ui-button-danger" />
+                </div>
+
+                <div class="card"  style="padding-left: 60px; padding-right: 60px">
+                    <p:accordionPanel activeIndex="-1">
+                        <p:tab title="Añadir un nuevo álbum...">
+                            <p:card style="width: auto; margin-bottom: 2em">
+                                <div class="card">
+                                    <h:form>
+                                        <h3>Añade un titulo</h3>
+                                        <span class="ui-float-label">
+                                            <p:inputText value="#{artistController.albumTitle}" style="width: 400px" required="true"/>
+                                            <p:outputLabel for="@previous" value="Título"/>
+                                        </span>
+                                        <h3>Escribe una descripción:</h3>
+                                        <p:inputTextarea value="#{artistController.albumDescription}" style="width: 600px" rows="5" cols="30" counter="display" maxlength="400"
+                                                         counterTemplate="{0} caracteres restantes" autoResize="true" required="true"/>
+                                        <br/>
+                                        <h:outputText id="display" class="block" />
+                                        <div> 
+                                            <h3>Numero de canciones:</h3>
+                                            <span class="ui-float-label">
+                                                <p:inputText value="#{artistController.albumNumberOfSongs}" style="width: 400px" required="true"/>
+                                                <p:outputLabel for="@previous" value="Número canciones"/>                
+                                            </span>
+                                        </div>
+                                        <h3>Fecha de publicación</h3>
+                                        <span class="ui-float-label">
+                                            <p:datePicker id="hasta" value="#{artistController.albumReleaseDate}" showIcon="true"/>
+                                        </span>
+                                        <div> 
+                                            <h5>Puntúa:</h5>
+                                            <h:panelGrid columns="1" style="margin-bottom: 10px">
+                                                <p:inputText id="sliderTxtMin" value="#{artistController.albumRating}"/>
+                                                <p:slider for="sliderTxtMin"/>
+                                            </h:panelGrid>                                                   
+                                        </div>
+                                        <h3>Añade un estilo:</h3>
+                                        <span class="ui-float-label">
+                                            <p:inputText value="#{artistController.albumGenre}" style="width: 300px" required="true"/>
+                                            <p:outputLabel for="@previous" value="Género"/>
+                                        </span>
+
+                                        <div class="card" >
+                                            <h3>Añade una URL de imagen de portada:</h3>
+                                            <span class="ui-float-label">
+                                                <p:inputText value="#{artistController.albumImageURL}" style="width: 350px" required="true"/>
+                                                <p:outputLabel for="@previous" value="ImagenURL"/>
+                                            </span>
+                                        </div>
+                                        <div style="margin-top: 20px;">
+                                            <p:commandButton  value="Añadir" action="#{artistController.addAlbum()}" update="data"/>
+                                        </div>
+                                        <p:messages id="messages" showDetail="true">
+                                            <p:autoUpdate/>
+                                        </p:messages>
+                                    </h:form>
+                                </div>
+                            </p:card>
+                        </p:tab>
+
+                    </p:accordionPanel>
                 </div>
 
                 <p:dataView id="data" var="album" value="#{artistController.albums}" style="padding-left: 60px; padding-right: 60px">
@@ -36,6 +98,7 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                 </div>
+                                <p:commandButton icon="pi pi-trash" action="#{artistController.deleteAlbum(album)}" styleClass="ui-button-danger" title="Eliminar" />
                             </div>
                         </div>
                     </p:dataViewListItem>
@@ -92,8 +155,11 @@
                                         <p:rating value="#{review.rating}" disabled="true" />
                                     </f:facet>
                                     <h:outputText value="#{review.body}"/>
-                                    <div align="right">
-                                        <p:commandButton icon="pi pi-trash" action="#{artistController.deleteReview(review)}" styleClass="ui-button-danger" title="Eliminar" />
+                                    <div align="right" style="padding: 0 0">
+                                        <h:outputText id="votos" value="Votos: #{review.votes}" style="margin-right: 5px"/>
+                                        <p:commandButton icon="pi pi-arrow-up" action="#{movieController.incrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote(review)}" update="votos"/>
+                                        <p:commandButton icon="pi pi-arrow-down" action="#{movieController.decrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote2(review)}" update="votos"/>
+                                        <p:commandButton icon="pi pi-trash" action="#{movieController.deleteReview(review)}" styleClass="ui-button-danger" title="Eliminar" />
                                     </div>
                                 </p:card>
                             </ui:repeat>

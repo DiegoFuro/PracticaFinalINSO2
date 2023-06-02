@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      style="height:100%"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Reviewify</title>
+    </h:head>
+
+    <style>
+        body {
+            background-image: url("https://www.xtrafondos.com/wallpapers/mar-de-soledad-9782.jpg");
+            background-size: cover;
+        }
+
+        body .ui-panel .ui-panel-titlebar {
+            border: none;
+            background-color: #036FAB;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            font-size: 20px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px
+        }
+       
+        .centered-div {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
+    <h:body style="display: flex; flex-direction: column; height: 100%; margin: 0;">
+        <div style="flex: 0 0 auto">
+
+            <h:form>
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar style="background-color: #036FAB; border: none">
+                    <p:toolbarGroup>
+                        <h:graphicImage library="img" name="Reviewify.png" width="225px" />
+                    </p:toolbarGroup>
+
+                    <p:toolbarGroup align="right">
+                        <p:commandButton value="Volver al login" action="index.xhtml?faces-redirect=true}" />
+
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </h:form>
+
+        </div>
+
+        <div class="card">
+            <p:tooltip/>
+            <h:form>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+            </h:form>
+        </div>
+
+        <div style="display: flex; padding: 80px; justify-content: center;">
+            <div>
+                <div class="centered-div" style="width: 1000px; margin-right: 20px">
+                    <h:form>
+                        <p:fieldset legend="¿QUIENES SOMOS?" style="width: 1200px">
+                            Bienvenido/a a Reviewify, tu plataforma de valoraciones de confianza para películas,
+                            series, libros y videojuegos. En Reviewify, creemos en el poder de las opiniones 
+                            auténticas y en la importancia de brindar a los usuarios una guía confiable para 
+                            descubrir contenido de calidad.<br /><br />
+
+                            
+                            En un mundo cada vez más saturado de opciones, sabemos lo difícil que puede ser 
+                            encontrar el próximo éxito cinematográfico, la serie más adictiva, el libro más 
+                            inspirador o el videojuego que te mantendrá pegado/a a la pantalla durante horas.                         
+                            
+                            Es por eso que en Reviewify nos hemos propuesto simplificar este proceso al 
+                            proporcionarte reseñas genuinas y fundamentadas.<br /><br />
+
+                            Nos basamos en dos pilares fundamentales para asegurar la calidad de nuestras 
+                            valoraciones: los reviewers especializados y la opinión de la comunidad de 
+                            usuarios. Nuestro equipo de reviewers está compuesto por expertos apasionados 
+                            por el cine, las series, la literatura y los videojuegos, quienes analizan y 
+                            evalúan cada obra con dedicación y conocimiento. Sus opiniones imparciales y 
+                            fundamentadas te brindan una visión objetiva y completa del contenido que deseas 
+                            explorar.
+                            Pero no solo nos basamos en las opiniones de nuestros expertos. También valoramos 
+                            la perspectiva de nuestra comunidad de usuarios, quienes comparten sus propias 
+                            experiencias y opiniones sobre películas, series, libros y videojuegos. Creemos 
+                            en la importancia de fomentar el intercambio de ideas y permitir que la diversidad 
+                            de voces enriquezca el proceso de toma de decisiones.<br /><br />
+
+                            En Reviewify, nos enorgullece ofrecerte una plataforma intuitiva y fácil de usar, 
+                            donde puedes descubrir reseñas detalladas, puntuaciones objetivas y comentarios 
+                            auténticos de otros amantes del entretenimiento. Nuestro objetivo es ayudarte a 
+                            tomar decisiones informadas y encontrar el contenido que mejor se adapte a tus 
+                            gustos y preferencias.<br /><br />
+
+                            Valoramos la transparencia, la honestidad y la confianza en todo lo que hacemos. 
+                            Cada reseña publicada en Reviewify sigue estrictos estándares de calidad y 
+                            veracidad. Nos esforzamos por mantener la imparcialidad y asegurar que nuestras
+                            valoraciones sean útiles y confiables para ti.<br /><br />
+
+                            ¡Gracias por unirte a la comunidad de Reviewify! Estamos emocionados de ser 
+                            tu compañero confiable en tu búsqueda de las mejores películas, series, libros 
+                            y videojuegos. Explora nuestras reseñas, comparte tus opiniones y descubre un 
+                            mundo de entretenimiento de calidad.
+                        </p:fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>

@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import EJB.BookFacadeLocal;
 import EJB.ReviewFacadeLocal;
 import Modelo.Book;
 import Modelo.Review;
@@ -39,6 +40,9 @@ public class BookController implements Serializable {
 
     @EJB
     private ReviewFacadeLocal reviewsEJB;
+
+    @EJB
+    private BookFacadeLocal booksEJB;
 
     private Book book;
     private DonutChartModel donutModel;
@@ -87,6 +91,27 @@ public class BookController implements Serializable {
             reviewsEJB.create(newReview);
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteReview(Review review) {
+        try {
+            reviewsEJB.remove(review);
+            FacesContext.getCurrentInstance().addMessage("messages2", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteBook() {
+        try {
+            for (Review review : reviews) {
+                reviewsEJB.remove(review);
+            }
+            booksEJB.remove(book);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }

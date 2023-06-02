@@ -7,6 +7,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{listAlbumsController.init()}" />
+        </f:metadata>
 
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
@@ -80,67 +83,6 @@
                         </div>
                         <p:divider layout="vertical" />
                         <div class="col2">
-                            <div class="card">
-                                <p:accordionPanel activeIndex="-1">
-                                    <p:tab title="Añadir un nuevo álbum...">
-                                        <p:card style="width: auto; margin-bottom: 2em">
-                                            <div class="card">
-                                                <h:form>
-                                                    <h3>Añade un título:</h3>
-                                                    <span class="ui-float-label">
-                                                        <p:inputText value="#{listAlbumsController.albumTitle}" style="width: 400px" required="true"/>
-                                                        <p:outputLabel for="@previous" value="Título"/>
-                                                    </span>
-                                                    <h3>Escribe una descripción:</h3>
-                                                    <p:inputTextarea value="#{listAlbumsController.albumDescription}" style="width: 600px" rows="5" cols="30" counter="display" maxlength="400"
-                                                                     counterTemplate="{0} caracteres restantes" autoResize="true" required="true"/>
-                                                    <br/>
-                                                    <h:outputText id="display" class="block" />
-                                                    <div> 
-                                                        <h5>Puntúa:</h5>
-                                                        <h:panelGrid columns="1" style="margin-bottom: 10px">
-                                                            <p:inputText id="sliderTxtMin" value="#{listAlbumsController.albumRating}"/>
-                                                            <p:slider for="sliderTxtMin"/>
-                                                        </h:panelGrid>                                                   
-                                                    </div>
-                                                    <h3>Añade un género:</h3>
-                                                    <span class="ui-float-label">
-                                                        <p:inputText value="#{listAlbumsController.albumGenre}" style="width: 300px" required="true"/>
-                                                        <p:outputLabel for="@previous" value="Género"/>
-                                                    </span>
-                                                    <h3>Fecha de estreno</h3>
-                                                    <span class="ui-float-label">
-                                                        <p:datePicker id="hasta" value="#{listAlbumsController.albumReleaseDate}" showIcon="true"/>
-                                                    </span>
-
-                                                    <div class="card" >
-                                                        <h3>Añade una URL de imagen de portada:</h3>
-                                                        <span class="ui-float-label">
-                                                            <p:inputText value="#{listAlbumsController.albumImageUrl}" style="width: 350px" required="true"/>
-                                                            <p:outputLabel for="@previous" value="ImagenURL"/>
-                                                        </span>
-                                                        <h3>Añade un artista:</h3>
-                                                        <span class="ui-float-label">
-                                                            <p:selectOneMenu value="#{listAlbumsController.artist}" style="margin-right: 20px">
-                                                                <f:selectItem itemLabel="Seleccione uno" itemValue="" />
-                                                                <f:selectItems value="#{listAlbumsController.artistList}" />
-                                                            </p:selectOneMenu>
-                                                        </span>
-                                                    </div>
-                                                    <div style="margin-top: 20px;">
-                                                        <p:commandButton  value="Añadir" action="#{listAlbumsController.addAlbum()}" update="data"/>
-                                                    </div>
-                                                    <p:messages id="messages" showDetail="true">
-                                                        <p:autoUpdate/>
-                                                    </p:messages>
-                                                </h:form>
-                                            </div>
-                                        </p:card>
-                                    </p:tab>
-
-                                </p:accordionPanel>
-
-                            </div>
                             <p:dataView id="data" var="album" value="#{listAlbumsController.filteredAlbums}" multiViewState="true" rows="8" paginator="true"
                                         rowsPerPageTemplate="8,12,16"
                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

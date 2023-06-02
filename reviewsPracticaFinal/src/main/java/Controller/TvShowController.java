@@ -6,6 +6,7 @@
 package Controller;
 
 import EJB.ReviewFacadeLocal;
+import EJB.TvShowFacadeLocal;
 import Modelo.Review;
 import Modelo.TvShow;
 import Modelo.Usuario;
@@ -39,6 +40,9 @@ public class TvShowController implements Serializable {
 
     @EJB
     private ReviewFacadeLocal reviewsEJB;
+
+    @EJB
+    private TvShowFacadeLocal tvShowsEJB;
 
     private DonutChartModel donutModel;
     private TvShow tvShow;
@@ -87,6 +91,18 @@ public class TvShowController implements Serializable {
             reviewsEJB.create(newReview);
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteTvShow() {
+        try {
+            for (Review review : reviews) {
+                reviewsEJB.remove(review);
+            }
+            tvShowsEJB.remove(tvShow);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }

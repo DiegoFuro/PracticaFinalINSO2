@@ -11,7 +11,7 @@
         <ui:composition template="./../../WEB-INF/template/platillaReviews.xhtml">
 
             <ui:define name="content">
-                <p:card style=" background-color:#036FAB; width: 100%; color: white; margin-bottom: 2em; height: 320px">
+                <p:card style="background-image: url(#{albumController.album.idArtist.coverImage}); background-size: cover; background-position: 50% 40%; width: 100%; color: white; margin-bottom: 2em; height: 320px">
                     <div style="display: flex; align-items: flex-start; padding: 10px">
                         <p:graphicImage value="#{albumController.album.imageURL}" style="border-radius: 8px; height: 250px; width: 250px; margin-right: 40px;" />
                         <div>
@@ -31,7 +31,36 @@
                 <div class="card" style="margin-top: 40px">
                     <p:tabView style="padding: 20px">
                         <p:tab title="Reseñas">
-
+                            <div class="card">
+                                <p:accordionPanel activeIndex="-1">
+                                    <p:tab title="Escribe una nueva reseña...">
+                                        <p:card style="width: auto; margin-bottom: 2em">
+                                            <div class="card">
+                                                <h:form>
+                                                    <h3>Añade un título:</h3>
+                                                    <span class="ui-float-label">
+                                                        <p:inputText value="#{albumController.reviewTitle}" style="width: 300px" required="true"/>
+                                                        <p:outputLabel for="@previous" value="Título"/>
+                                                    </span>
+                                                    <h3>Escribe un cuerpo:</h3>
+                                                    <p:inputTextarea value="#{albumController.reviewBody}" style="width: 400px" rows="5" cols="30" counter="display" maxlength="400"
+                                                                     counterTemplate="{0} caracteres restantes" autoResize="true" required="true"/>
+                                                    <br/>
+                                                    <h:outputText id="display" class="block" />
+                                                    <div> 
+                                                        <h5>Puntúa</h5>
+                                                        <p:rating value="#{albumController.reviewRating}" required="true"/>
+                                                    </div>
+                                                    <div style="margin-top: 20px;"><p:commandButton update="@form" value="Añadir" action="#{albumController.writeReview()}"/></div>
+                                                </h:form>
+                                            </div>
+                                        </p:card>
+                                    </p:tab>
+                                </p:accordionPanel>
+                                <p:messages id="messages" showDetail="true">
+                                    <p:autoUpdate/>
+                                </p:messages>
+                            </div>
                             <ui:fragment rendered="#{empty albumController.reviews}">
                                 <p:card style="width: auto; margin-bottom: 2em">
                                     <f:facet name="title">
@@ -50,6 +79,12 @@
                                         <p:rating value="#{review.rating}" disabled="true" />
                                     </f:facet>
                                     <h:outputText value="#{review.body}"/>
+                                    <div align="right" style="padding: 0 0">
+                                        <h:outputText id="votos" value="Votos: #{review.votes}" style="margin-right: 5px"/>
+                                        <p:commandButton icon="pi pi-arrow-up" action="#{movieController.incrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote(review)}" update="votos"/>
+                                        <p:commandButton icon="pi pi-arrow-down" action="#{movieController.decrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote2(review)}" update="votos"/>
+                                        <p:commandButton icon="pi pi-trash" action="#{movieController.deleteReview(review)}" styleClass="ui-button-danger" title="Eliminar" />
+                                    </div>
                                 </p:card>
                             </ui:repeat>
                         </p:tab>

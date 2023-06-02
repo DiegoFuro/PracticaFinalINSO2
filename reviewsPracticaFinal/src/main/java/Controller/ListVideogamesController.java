@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -48,6 +50,16 @@ public class ListVideogamesController implements Serializable {
     @EJB
     private VideogameFacadeLocal videogamesEJB;
 
+    private Videogame newVideogame;
+
+    private String videogameTitle;
+    private String videogameDescription;
+    private int videogameRating;
+    private Date videogameReleaseDate;
+    private String videogameImageUrl;
+    private String videogameGenre;
+    private String videogameImages;
+
     @PostConstruct
     public void init() {
 
@@ -61,6 +73,94 @@ public class ListVideogamesController implements Serializable {
 
     public void view(Videogame videogame) throws IOException {
         this.videogame = videogame;
+    }
+    
+     public void addVideogame() {
+        newVideogame = new Videogame();
+
+        try {
+            newVideogame.setTitle(videogameTitle);
+            newVideogame.setDescription(videogameDescription);
+            newVideogame.setRating(videogameRating);
+            newVideogame.setReleaseDate(videogameReleaseDate);
+            newVideogame.setImageURL(videogameImageUrl);
+            newVideogame.setGenre(videogameGenre);
+            newVideogame.setImages(videogameImages);
+            videogamesEJB.create(newVideogame);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        videogameTitle = "";
+        videogameDescription = "";
+        videogameRating = 0;
+        videogameImageUrl = "";
+        videogameGenre = "";
+        videogameImages = "";
+    }
+
+    public Videogame getNewVideogame() {
+        return newVideogame;
+    }
+
+    public void setNewVideogame(Videogame newVideogame) {
+        this.newVideogame = newVideogame;
+    }
+
+    public String getVideogameTitle() {
+        return videogameTitle;
+    }
+
+    public void setVideogameTitle(String videogameTitle) {
+        this.videogameTitle = videogameTitle;
+    }
+
+    public String getVideogameDescription() {
+        return videogameDescription;
+    }
+
+    public void setVideogameDescription(String videogameDescription) {
+        this.videogameDescription = videogameDescription;
+    }
+
+    public int getVideogameRating() {
+        return videogameRating;
+    }
+
+    public void setVideogameRating(int videogameRating) {
+        this.videogameRating = videogameRating;
+    }
+
+    public Date getVideogameReleaseDate() {
+        return videogameReleaseDate;
+    }
+
+    public void setVideogameReleaseDate(Date videogameReleaseDate) {
+        this.videogameReleaseDate = videogameReleaseDate;
+    }
+
+    public String getVideogameImageUrl() {
+        return videogameImageUrl;
+    }
+
+    public void setVideogameImageUrl(String videogameImageUrl) {
+        this.videogameImageUrl = videogameImageUrl;
+    }
+
+    public String getVideogameGenre() {
+        return videogameGenre;
+    }
+
+    public void setVideogameGenre(String videogameGenre) {
+        this.videogameGenre = videogameGenre;
+    }
+
+    public String getVideogameImages() {
+        return videogameImages;
+    }
+
+    public void setVideogameImages(String videogameImages) {
+        this.videogameImages = videogameImages;
     }
 
     public List<Videogame> getHorrorVideogames() {
@@ -79,7 +179,6 @@ public class ListVideogamesController implements Serializable {
         this.adventureVideogames = adventureVideogames;
     }
 
-    
     public List<Videogame> getBestVideogames() {
         return bestVideogames;
     }

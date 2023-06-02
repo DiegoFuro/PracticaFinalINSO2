@@ -32,6 +32,7 @@
                                 <p:donutChart model="#{documentaryController.donutModel}" style="max-height: 60px !important; max-width: 60px !important" />
                                 <h:outputText value="#{documentaryController.documentary.rating}" style=" margin-left: 12px; font-weight: bold; font-size: 25px; color: white; font-family: 'Source Sans Pro', Arial, sans-serif;" />
                             </div>       
+                            <p:commandButton value="Eliminar documental" action="#{documentaryController.deleteDocumentary()}" icon="pi pi-trash" styleClass="ui-button-danger" />
                         </h:panelGrid>
                     </h:panelGrid>
                 </div>
@@ -88,8 +89,11 @@
                                         <p:rating value="#{review.rating}" disabled="true" />
                                     </f:facet>
                                     <h:outputText value="#{review.body}"/>
-                                    <div align="right">
-                                        <p:commandButton icon="pi pi-trash" action="#{documentaryController.deleteReview(review)}" styleClass="ui-button-danger" title="Eliminar" />
+                                    <div align="right" style="padding: 0 0">
+                                        <h:outputText id="votos" value="Votos: #{review.votes}" style="margin-right: 5px"/>
+                                        <p:commandButton icon="pi pi-arrow-up" action="#{movieController.incrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote(review)}" update="votos"/>
+                                        <p:commandButton icon="pi pi-arrow-down" action="#{movieController.decrementVotes(review)}" styleClass="rounded-button ui-button-flat ui-button-warning" disabled="#{movieController.consultVote2(review)}" update="votos"/>
+                                        <p:commandButton icon="pi pi-trash" action="#{movieController.deleteReview(review)}" styleClass="ui-button-danger" title="Eliminar" />
                                     </div>
                                 </p:card>
                             </ui:repeat>

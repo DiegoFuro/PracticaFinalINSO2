@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import EJB.AlbumFacadeLocal;
 import EJB.ArtistFacadeLocal;
 import EJB.ReviewFacadeLocal;
 import Modelo.Album;
@@ -12,6 +13,7 @@ import Modelo.Artist;
 import Modelo.Review;
 import Modelo.Usuario;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -42,10 +44,23 @@ public class ArtistController implements Serializable {
     @EJB
     private ReviewFacadeLocal reviewsEJB;
 
+    @EJB
+    private AlbumFacadeLocal albumsEJB;
+
     private Artist artist;
     private String reviewTitle;
     private String reviewBody;
     private int reviewRating;
+
+    private Album newAlbum;
+
+    private String albumTitle;
+    private String albumDescription;
+    private int albumNumberOfSongs;
+    private Date albumReleaseDate;
+    private int albumRating;
+    private String albumImageURL;
+    private String albumGenre;
 
     @PostConstruct
     public void init() {
@@ -72,6 +87,31 @@ public class ArtistController implements Serializable {
         }
     }
 
+    public void addAlbum() {
+        newAlbum = new Album();
+
+        try {
+            newAlbum.setTitle(albumTitle);
+            newAlbum.setDescription(albumDescription);
+            newAlbum.setRating(albumRating);
+            newAlbum.setReleaseDate(albumReleaseDate);
+            newAlbum.setImageURL(albumImageURL);
+            newAlbum.setGenre(albumGenre);
+            newAlbum.setIdArtist(artist);
+            newAlbum.setNumberSongs(albumNumberOfSongs);
+            albumsEJB.create(newAlbum);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        albumTitle = "";
+        albumDescription = "";
+        albumRating = 0;
+        albumImageURL = "";
+        albumGenre = "";
+        albumNumberOfSongs = 0;
+    }
+
     public void deleteReview(Review review) {
         try {
             reviewsEJB.remove(review);
@@ -79,6 +119,99 @@ public class ArtistController implements Serializable {
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+    }
+
+    public void deleteArtist() {
+        try {
+            for (Review review : reviews) {
+                reviewsEJB.remove(review);
+            }
+            artistsEJB.remove(artist);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteAlbum(Album album) {
+        try {
+            albumsEJB.remove(album);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public ListArtistsController getListArtistsController() {
+        return listArtistsController;
+    }
+
+    public void setListArtistsController(ListArtistsController listArtistsController) {
+        this.listArtistsController = listArtistsController;
+    }
+
+    public Album getNewAlbum() {
+        return newAlbum;
+    }
+
+    public void setNewAlbum(Album newAlbum) {
+        this.newAlbum = newAlbum;
+    }
+
+    public String getAlbumTitle() {
+        return albumTitle;
+    }
+
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
+    }
+
+    public String getAlbumDescription() {
+        return albumDescription;
+    }
+
+    public void setAlbumDescription(String albumDescription) {
+        this.albumDescription = albumDescription;
+    }
+
+    public int getAlbumNumberOfSongs() {
+        return albumNumberOfSongs;
+    }
+
+    public void setAlbumNumberOfSongs(int albumNumberOfSongs) {
+        this.albumNumberOfSongs = albumNumberOfSongs;
+    }
+
+    public Date getAlbumReleaseDate() {
+        return albumReleaseDate;
+    }
+
+    public void setAlbumReleaseDate(Date albumReleaseDate) {
+        this.albumReleaseDate = albumReleaseDate;
+    }
+
+    public int getAlbumRating() {
+        return albumRating;
+    }
+
+    public void setAlbumRating(int albumRating) {
+        this.albumRating = albumRating;
+    }
+
+    public String getAlbumImageURL() {
+        return albumImageURL;
+    }
+
+    public void setAlbumImageURL(String albumImageURL) {
+        this.albumImageURL = albumImageURL;
+    }
+
+    public String getAlbumGenre() {
+        return albumGenre;
+    }
+
+    public void setAlbumGenre(String albumGenre) {
+        this.albumGenre = albumGenre;
     }
 
     public Review getNewReview() {

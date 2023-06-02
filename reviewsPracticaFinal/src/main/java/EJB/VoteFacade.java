@@ -35,15 +35,67 @@ public class VoteFacade extends AbstractFacade<Vote> implements VoteFacadeLocal 
 
     @Override
     public boolean consultVote(Usuario user, Review review) {
-        String consulta = "SELECT v.up FROM Vote v WHERE v.user=:param1 and u.review=:param2";
+        String consulta = "SELECT COUNT(v) FROM Vote v WHERE v.user = :usuario AND v.review = :review AND v.vote = 'U'";
+        Query query = em.createQuery(consulta);
+
+        query.setParameter("usuario", user);
+        query.setParameter("review", review);
+        Long count = (Long) query.getSingleResult();
+        System.out.println("COUNT: " + count);
+        return count > 0;
+    }
+
+    @Override
+    public boolean consultVote2(Usuario user, Review review) {
+        String consulta = "SELECT COUNT(v) FROM Vote v WHERE v.user = :usuario AND v.review = :review AND v.vote = 'D'";
+        Query query = em.createQuery(consulta);
+
+        query.setParameter("usuario", user);
+        query.setParameter("review", review);
+        Long count = (Long) query.getSingleResult();
+        System.out.println("COUNT: " + count);
+        return count > 0;
+    }
+
+    @Override
+    public boolean deleteUserVoteUp(Review review, Usuario us) {
+        String consulta = "DELETE FROM Vote v WHERE v.user = :usuario AND v.review = :review AND v.vote = 'U'";
 
         Query query = em.createQuery(consulta);
-        query.setParameter("param1", user);
-        query.setParameter("param2", review);
 
-        Integer upValue = (Integer) query.getSingleResult();
-        System.out.println("DEVUELVO: " + upValue);
-        return upValue == 1;
+        query.setParameter("usuario", us);
+        query.setParameter("review", review);
+
+        int rowsAffected = query.executeUpdate();
+
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean deleteUserVoteDown(Review review, Usuario us) {
+        String consulta = "DELETE FROM Vote v WHERE v.user = :usuario AND v.review = :review AND v.vote = 'D'";
+
+        Query query = em.createQuery(consulta);
+
+        query.setParameter("usuario", us);
+        query.setParameter("review", review);
+
+        int rowsAffected = query.executeUpdate();
+
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public void removeVotes(Review review) {
+        System.out.println("BORRAR VOTOS " + review.getTitle());
+        String consulta = "DELETE FROM Vote v WHERE  v.review = :review";
+
+        Query query = em.createQuery(consulta);
+        query.setParameter("review", review);
+        
+        query.executeUpdate();
+
+        return;
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import EJB.DocumentaryFacadeLocal;
 import EJB.ReviewFacadeLocal;
 import Modelo.Documentary;
 import Modelo.Review;
@@ -39,6 +40,9 @@ public class DocumentaryController implements Serializable {
 
     @EJB
     private ReviewFacadeLocal reviewsEJB;
+
+    @EJB
+    private DocumentaryFacadeLocal documentariesEJB;
 
     private Documentary documentary;
     private DonutChartModel donutModel;
@@ -87,6 +91,18 @@ public class DocumentaryController implements Serializable {
             reviewsEJB.create(newReview);
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se añadió correctamente", "Se añadio"));
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    public void deleteDocumentary() {
+        try {
+            for (Review review : reviews) {
+                reviewsEJB.remove(review);
+            }
+            documentariesEJB.remove(documentary);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se eliminó correctamente", "Se eliminó"));
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
