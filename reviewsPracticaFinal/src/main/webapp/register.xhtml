@@ -58,56 +58,52 @@
                 </p:messages>
             </h:form>
         </div>
-
         <div style="display: flex; padding: 40px; justify-content: center;">
-            <h:form>
-
-                <div class="card" style="width: 400px; margin-right: 20px">
-
+            <h:form style="display: flex; justify-content: space-between; width: 1020px;">
+                <div class="card" style="width: 400px;">
                     <p:fieldset legend="Datos Personales" style="width: 400px">
                         <p:panelGrid columns="2">
                             <p:outputLabel for="name" value="Nombre "/>
-                            <p:inputText id="name" value="#{registerController.name}" required="true" requiredMessage="El nombre es obligatorio"/>
+                            <p:inputText id="name" value="#{registerController.name}" required="true"
+                                         requiredMessage="El nombre es obligatorio"/>
 
                             <p:outputLabel for="lastName" value="Apellidos "/>
-                            <p:inputText id="lastName" value="#{registerController.lastName}"  required="true" requiredMessage="El primer apellido es obligatorio"/>
+                            <p:inputText id="lastName" value="#{registerController.lastName}" required="true"
+                                         requiredMessage="El primer apellido es obligatorio"/>
                         </p:panelGrid>
                     </p:fieldset>
                 </div>
 
-
-
-                <div class="card">
-                    <p:fieldset legend="Datos Acceso" style="width: 620px" >
+                <div class="card" style="width: 600px;">
+                    <p:fieldset legend="Datos Acceso" style="width: 600px">
                         <p:panelGrid columns="3">
-
-                            <p:outputLabel  for="selectRol" value="Introduzca rol de usuario "/>
-                            <p:selectOneMenu id="selectRol" value="#{registerController.rol}">
-                                <f:selectItems value="#{registerController.rols}" var="rol" itemLabel="#{rol.description}" itemValue="#{rol.hashCode}" />
+                            <p:outputLabel for="selectRol" value="Introduzca rol de usuario "/>
+                            <p:selectOneMenu id="selectRol" value="#{registerController.rolString}">
+                                <f:selectItems value="#{registerController.rolList}"/>
                             </p:selectOneMenu>
+
                             <p:message for="selectRol"/>
 
-                            <p:outputLabel  for="nombreUser" value="Introduzca nombre de usuario "/>
-                            <p:inputText id="nombreUser" value="#{registerController.user}" required="true" requiredMessage="El nombre de usuario es obligatorio"/>
+                            <p:outputLabel for="nombreUser" value="Introduzca nombre de usuario "/>
+                            <p:inputText id="nombreUser" value="#{registerController.user}" required="true"
+                                         requiredMessage="El nombre de usuario es obligatorio"/>
                             <p:message for="nombreUser"/>
 
                             <p:outputLabel for="password" value="Introduzca contraseña "/>
-                            <p:password id="password"  value="#{registerController.password}" toggleMask="true" redisplay="true" required="true" requiredMessage="La contraseña es obligatoria"/>
+                            <p:password id="password" value="#{registerController.password}" toggleMask="true" redisplay="true"
+                                        required="true" requiredMessage="La contraseña es obligatoria"/>
                             <p:message for="password"/>
 
-                            <p:outputLabel  for="password2" value="Repita contraseña "/>
-                            <p:password id="password2" value="#{registerController.password}" toggleMask="true" redisplay="true" required="true" requiredMessage="Repetir la contraseña es obligatorio"/>
+                            <p:outputLabel for="password2" value="Repita contraseña "/>
+                            <p:password id="password2" value="#{registerController.password}" toggleMask="true" redisplay="true"
+                                        required="true" requiredMessage="Repetir la contraseña es obligatorio"/>
                             <p:message for="password2"/>
-
-
                         </p:panelGrid>
-                        <p:commandButton style=" position: absolute" value="Insertar" action="#{registerController.registerUser()}"/>
-
+                        <p:commandButton style="position: absolute" value="Insertar" action="#{registerController.registerUser()}"/>
                     </p:fieldset>
 
 
                 </div>
-
             </h:form>
         </div>
 

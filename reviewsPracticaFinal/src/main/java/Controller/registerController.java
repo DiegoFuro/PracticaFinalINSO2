@@ -10,7 +10,10 @@ import EJB.UsuarioFacadeLocal;
 import Modelo.Rol;
 import Modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -33,6 +36,7 @@ public class registerController implements Serializable {
     private int idRol;
 
     private Rol rol;
+    private String rolString;
 
     private List<Rol> rols;
 
@@ -54,7 +58,7 @@ public class registerController implements Serializable {
             newUser.setLastName(lastName);
             newUser.setUser(user);
             newUser.setPassword(password);
-            newUser.setIdRol(rol);
+            newUser.setIdRol(rolEJB.findByName(rolString));
             if (!checkNameNumbers(newUser.getName())) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en el usuario", "El Nombre no puede contener números"));
                 return "";
@@ -67,9 +71,25 @@ public class registerController implements Serializable {
         }
         return "index.xhtml?faces-redirect=true";
     }
+    
+     public List<String> getRolList() {
+        Set<String> genres = new HashSet<>();
+        for (Rol rol : rols) {
+            genres.add(rol.getDescription());
+        }
+        return new ArrayList<>(genres);
+    }
 
     public boolean checkNameNumbers(String name) {
         return !name.matches(".*\\d.*");
+    }
+
+    public String getRolString() {
+        return rolString;
+    }
+
+    public void setRolString(String rolString) {
+        this.rolString = rolString;
     }
 
     public Rol getRol() {
