@@ -7,6 +7,7 @@ package Controller;
 
 import EJB.BookFacadeLocal;
 import EJB.ReviewFacadeLocal;
+import EJB.VoteFacadeLocal;
 import Modelo.Book;
 import Modelo.Review;
 import Modelo.Usuario;
@@ -43,6 +44,9 @@ public class BookController implements Serializable {
 
     @EJB
     private BookFacadeLocal booksEJB;
+
+    @EJB
+    private VoteFacadeLocal votesEJB;
 
     private Book book;
     private DonutChartModel donutModel;
@@ -108,6 +112,7 @@ public class BookController implements Serializable {
     public void deleteBook() {
         try {
             for (Review review : reviews) {
+                votesEJB.removeVotes(review);
                 reviewsEJB.remove(review);
             }
             booksEJB.remove(book);

@@ -8,6 +8,7 @@ package Controller;
 import EJB.AlbumFacadeLocal;
 import EJB.ArtistFacadeLocal;
 import EJB.ReviewFacadeLocal;
+import EJB.VoteFacadeLocal;
 import Modelo.Album;
 import Modelo.Artist;
 import Modelo.Review;
@@ -46,6 +47,9 @@ public class ArtistController implements Serializable {
 
     @EJB
     private AlbumFacadeLocal albumsEJB;
+
+    @EJB
+    private VoteFacadeLocal votesEJB;
 
     private Artist artist;
     private String reviewTitle;
@@ -124,6 +128,7 @@ public class ArtistController implements Serializable {
     public void deleteArtist() {
         try {
             for (Review review : reviews) {
+                votesEJB.removeVotes(review);
                 reviewsEJB.remove(review);
             }
             artistsEJB.remove(artist);

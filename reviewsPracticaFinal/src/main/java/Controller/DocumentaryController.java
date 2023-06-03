@@ -7,6 +7,7 @@ package Controller;
 
 import EJB.DocumentaryFacadeLocal;
 import EJB.ReviewFacadeLocal;
+import EJB.VoteFacadeLocal;
 import Modelo.Documentary;
 import Modelo.Review;
 import Modelo.Usuario;
@@ -43,6 +44,9 @@ public class DocumentaryController implements Serializable {
 
     @EJB
     private DocumentaryFacadeLocal documentariesEJB;
+
+    @EJB
+    private VoteFacadeLocal votesEJB;
 
     private Documentary documentary;
     private DonutChartModel donutModel;
@@ -99,6 +103,7 @@ public class DocumentaryController implements Serializable {
     public void deleteDocumentary() {
         try {
             for (Review review : reviews) {
+                votesEJB.removeVotes(review);
                 reviewsEJB.remove(review);
             }
             documentariesEJB.remove(documentary);

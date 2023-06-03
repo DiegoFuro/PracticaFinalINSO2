@@ -7,6 +7,7 @@ package Controller;
 
 import EJB.ReviewFacadeLocal;
 import EJB.VideogameFacadeLocal;
+import EJB.VoteFacadeLocal;
 import Modelo.Review;
 import Modelo.TvShow;
 import Modelo.Usuario;
@@ -43,6 +44,9 @@ public class VideogameController implements Serializable {
 
     @EJB
     private ReviewFacadeLocal reviewsEJB;
+
+    @EJB
+    private VoteFacadeLocal votesEJB;
 
     @EJB
     private VideogameFacadeLocal videogamesEJB;
@@ -110,6 +114,7 @@ public class VideogameController implements Serializable {
     public void deleteVideogame() {
         try {
             for (Review review : reviews) {
+                votesEJB.removeVotes(review);
                 reviewsEJB.remove(review);
             }
             videogamesEJB.remove(videogame);

@@ -111,6 +111,7 @@ public class MovieController implements Serializable {
     public void deleteMovie() {
         try {
             for (Review review : reviews) {
+                votesEJB.removeVotes(review);
                 reviewsEJB.remove(review);
             }
             moviesEJB.remove(movie);
@@ -129,7 +130,7 @@ public class MovieController implements Serializable {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
-    
+
     public boolean consultVote(Review review) {
         return votesEJB.consultVote(us, review);
     }
@@ -137,7 +138,7 @@ public class MovieController implements Serializable {
     public boolean consultVote2(Review review) {
         return votesEJB.consultVote2(us, review);
     }
-    
+
     public void incrementVotes(Review review) {
         boolean hayDowns = deleteDownVote(review);
         Vote newVote = new Vote();

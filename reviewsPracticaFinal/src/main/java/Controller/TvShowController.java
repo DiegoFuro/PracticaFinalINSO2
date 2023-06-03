@@ -7,6 +7,7 @@ package Controller;
 
 import EJB.ReviewFacadeLocal;
 import EJB.TvShowFacadeLocal;
+import EJB.VoteFacadeLocal;
 import Modelo.Review;
 import Modelo.TvShow;
 import Modelo.Usuario;
@@ -43,6 +44,9 @@ public class TvShowController implements Serializable {
 
     @EJB
     private TvShowFacadeLocal tvShowsEJB;
+
+    @EJB
+    private VoteFacadeLocal votesEJB;
 
     private DonutChartModel donutModel;
     private TvShow tvShow;
@@ -99,6 +103,7 @@ public class TvShowController implements Serializable {
     public void deleteTvShow() {
         try {
             for (Review review : reviews) {
+                votesEJB.removeVotes(review);
                 reviewsEJB.remove(review);
             }
             tvShowsEJB.remove(tvShow);
